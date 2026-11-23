@@ -1,0 +1,213 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Merchant {
+  id            String    @id @default(cuid())
+  businessName  String
+  ownerName     String
+  email         String    @unique
+  phone         String
+  plan          String    @default("PRO_TRIAL") // STARTER, GROWTH, PRO_AI
+  walletBalance Float     @default(500.0) // BDT credits for AI Calls & SMS
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  products      Product[]
+  orders        Order[]
+  couriers      CourierConfig[]
+  adCampaigns   AiAdCampaign[]
+  aiCalls       AiCallLog[]
+  settlements   CourierSettlement[]
+  disputes      Dispute[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  merchantId  String
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  title       String
+  sku         String
+  description String?
+  price       Float
+  costPrice   Float    // COGS for True Profit calculation
+  stock       Int      @default(0)
+  image       String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orderItems  OrderItem[]
+  adCampaigns AiAdCampaign[]
+}
+
+model Customer {
+  id               String   @id @default(cuid())
+  phone            String   @unique
+  name             String
+  address          String?
+  district         String?
+  thana            String?
+  totalOrders      Int      @default(0)
+  deliveredOrders  Int      @default(0)
+  returnedOrders   Int      @default(0)
+  fraudScore       Int      @default(0) // 0-100 (high = dangerous)
+  isBlacklisted    Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  orders           Order[]
+}
+
+model Order {
+  id                String       @id @default(cuid())
+  orderNumber       String       @unique
+  merchantId        String
+  merchant          Merchant     @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  customerId        String
+  customer          Customer     @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  // Status: INCOMPLETE, PENDING, CONFIRMED, PROCESSING, IN_COURIER, DELIVERED, RETURNED, CANCELLED
+  status            String       @default("PENDING")
+  source            String       @default("WEBSITE") // WEBSITE, FACEBOOK, MANUAL, INCOMPLETE_DROP
+  
+  totalAmount       Float
+  subtotal          Float
+  deliveryCharge    Float        @default(120.0)
+  advancePaid       Float        @default(0.0)
+  costOfGoods       Float        @default(0.0)
+  packagingCost     Float        @default(20.0)
+  adSpendShare      Float        @default(50.0) // Estimated Meta Ad spend per order
+  netProfit         Float        @default(0.0)
+  
+  courierName       String?      // STEADFAST, PATHAO, REDX
+  courierTrackingId String?
+  courierStatus     String?      // in_transit, delivered, returned, delivery_failed
+  
+  fraudScore        Int          @default(0)
+  fraudReason       String?
+  
+  customerNotes     String?
+  adminNotes        String?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  items             OrderItem[]
+  aiCalls           AiCallLog[]
+  settlements       CourierSettlement[]
+  disputes          Dispute[]
+}
+
+model OrderItem {
+  id         String   @id @default(cuid())
+  orderId    String
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity   Int
+  unitPrice  Float
+  totalPrice Float
+}
+
+model CourierConfig {
+  id            String   @id @default(cuid())
+  merchantId    String
+  merchant      Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  courierName   String   // STEADFAST, PATHAO, REDX
+  apiKey        String
+  secretKey     String
+  isActive      Boolean  @default(true)
+  isDefault     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([merchantId, courierName])
+}
+
+model AiAdCampaign {
+  id               String   @id @default(cuid())
+  merchantId       String
+  merchant         Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  productId        String
+  product          Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  platform         String   @default("META") // META, TIKTOK
+  campaignName     String
+  dailyBudget      Float    // In BDT
+  status           String   @default("ACTIVE") // ACTIVE, PAUSED, DRAFT, KILLED_BY_AI
+  
+  generatedCopy    String
+  headline         String
+  targetAudience   String
+  
+  totalSpend       Float    @default(0.0)
+  impressions      Int      @default(0)
+  clicks           Int      @default(0)
+  purchases        Int      @default(0)
+  roas             Float    @default(0.0)
+  costPerPurchase  Float    @default(0.0)
+  
+  autoKillEnabled  Boolean  @default(true)
+  autoStockPause   Boolean  @default(true)
+  killReason       String?
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model AiCallLog {
+  id          String   @id @default(cuid())
+  merchantId  String
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  phone       String
+  status      String   // COMPLETED, FAILED, NO_ANSWER, RESCHEDULED
+  durationSec Int      @default(0)
+  cost        Float    @default(1.5) // BDT per call
+  transcript  String   // Banglish / Bengali text transcript
+  customerIntent String? // CONFIRMED, CANCELLED, CHANGE_SIZE, CHANGE_ADDRESS
+  createdAt   DateTime @default(now())
+}
+
+model CourierSettlement {
+  id             String   @id @default(cuid())
+  merchantId     String
+  merchant       Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  orderId        String
+  order          Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  courierName    String
+  consignmentId  String
+  orderNumber    String
+  codAmount      Float
+  deliveryFee    Float
+  codFee         Float
+  netPayable     Float
+  status         String   @default("PENDING") // PENDING, PAID
+  bankRefNumber  String?
+  settledAt      DateTime?
+  createdAt      DateTime @default(now())
+}
+
+model Dispute {
+  id                 String   @id @default(cuid())
+  merchantId         String
+  merchant           Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  orderId            String
+  order              Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  courierTrackingId  String
+  issueType          String   // FAKE_DELIVERY_ATTEMPT, DAMAGED_PRODUCT, LOST_PARCEL
+  status             String   @default("OPEN") // OPEN, UNDER_REVIEW, RESOLVED, REFUNDED
+  customerFeedback   String?
+  riderRemark        String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
