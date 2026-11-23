@@ -19,10 +19,12 @@ import {
   Users,
   Settings,
   Building2,
+  Globe,
 } from "lucide-react";
 
 const navigation = [
   { name: "অর্ডার ড্যাশবোর্ড", href: "/dashboard", icon: Package },
+  { name: "কাস্টম ল্যান্ডিং পেজ", href: "/landing-pages", icon: Globe, badge: "Builder" },
   { name: "AI অটো অ্যাড ম্যানেজার", href: "/ai-ads", icon: Sparkles, badge: "Autopilot" },
   { name: "AI ভয়েস কলিং", href: "/ai-calls", icon: PhoneCall, badge: "Bangla" },
   { name: "সেন্ট্রাল ফ্রড গার্ড", href: "/fraud-guard", icon: ShieldAlert },

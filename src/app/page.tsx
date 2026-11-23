@@ -54,6 +54,16 @@ export default function PublicHomePage() {
   // FAQ Accordion State
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  const trustedBrands = [
+    { name: "Sundarban Farm", logo: "/brands/sundarban-farm.jpg", category: "অর্গানিক এগ্রো ও ফুড" },
+    { name: "ASPER GO", logo: "/brands/asper-go.jpg", category: "এক্সপ্রেস ডেলিভারি ও কুরিয়ার" },
+    { name: "Noirita's Art", logo: "/brands/noiritas-art.jpg", category: "হ্যান্ডিক্রাফটস ও লাইফস্টাইল" },
+    { name: "BlueBerry Cafe & Restaurant", logo: "/brands/blueberry.png", category: "রেস্তোরাঁ ও হসপিটালিটি" },
+    { name: "ASPER MOTORS", logo: "/brands/asper-motors.png", category: "অটোমোবাইল ও মোটরস" },
+    { name: "CHINA BD Global Trade Solutions", logo: "/brands/china-bd.jpg", category: "গ্লোবাল ট্রেড সলিউশনস" },
+    { name: "JS TEX", logo: "/brands/js-tex.png", category: "অ্যাপারেল ও টেক্সটাইল" },
+  ];
+
   const orderStatuses = [
     { title: "All Orders", bn: "সকল অর্ডার", count: "১,৮৫০", badge: "Live" },
     { title: "Pending", bn: "পেন্ডিং", count: "৪২", badge: "Action" },
@@ -300,7 +310,7 @@ export default function PublicHomePage() {
     <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-teal-500 selection:text-white">
       {/* 1. Public Header / Navbar */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
             <NishchintoLogo size="md" showBangla={true} />
           </Link>
@@ -570,9 +580,59 @@ export default function PublicHomePage() {
         </div>
       </section>
 
+      {/* 2.4 Trusted Brands Infinite Auto-Scrolling Marquee */}
+      <section className="py-14 bg-gradient-to-b from-white via-slate-50/50 to-white overflow-hidden border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div className="text-center space-y-2 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 border border-teal-200/60 text-teal-800 text-xs font-bold">
+              <Sparkles className="w-3.5 h-3.5 text-teal-600" />
+              <span>Trusted Brands & Partners</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              আস্থাভাজন ব্র্যান্ডসমূহের অপারেশন চলছে নিশ্চিন্তে
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              সারা দেশের সফল উদ্যোক্তা ও দ্রুত বর্ধনশীল ব্র্যান্ডগুলো তাদের দৈনন্দিন ডেলিভারি, ইনভেন্টরি ও অটোমেশন ব্যবস্থাপনায় নিশ্চিন্ত-কে বিশ্বস্ত অংশীদার হিসেবে বেছে নিয়েছে।
+            </p>
+          </div>
+
+          {/* Continuous Infinite Auto-Scrolling Marquee Track */}
+          <div className="relative w-full overflow-hidden py-3 select-none">
+            {/* Smooth Edge Fades */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
+
+            <div className="animate-marquee flex items-center gap-6">
+              {[...trustedBrands, ...trustedBrands].map((b, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center gap-3.5 px-5 py-3 rounded-2xl bg-white border border-slate-200 shadow-xs hover:shadow-md hover:border-teal-400 transition-all shrink-0 group cursor-default"
+                >
+                  <div className="w-14 h-14 rounded-xl overflow-hidden bg-white border border-slate-100 flex items-center justify-center p-1.5 shrink-0">
+                    <img
+                      src={b.logo}
+                      alt={b.name}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                    />
+                  </div>
+                  <div className="space-y-0.5 text-left pr-2">
+                    <div className="text-xs font-bold text-slate-900 group-hover:text-teal-700 transition-colors">
+                      {b.name}
+                    </div>
+                    <div className="text-[10px] text-slate-500 font-medium">
+                      {b.category}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 2.5 Partners & Couriers Integrations Strip */}
       <section className="py-8 bg-slate-50/80 border-y border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <p className="text-center text-[11px] font-bold text-slate-600 uppercase tracking-widest">
             দেশের শীর্ষ কুরিয়ার, পেমেন্ট গেটওয়ে ও চ্যানেলগুলোর সাথে নিরবচ্ছিন্ন সংযোগ
           </p>
@@ -603,7 +663,7 @@ export default function PublicHomePage() {
       </section>
 
       {/* 2.75 Dedicated 17-Status Order Pipeline Showcase */}
-      <section className="py-14 max-w-6xl mx-auto px-4 sm:px-6 space-y-6">
+      <section className="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
             ১৭টি ডেডিকেটেড স্ট্যাটাস ট্র্যাকিং
@@ -636,7 +696,7 @@ export default function PublicHomePage() {
       </section>
 
       {/* 3. Categorized Feature Hub */}
-      <section id="features" className="py-16 max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
+      <section id="features" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
             পূর্ণাঙ্গ ফিচার স্যুট
@@ -751,7 +811,7 @@ export default function PublicHomePage() {
 
       {/* 4. 7-Step A-to-Z Workflow Section */}
       <section id="workflow" className="py-16 bg-slate-50/70 border-y border-slate-200/80">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
             <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
               A-to-Z কার্যপ্রণালী
@@ -784,7 +844,7 @@ export default function PublicHomePage() {
       </section>
 
       {/* 5. Why Choose Nishchinto (Professional Point-by-Point Comparison) */}
-      <section id="why-us" className="py-16 max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
+      <section id="why-us" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
             কেন Nishchinto বেছে নেবেন?
@@ -1034,7 +1094,7 @@ export default function PublicHomePage() {
       </section>
 
       {/* 7. Pricing Section */}
-      <section id="pricing" className="py-16 max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
+      <section id="pricing" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
             সাবস্ক্রিপশন প্ল্যান
@@ -1172,7 +1232,7 @@ export default function PublicHomePage() {
 
       {/* 8. Corporate Footer (Styled identically to BizMation in Nishchinto Teal Brand) */}
       <footer className="border-t border-slate-200 bg-white pt-16 pb-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           {/* Main 4-Column Grid */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Col 1: Brand Logo & Tagline */}
