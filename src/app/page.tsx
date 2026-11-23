@@ -32,7 +32,11 @@ import {
   AlertTriangle,
   Receipt,
   RotateCcw,
-  UserCheck,
+  Facebook,
+  Twitter,
+  Youtube,
+  Linkedin,
+  MessageCircle,
 } from "lucide-react";
 
 export default function PublicHomePage() {
@@ -46,11 +50,6 @@ export default function PublicHomePage() {
 
   // Active Feature Tab
   const [activeFeatureTab, setActiveFeatureTab] = useState<number>(0);
-
-  // Contact Form State
-  const [callbackName, setCallbackName] = useState("");
-  const [callbackPhone, setCallbackPhone] = useState("");
-  const [callbackSubmitted, setCallbackSubmitted] = useState(false);
 
   // Calculation for ROI
   const averageReturnRateWithoutCRM = 0.22;
@@ -87,17 +86,6 @@ export default function PublicHomePage() {
         });
       }
     }, 400);
-  };
-
-  const handleCallbackSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!callbackPhone) return;
-    setCallbackSubmitted(true);
-    setTimeout(() => {
-      setCallbackSubmitted(false);
-      setCallbackName("");
-      setCallbackPhone("");
-    }, 4000);
   };
 
   const featureTabs = [
@@ -271,47 +259,7 @@ export default function PublicHomePage() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-teal-500 selection:text-white">
-      {/* 1. Top Corporate Info Bar */}
-      <div className="bg-slate-900 text-slate-300 text-[11px] py-1.5 px-4 sm:px-6 border-b border-slate-800">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-          <div className="flex items-center gap-4 text-xs">
-            <span className="flex items-center gap-1.5">
-              <Phone className="w-3.5 h-3.5 text-teal-400" />
-              হটলাইন:{" "}
-              <a href="tel:01960821012" className="text-white hover:text-teal-300 font-mono font-bold">
-                01960821012
-              </a>
-            </span>
-            <span className="hidden sm:inline-block text-slate-600">|</span>
-            <span className="flex items-center gap-1.5">
-              <Mail className="w-3.5 h-3.5 text-teal-400" />
-              ইমেইল:{" "}
-              <a href="mailto:connect@nishchinto.app" className="hover:text-teal-300">
-                connect@nishchinto.app
-              </a>
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1 text-[11px] text-slate-400">
-              <MapPin className="w-3 h-3 text-teal-400" />
-              হেড অফিস: নীলফামারী, বাংলাদেশ
-            </span>
-            <span className="text-slate-600">|</span>
-            <a
-              href="https://www.facebook.com/nishchintobd"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-teal-400 hover:text-teal-300 font-medium inline-flex items-center gap-1"
-            >
-              <span>ফেসবুক পেজ</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Public Header / Navbar */}
+      {/* 1. Public Header / Navbar */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
@@ -335,24 +283,21 @@ export default function PublicHomePage() {
             <a href="#pricing" className="hover:text-teal-600 transition-colors">
               প্যাকেজ
             </a>
-            <a href="#contact" className="hover:text-teal-600 transition-colors">
-              যোগাযোগ
-            </a>
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA: Simple 'লগইন' and 'Free Trial' */}
           <div className="hidden sm:flex items-center gap-3">
             <Link
               href="/login"
               className="text-xs font-semibold text-slate-700 hover:text-teal-700 px-3 py-2 transition-colors"
             >
-              মার্চেন্ট লগইন
+              লগইন
             </Link>
             <Link
               href="/register"
               className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs rounded-xl shadow-sm transition-all"
             >
-              ফ্রি অ্যাকাউন্ট খুলুন
+              Free Trial
             </Link>
           </div>
 
@@ -405,13 +350,6 @@ export default function PublicHomePage() {
           >
             প্যাকেজ
           </a>
-          <a
-            href="#contact"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 border-b border-slate-100"
-          >
-            যোগাযোগ
-          </a>
 
           <div className="pt-2 flex flex-col gap-2">
             <Link
@@ -419,20 +357,20 @@ export default function PublicHomePage() {
               onClick={() => setMobileMenuOpen(false)}
               className="w-full text-center py-2.5 border border-slate-200 rounded-xl text-slate-800 font-semibold"
             >
-              মার্চেন্ট লগইন
+              লগইন
             </Link>
             <Link
               href="/register"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full text-center py-2.5 bg-teal-600 text-white rounded-xl font-semibold shadow-sm"
             >
-              ফ্রি অ্যাকাউন্ট খুলুন
+              Free Trial
             </Link>
           </div>
         </div>
       )}
 
-      {/* 3. Hero Section */}
+      {/* 2. Hero Section */}
       <section className="relative pt-10 pb-16 md:pt-16 md:pb-24 overflow-hidden bg-gradient-to-b from-teal-50/40 via-white to-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-6">
           {/* Tagline Pill */}
@@ -458,7 +396,7 @@ export default function PublicHomePage() {
               href="/register"
               className="w-full sm:w-auto px-8 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
             >
-              <span>ফ্রি অ্যাকাউন্ট খুলুন</span>
+              <span>Free Trial শুরু করুন</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
             <a
@@ -538,7 +476,7 @@ export default function PublicHomePage() {
         </div>
       </section>
 
-      {/* 4. Categorized Feature Hub (Inspired by BizMation insights) */}
+      {/* 3. Categorized Feature Hub */}
       <section id="features" className="py-16 max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
@@ -552,7 +490,7 @@ export default function PublicHomePage() {
           </p>
         </div>
 
-        {/* Tab Buttons (Horizontal scroll on mobile) */}
+        {/* Tab Buttons */}
         <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-none justify-start sm:justify-center">
           {featureTabs.map((tab, idx) => {
             const isSelected = activeFeatureTab === idx;
@@ -652,7 +590,7 @@ export default function PublicHomePage() {
         })()}
       </section>
 
-      {/* 5. 7-Step A-to-Z Workflow Section */}
+      {/* 4. 7-Step A-to-Z Workflow Section */}
       <section id="workflow" className="py-16 bg-slate-50/70 border-y border-slate-200/80">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
@@ -686,7 +624,7 @@ export default function PublicHomePage() {
         </div>
       </section>
 
-      {/* 6. Why Choose Nishchinto (Comparison Matrix) */}
+      {/* 5. Why Choose Nishchinto (Comparison Matrix) */}
       <section id="why-us" className="py-16 max-w-5xl mx-auto px-4 sm:px-6 space-y-10">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
@@ -780,7 +718,7 @@ export default function PublicHomePage() {
         </div>
       </section>
 
-      {/* 7. Interactive ROI Calculator */}
+      {/* 6. Interactive ROI Calculator */}
       <section id="calculator" className="py-16 bg-slate-50/60 border-t border-slate-200/80">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 space-y-10">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
@@ -847,7 +785,7 @@ export default function PublicHomePage() {
         </div>
       </section>
 
-      {/* 8. Pricing Section */}
+      {/* 7. Pricing Section */}
       <section id="pricing" className="py-16 max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
@@ -893,7 +831,7 @@ export default function PublicHomePage() {
               href="/register"
               className="block w-full text-center py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold rounded-xl transition-all"
             >
-              ৭ দিনের ফ্রি ট্রায়াল শুরু করুন
+              Free Trial শুরু করুন
             </Link>
           </div>
 
@@ -937,7 +875,7 @@ export default function PublicHomePage() {
               href="/register"
               className="block w-full text-center py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold rounded-xl transition-all shadow-sm"
             >
-              গ্রোথ ট্রায়াল নিন
+              Free Trial শুরু করুন
             </Link>
           </div>
 
@@ -978,222 +916,154 @@ export default function PublicHomePage() {
               href="/register"
               className="block w-full text-center py-2.5 bg-teal-500 hover:bg-teal-600 text-slate-900 text-xs font-bold rounded-xl transition-all"
             >
-              Pro AI প্ল্যান চালু করুন
+              Free Trial শুরু করুন
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 9. Contact & Company Support Section (New Trust Section) */}
-      <section id="contact" className="py-16 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-10 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            {/* Left: Contact Info */}
-            <div className="space-y-5">
-              <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
-                যোগাযোগ ও কর্পোরেট অফিস
-              </span>
-              <h3 className="text-2xl font-bold text-slate-900 tracking-tight">
-                আপনার ব্যবসার প্রবৃদ্ধি নিয়ে সরাসরি কথা বলুন
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                আমাদের অভিজ্ঞ টিম আপনার ই-কমার্স বা এফ-কমার্স বিজনেসের অটোমেশন সেটআপে সবসময় পাশে আছে। যেকোনো প্রয়োজনে সরাসরি আমাদের সাথে যোগাযোগ করুন।
+      {/* 8. Corporate Footer (Styled identically to BizMation in Nishchinto Teal Brand) */}
+      <footer className="border-t border-slate-200 bg-white pt-16 pb-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+          {/* Main 4-Column Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* Col 1: Brand Logo & Tagline */}
+            <div className="space-y-4">
+              <NishchintoLogo size="md" showBangla={true} />
+              <p className="text-xs text-slate-600 leading-relaxed max-w-xs">
+                বাংলাদেশের সর্বাধুনিক পূর্ণাঙ্গ ই-কমার্স অটোমেশন সলিউশন। আমরা আপনার লস কমিয়ে প্রফিট বাড়াতে সাহায্য করি।
               </p>
-
-              <div className="space-y-3 text-xs text-slate-700">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-700 shrink-0">
-                    <Phone className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-slate-400 block text-[10px]">অফিসিয়াল হটলাইন</span>
-                    <a href="tel:01960821012" className="font-bold text-slate-900 font-mono hover:text-teal-700 text-sm">
-                      01960821012
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-700 shrink-0">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-slate-400 block text-[10px]">ইমেইল সাপোর্ট</span>
-                    <a href="mailto:connect@nishchinto.app" className="font-semibold text-slate-900 hover:text-teal-700">
-                      connect@nishchinto.app
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-700 shrink-0">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-slate-400 block text-[10px]">অফিস ঠিকানা</span>
-                    <span className="font-semibold text-slate-900">
-                      নীলফামারী, বাংলাদেশ
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-700 shrink-0">
-                    <ExternalLink className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-slate-400 block text-[10px]">ফেসবুক পেজ</span>
-                    <a
-                      href="https://www.facebook.com/nishchintobd"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-semibold text-teal-700 hover:underline"
-                    >
-                      facebook.com/nishchintobd
-                    </a>
-                  </div>
-                </div>
-              </div>
             </div>
 
-            {/* Right: Quick Callback Form */}
-            <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-4">
-              <h4 className="text-sm font-bold text-slate-900">
-                দ্রুত কলব্যাক বা ডেমোর জন্য অনুরোধ করুন
-              </h4>
-              <p className="text-[11px] text-slate-500">
-                আপনার নাম ও মোবাইল নম্বর দিন, আমাদের টিম আপনাকে সরাসরি কল করে সম্পূর্ণ সিস্টেমটি বুঝিয়ে দেবে।
-              </p>
+            {/* Col 2: কোম্পানি */}
+            <div className="space-y-3">
+              <h5 className="font-bold text-slate-900 text-sm">কোম্পানি</h5>
+              <ul className="space-y-2 text-xs text-slate-600">
+                <li>
+                  <a href="#why-us" className="hover:text-teal-700 transition-colors">
+                    আমাদের গল্প
+                  </a>
+                </li>
+                <li>
+                  <a href="#features" className="hover:text-teal-700 transition-colors">
+                    ফিচারস
+                  </a>
+                </li>
+                <li>
+                  <a href="#pricing" className="hover:text-teal-700 transition-colors">
+                    প্রাইসিং
+                  </a>
+                </li>
+                <li>
+                  <a href="#calculator" className="hover:text-teal-700 transition-colors">
+                    ব্লগ
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-              {callbackSubmitted ? (
-                <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs font-semibold text-center">
-                  ধন্যবাদ! আমরা খুব দ্রুত আপনার দেয়া নম্বরে যোগাযোগ করছি।
-                </div>
-              ) : (
-                <form onSubmit={handleCallbackSubmit} className="space-y-3">
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-700 mb-1">
-                      আপনার নাম / ব্যবসার নাম
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={callbackName}
-                      onChange={(e) => setCallbackName(e.target.value)}
-                      placeholder="উদাঃ রফিক আহমেদ"
-                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:border-teal-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-700 mb-1">
-                      মোবাইল নম্বর
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={callbackPhone}
-                      onChange={(e) => setCallbackPhone(e.target.value)}
-                      placeholder="01XXXXXXXXX"
-                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-mono focus:outline-none focus:border-teal-500"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs rounded-lg transition-all shadow-sm"
+            {/* Col 3: সাপোর্ট */}
+            <div className="space-y-3">
+              <h5 className="font-bold text-slate-900 text-sm">সাপোর্ট</h5>
+              <ul className="space-y-2.5 text-xs text-slate-600">
+                <li className="flex items-center gap-2">
+                  <Phone className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                  <a href="tel:01960821012" className="hover:text-teal-700 font-mono">
+                    +880 1960-821012
+                  </a>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Mail className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                  <a href="mailto:connect@nishchinto.app" className="hover:text-teal-700">
+                    connect@nishchinto.app
+                  </a>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MapPin className="w-3.5 h-3.5 text-teal-600 shrink-0 mt-0.5" />
+                  <span>নীলফামারী, বাংলাদেশ</span>
+                </li>
+                <li className="flex items-center gap-2 pt-1">
+                  <MessageCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <a
+                    href="https://wa.me/8801960821012"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-emerald-700 font-semibold hover:underline"
                   >
-                    কলব্যাক রিকোয়েস্ট পাঠান
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 10. Public Footer */}
-      <footer className="border-t border-slate-200 py-10 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-xs text-slate-600">
-            {/* Col 1: Brand */}
-            <div className="space-y-3 md:col-span-1">
-              <NishchintoLogo size="sm" showBangla={true} />
-              <p className="text-[11px] text-slate-500 leading-relaxed">
-                বাংলাদেশের ই-কমার্স ও এফ-কমার্স ব্যবসার স্বয়ংক্রিয় অপারেটিং প্ল্যাটফর্ম।
-              </p>
-              <div className="text-[11px] text-slate-500">
-                <span>হটলাইন: </span>
-                <a href="tel:01960821012" className="font-mono font-bold text-slate-800">
-                  01960821012
-                </a>
-              </div>
-            </div>
-
-            {/* Col 2: Solutions */}
-            <div className="space-y-2">
-              <h5 className="font-bold text-slate-900 text-xs">সমাধানসমূহ</h5>
-              <ul className="space-y-1.5 text-slate-500 text-[11px]">
-                <li><a href="#features" className="hover:text-teal-700">অর্ডার ও লিড ম্যানেজমেন্ট</a></li>
-                <li><a href="#features" className="hover:text-teal-700">ওয়্যারহাউস বারকোড স্ক্যান</a></li>
-                <li><a href="#features" className="hover:text-teal-700">সেন্ট্রাল কুরিয়ার ফ্রড গার্ড</a></li>
-                <li><a href="#features" className="hover:text-teal-700">বাংলা AI ভয়েস কনফার্মেশন</a></li>
-                <li><a href="#features" className="hover:text-teal-700">AI অটো অ্যাড ম্যানেজার</a></li>
+                    WhatsApp সাপোর্ট
+                  </a>
+                </li>
               </ul>
             </div>
 
-            {/* Col 3: Operations & Inventory */}
-            <div className="space-y-2">
-              <h5 className="font-bold text-slate-900 text-xs">অপারেশন ও নিরাপত্তা</h5>
-              <ul className="space-y-1.5 text-slate-500 text-[11px]">
-                <li><a href="#features" className="hover:text-teal-700">স্টক লেজার ও সাপ্লায়ার খাতা</a></li>
-                <li><a href="#features" className="hover:text-teal-700">কুরিয়ার সিওডি সেটেলমেন্ট</a></li>
-                <li><a href="#features" className="hover:text-teal-700">ডেটা গার্ড: ফোন মাস্কিং</a></li>
-                <li><a href="#features" className="hover:text-teal-700">আইপি ও মোবাইল ব্লকলিস্ট</a></li>
-                <li><a href="#why-us" className="hover:text-teal-700">প্রকৃত নিট লাভ হিসাব</a></li>
+            {/* Col 4: লিগ্যাল */}
+            <div className="space-y-3">
+              <h5 className="font-bold text-slate-900 text-sm">লিগ্যাল</h5>
+              <ul className="space-y-2 text-xs text-slate-600">
+                <li>
+                  <Link href="/privacy" className="hover:text-teal-700 transition-colors">
+                    প্রাইভেসি পলিসি
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="hover:text-teal-700 transition-colors">
+                    টার্মস অব সার্ভিস
+                  </Link>
+                </li>
+                <li>
+                  <a href="mailto:connect@nishchinto.app" className="hover:text-teal-700 transition-colors">
+                    যোগাযোগ
+                  </a>
+                </li>
               </ul>
-            </div>
-
-            {/* Col 4: Corporate & Connect */}
-            <div className="space-y-2">
-              <h5 className="font-bold text-slate-900 text-xs">অফিস ও যোগাযোগ</h5>
-              <p className="text-[11px] text-slate-500">
-                অফিস: নীলফামারী, বাংলাদেশ
-              </p>
-              <p className="text-[11px] text-slate-500">
-                ইমেইল: <a href="mailto:connect@nishchinto.app" className="text-teal-700">connect@nishchinto.app</a>
-              </p>
-              <p className="text-[11px]">
-                <a
-                  href="https://www.facebook.com/nishchintobd"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-teal-700 font-semibold hover:underline inline-flex items-center gap-1"
-                >
-                  <span>facebook.com/nishchintobd</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </p>
-              <div className="pt-2">
-                <Link
-                  href="/register"
-                  className="inline-block px-3.5 py-1.5 bg-teal-600 text-white rounded-lg text-[11px] font-semibold"
-                >
-                  ফ্রি ট্রায়াল শুরু করুন
-                </Link>
-              </div>
             </div>
           </div>
 
-          <div className="border-t border-slate-100 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-[11px] text-slate-400">
-            <p>© 2026 Nishchinto.app. সর্বস্বত্ব সংরক্ষিত।</p>
-            <div className="flex items-center gap-4">
-              <Link href="/login" className="hover:text-teal-700 font-medium">
-                মার্চেন্ট লগইন
-              </Link>
-              <Link href="/register" className="hover:text-teal-700 font-medium">
-                অ্যাকাউন্ট রেজিস্ট্রেশন
-              </Link>
+          {/* Bottom Copyright and Social Badges */}
+          <div className="border-t border-slate-100 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+            <p>© 2026 Nishchinto.app । সর্বস্বত্ব সংরক্ষিত।</p>
+
+            {/* Circular Social Badges */}
+            <div className="flex items-center gap-2.5">
+              <a
+                href="https://www.facebook.com/nishchintobd"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Facebook"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-teal-50 hover:text-teal-600 flex items-center justify-center text-slate-600 transition-colors"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a
+                href="#"
+                title="X / Twitter"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-teal-50 hover:text-teal-600 flex items-center justify-center text-slate-600 transition-colors"
+              >
+                <Twitter className="w-4 h-4" />
+              </a>
+              <a
+                href="#"
+                title="YouTube"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-teal-50 hover:text-teal-600 flex items-center justify-center text-slate-600 transition-colors"
+              >
+                <Youtube className="w-4 h-4" />
+              </a>
+              <a
+                href="#"
+                title="LinkedIn"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-teal-50 hover:text-teal-600 flex items-center justify-center text-slate-600 transition-colors"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a
+                href="https://wa.me/8801960821012"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="WhatsApp"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-emerald-50 hover:text-emerald-600 flex items-center justify-center text-slate-600 transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+              </a>
             </div>
           </div>
         </div>
