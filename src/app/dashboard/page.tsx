@@ -224,6 +224,89 @@ export default function OrdersPage() {
           </div>
         </div>
 
+        {/* Graphical Trend & Visual Order Funnel */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {/* 7-Day Order Velocity Graphic */}
+          <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 space-y-3">
+            <div className="flex justify-between items-center border-b border-slate-100 pb-2.5">
+              <div>
+                <h4 className="font-bold text-xs text-slate-900">গত ৭ দিনের অর্ডার ভেলোসিটি ও কনভার্সন গ্রাফ</h4>
+                <p className="text-[10px] text-slate-500">প্রতিদিনের রিয়েল-টাইম নতুন অর্ডার ও সফল ডেলিভারির অনুপাত</p>
+              </div>
+              <span className="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                DSR: ৯৪%
+              </span>
+            </div>
+
+            <div className="pt-2 grid grid-cols-7 gap-2 items-end h-32 border-b border-slate-100 pb-2">
+              {[
+                { day: "শনিবার", count: 48, h: "50%" },
+                { day: "রবিবার", count: 62, h: "65%" },
+                { day: "সোমবার", count: 75, h: "78%" },
+                { day: "মঙ্গলবার", count: 84, h: "88%" },
+                { day: "বুধবার", count: 70, h: "72%" },
+                { day: "বৃহস্পতিবার", count: 96, h: "100%", active: true },
+                { day: "শুক্রবার", count: 54, h: "58%" },
+              ].map((b, i) => (
+                <div key={i} className="flex flex-col items-center gap-1.5 h-full justify-end group">
+                  <span className="text-[9px] font-mono text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                    {b.count}
+                  </span>
+                  <div
+                    style={{ height: b.h }}
+                    className={`w-full rounded-t-lg transition-all duration-500 ${
+                      b.active ? "bg-teal-600 shadow-sm shadow-teal-500/20" : "bg-slate-200 hover:bg-slate-300"
+                    }`}
+                  ></div>
+                  <span className={`text-[10px] ${b.active ? "font-bold text-teal-800" : "text-slate-500"}`}>
+                    {b.day.slice(0, 3)}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center justify-between text-[11px] text-slate-500 pt-0.5 font-medium">
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-teal-600"></span>
+                <span>আজকের লাইভ অর্ডার পিক</span>
+              </span>
+              <span>গড় কনফার্মেশন সময়: <strong>৪৫ সেকেন্ড</strong></span>
+            </div>
+          </div>
+
+          {/* Real-Time Order Lifecycle Pipeline Meter */}
+          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 space-y-3 flex flex-col justify-between">
+            <div>
+              <h4 className="font-bold text-xs text-slate-900 border-b border-slate-100 pb-2.5">
+                লাইফসাইকেল স্ট্যাটাস ডিস্ট্রিবিউশন
+              </h4>
+              <div className="space-y-2.5 pt-3">
+                {[
+                  { label: "সফল ডেলিভারি (Delivered)", pct: 68, color: "bg-emerald-500", count: "১,১৪০" },
+                  { label: "কুরিয়ার ট্রানজিটে (In Courier)", pct: 22, color: "bg-blue-500", count: "৪১২" },
+                  { label: "প্রসেসিং ও প্যাকিং (Processing)", pct: 6, color: "bg-amber-500", count: "৮৫" },
+                  { label: "রিটার্ন সেভড (Loss Prevented)", pct: 4, color: "bg-teal-600", count: "৭৪" },
+                ].map((s, i) => (
+                  <div key={i} className="space-y-1">
+                    <div className="flex justify-between text-[11px]">
+                      <span className="text-slate-600 font-semibold">{s.label}</span>
+                      <span className="font-mono text-slate-800 font-bold">{s.count} ({s.pct}%)</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div style={{ width: `${s.pct}%` }} className={`h-full ${s.color} rounded-full`}></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-2.5 bg-teal-50/60 rounded-xl border border-teal-100 text-[11px] text-teal-900 font-medium flex items-center justify-between">
+              <span>কুরিয়ার ফ্রড গার্ড সুরক্ষা:</span>
+              <span className="font-bold text-emerald-700">৯৯.৮% নির্ভুল</span>
+            </div>
+          </div>
+        </div>
+
         {/* Filter Tabs & Search Bar */}
         <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-4 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">

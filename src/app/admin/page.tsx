@@ -47,6 +47,7 @@ import {
   Trash2,
   Check,
   X,
+  LogIn,
 } from "lucide-react";
 
 export default function SuperAdminPage() {
@@ -405,6 +406,18 @@ export default function SuperAdminPage() {
     );
   };
 
+  const handleImpersonateLogin = (m: any) => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("impersonating_merchant_name", m.storeName);
+      sessionStorage.setItem("impersonating_merchant_id", m.id);
+    }
+    logAdminAction("IMPERSONATE_LOGIN", `সুপার অ্যাডমিন কর্তৃক ${m.storeName} (${m.ownerName})-এর অ্যাকাউন্টে প্রবেশ`);
+    showToast(`${m.storeName}-এর অ্যাকাউন্টে সরাসরি লগইন করা হচ্ছে...`);
+    setTimeout(() => {
+      window.location.href = "/dashboard";
+    }, 400);
+  };
+
   const handleApprovePayment = (id: string) => {
     setPendingPayments((prev) => prev.filter((p) => p.id !== id));
     showToast(`পেমেন্ট ${id} সফলভাবে অনুমোদন করা হয়েছে এবং মার্চেন্ট প্ল্যান আপডেট হয়েছে`);
@@ -583,6 +596,111 @@ export default function SuperAdminPage() {
                   {platformStats.fraudEntriesCount.toLocaleString("bn-BD")} টি
                 </div>
                 <p className="text-[11px] text-slate-400">কুরিয়ার নেটওয়ার্কে ক্রস-ম্যাচড রেকর্ড</p>
+              </div>
+            </div>
+
+            {/* Platform Visual Graphical Analytics & Performance Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Monthly GMV & Revenue Growth Graphic Bar Chart */}
+              <div className="lg:col-span-2 bg-slate-800/80 rounded-2xl border border-slate-700/80 p-6 space-y-4">
+                <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                  <div>
+                    <h3 className="font-bold text-sm text-slate-100 flex items-center gap-2">
+                      <TrendingUp className="w-4 h-4 text-emerald-400" />
+                      <span>প্ল্যাটফর্ম GMV ও পার্সেল প্রবৃদ্ধি খতিয়ান (মাসিক গ্রাফ)</span>
+                    </h3>
+                    <p className="text-[11px] text-slate-400">গত ৬ মাসের রিয়েল-টাইম কুরিয়ার ও মার্চেন্ট ট্রানজেকশন ট্রেন্ড</p>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
+                    +১৮.৪% মাসিক বৃদ্ধি
+                  </span>
+                </div>
+
+                <div className="pt-4 grid grid-cols-6 gap-3 items-end h-48 border-b border-slate-700/60 pb-3">
+                  {[
+                    { month: "জুন", gmv: "৳ ১.২ কোটি", height: "40%", count: "১২,০০০" },
+                    { month: "জুলাই", gmv: "৳ ১.৮ কোটি", height: "55%", count: "১৮,৫০০" },
+                    { month: "আগস্ট", gmv: "৳ ২.৪ কোটি", height: "65%", count: "২৫,০০০" },
+                    { month: "সেপ্টেম্বর", gmv: "৳ ৩.১ কোটি", height: "75%", count: "৩২,২০০" },
+                    { month: "অক্টোবর", gmv: "৳ ৩.৯ কোটি", height: "85%", count: "৪১,০০০" },
+                    { month: "নভেম্বর", gmv: "৳ ৪.৮ কোটি", height: "100%", count: "৫১,৪০০", active: true },
+                  ].map((bar, i) => (
+                    <div key={i} className="flex flex-col items-center gap-2 h-full justify-end group">
+                      <div className="text-[9px] font-mono text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {bar.count}
+                      </div>
+                      <div
+                        style={{ height: bar.height }}
+                        className={`w-full rounded-t-xl transition-all duration-500 relative flex items-start justify-center pt-2 ${
+                          bar.active
+                            ? "bg-gradient-to-t from-teal-600 to-emerald-400 shadow-lg shadow-teal-500/20"
+                            : "bg-slate-700 hover:bg-slate-600"
+                        }`}
+                      >
+                        <span className="text-[9px] font-mono font-bold text-slate-900 group-hover:block hidden">
+                          {bar.height}
+                        </span>
+                      </div>
+                      <span className={`text-[11px] font-semibold ${bar.active ? "text-emerald-400 font-bold" : "text-slate-400"}`}>
+                        {bar.month}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap items-center justify-between gap-4 text-xs pt-1">
+                  <div className="flex items-center gap-4">
+                    <span className="flex items-center gap-1.5 text-slate-300">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                      <span>সফল পার্সেল ডেলিভারি (৮৮.৫%)</span>
+                    </span>
+                    <span className="flex items-center gap-1.5 text-slate-300">
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                      <span>ইন-ট্রানজিট (৮.৫%)</span>
+                    </span>
+                    <span className="flex items-center gap-1.5 text-slate-300">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                      <span>রিটার্ন রোধকৃত (৩.০%)</span>
+                    </span>
+                  </div>
+                  <span className="font-mono text-slate-400 text-[11px]">আপডেট: লাইভ ক্লাউডফ্লেয়ার এজ</span>
+                </div>
+              </div>
+
+              {/* Courier Share & Delivery Distribution */}
+              <div className="bg-slate-800/80 rounded-2xl border border-slate-700/80 p-6 space-y-4 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-bold text-sm text-slate-100 flex items-center gap-2 border-b border-slate-700 pb-3">
+                    <Truck className="w-4 h-4 text-teal-400" />
+                    <span>কুরিয়ার বুকিং মার্কেট শেয়ার</span>
+                  </h3>
+                  <div className="space-y-3.5 pt-4">
+                    {[
+                      { name: "Steadfast Courier", pct: 58, color: "bg-teal-500", parcels: "৯৮,৪৫০" },
+                      { name: "Pathao Logistics", pct: 26, color: "bg-emerald-500", parcels: "৪৪,২০০" },
+                      { name: "RedX Delivery", pct: 12, color: "bg-rose-500", parcels: "২০,৩০০" },
+                      { name: "Paperfly Wings", pct: 4, color: "bg-amber-500", parcels: "৭,২০০" },
+                    ].map((c, i) => (
+                      <div key={i} className="space-y-1.5">
+                        <div className="flex justify-between text-xs">
+                          <span className="font-bold text-slate-200">{c.name}</span>
+                          <span className="font-mono text-slate-400">{c.pct}% ({c.parcels} টি)</span>
+                        </div>
+                        <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden">
+                          <div
+                            style={{ width: `${c.pct}%` }}
+                            className={`h-full ${c.color} rounded-full transition-all duration-700`}
+                          ></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-3 bg-slate-900 rounded-xl border border-slate-700/60 text-xs flex justify-between items-center">
+                  <span className="text-slate-400">গড় কুরিয়ার হ্যান্ডওভার ল্যাটেন্সি:</span>
+                  <span className="font-mono font-bold text-teal-300">১.২ সেকেন্ড</span>
+                </div>
               </div>
             </div>
 
@@ -765,6 +883,14 @@ export default function SuperAdminPage() {
                       </td>
                       <td className="p-3.5 text-right">
                         <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={() => handleImpersonateLogin(m)}
+                            title="সুপার অ্যাডমিন হিসেবে এই মার্চেন্ট স্টোরে সরাসরি প্রবেশ করুন"
+                            className="px-2.5 py-1 bg-indigo-600/30 hover:bg-indigo-600 border border-indigo-500 text-indigo-200 text-[10px] font-bold rounded-lg transition-all flex items-center gap-1"
+                          >
+                            <LogIn className="w-3 h-3" />
+                            <span>লগইন</span>
+                          </button>
                           <button
                             onClick={() => handleWalletRecharge(m.id, 500)}
                             title="৳ ৫০০ ওয়ালেট ক্রেডিট রিচার্জ"

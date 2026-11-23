@@ -783,97 +783,186 @@ export default function PublicHomePage() {
         </div>
       </section>
 
-      {/* 5. Why Choose Nishchinto (Comparison Matrix) */}
-      <section id="why-us" className="py-16 max-w-5xl mx-auto px-4 sm:px-6 space-y-10">
+      {/* 5. Why Choose Nishchinto (Professional Point-by-Point Comparison) */}
+      <section id="why-us" className="py-16 max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
-            কেন Nishchinto?
+            কেন Nishchinto বেছে নেবেন?
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            কেন আধুনিক ব্যবসায়ীদের পছন্দ Nishchinto?
+            প্রচলিত ম্যানুয়াল ব্যবসার সাথে Nishchinto-র পার্থক্য
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500">
-            কীভাবে আপনার ব্যবসাকে ঘণ্টার পর ঘণ্টা সময় অপচয় এবং লাখ টাকার রিটার্ন ক্ষতি থেকে মুক্ত রাখবেন
+          <p className="text-xs sm:text-sm text-slate-600">
+            কীভাবে আপনার ব্যবসাকে সময় অপচয় ও লাখ টাকার রিটার্ন ক্ষতি থেকে মুক্ত রাখবেন—পয়েন্ট আকারে দেখুন
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-slate-700 font-semibold">
-                <th className="p-3.5 text-left">গুরুত্বপূর্ণ অপারেশন</th>
-                <th className="p-3.5 bg-teal-50/70 text-teal-950 font-bold text-left">
-                  Nishchinto.app (স্বয়ংক্রিয়)
-                </th>
-                <th className="p-3.5 text-left">প্রচলিত ও ম্যানুয়াল পদ্ধতি</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              <tr>
-                <td className="p-3.5 font-medium text-slate-800">
-                  বিজ্ঞাপন মনিটরিং ও বাজেট নিরাপত্তা
-                </td>
-                <td className="p-3.5 bg-teal-50/30 font-semibold text-teal-900">
-                  স্টক ০ হলেই স্বয়ংক্রিয় অ্যাড পজ ও অটো-কিল
-                </td>
-                <td className="p-3.5 text-slate-500">স্টক শেষ হলেও বিজ্ঞাপনে টাকা খরচ হতে থাকে</td>
-              </tr>
-              <tr>
-                <td className="p-3.5 font-medium text-slate-800">
-                  অর্ডার কনফার্মেশন ও কল সেন্টার
-                </td>
-                <td className="p-3.5 bg-teal-50/30 font-semibold text-teal-900">
-                  সাবলীল বাংলায় Conversational AI স্বয়ংক্রিয় কল
-                </td>
-                <td className="p-3.5 text-slate-500">কর্মী রেখে ঘণ্টার পর ঘণ্টা ম্যানুয়াল ফোন কল</td>
-              </tr>
-              <tr>
-                <td className="p-3.5 font-medium text-slate-800">
-                  কুরিয়ার ফ্রড যাচাই ও রিটার্ন প্রতিরোধ
-                </td>
-                <td className="p-3.5 bg-teal-50/30 font-semibold text-teal-900">
-                  কেন্দ্রীয় কুরিয়ার ডেটাবেস থেকে ০-১০০% রিস্ক স্কোর
-                </td>
-                <td className="p-3.5 text-slate-500">আন্দাজে পার্সেল পাঠানো ও বেশি রিটার্ন ক্ষতি</td>
-              </tr>
-              <tr>
-                <td className="p-3.5 font-medium text-slate-800">
-                  প্যাকিং ও হ্যান্ডওভার বারকোড স্ক্যান
-                </td>
-                <td className="p-3.5 bg-teal-50/30 font-semibold text-teal-900">
-                  প্যাকিং স্ক্যান ও কুরিয়ার মার্ক স্ক্যানিং
-                </td>
-                <td className="p-3.5 text-slate-500">ম্যানুয়াল চেক, ভুল পণ্য চলে যাওয়া ও পার্সেল মিসিং</td>
-              </tr>
-              <tr>
-                <td className="p-3.5 font-medium text-slate-800">
-                  ইনকমপ্লিট অর্ডার ও ড্রপ-অফ ক্যাচ
-                </td>
-                <td className="p-3.5 bg-teal-50/30 font-semibold text-teal-900">
-                  টাইপ করার সাথে সাথে ডেটা সেভ ও WhatsApp ফলো-আপ
-                </td>
-                <td className="p-3.5 text-slate-500">ফর্ম সাবমিট না করলে কোনো তথ্য থাকে না</td>
-              </tr>
-              <tr>
-                <td className="p-3.5 font-medium text-slate-800">
-                  কর্মচারীদের কাস্টমার ডেটা চুরি রোধ
-                </td>
-                <td className="p-3.5 bg-teal-50/30 font-semibold text-teal-900">
-                  1-Click Phone Masking (নম্বর কপি অসম্ভব)
-                </td>
-                <td className="p-3.5 text-slate-500">এক্সেল শিট থেকে ডেটাবেস চুরির ঝুঁকি থাকে</td>
-              </tr>
-              <tr>
-                <td className="p-3.5 font-medium text-slate-800">
-                  আসল নিট লাভ-ক্ষতি হিসাব
-                </td>
-                <td className="p-3.5 bg-teal-50/30 font-semibold text-teal-900">
-                  COGS + কুরিয়ার + মেটা অ্যাড স্পেন্ড সহ আসল নিট লাভ
-                </td>
-                <td className="p-3.5 text-slate-500">শুধু বিক্রয়মূল্য থেকে অনুমানভিত্তিক হিসাব</td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[
+            {
+              title: "বিজ্ঞাপন বাজেট ও স্টক নিরাপত্তা",
+              icon: Sparkles,
+              nishchinto: [
+                "ইনভেন্টরিতে স্টক শূন্য (০) হওয়ার সাথে সাথে মেটা/টিকটক বিজ্ঞাপন স্বয়ংক্রিয়ভাবে পজ (Auto-Pause)",
+                "অপ্রয়োজনীয় অ্যাড স্পেন্ড বন্ধ থাকায় প্রতিদিন শত শত ডলারের বাজেট অপচয় রক্ষা পায়",
+                "সফল ও ডেলিভার্ড গ্রাহকদের ডেটা সিঙ্ক করে ১-ক্লিকে হাই-কনভার্টিং লুকঅ্যালাইক অডিয়েন্স তৈরি",
+              ],
+              traditional: [
+                "পণ্য স্টক-আউট হয়ে গেলেও বিজ্ঞাপনে ডলার খরচ হতে থাকে",
+                "পণ্য না থাকায় শত শত অর্ডার ক্যানসেল করতে হয় ও অ্যাড খরচ জলে যায়",
+                "ম্যানুয়াল এক্সেল শিট থেকে অডিয়েন্স আপলোড করা অত্যন্ত জটিল",
+              ],
+            },
+            {
+              title: "অর্ডার কনফার্মেশন ও কল সেন্টার",
+              icon: PhoneCall,
+              nishchinto: [
+                "মানুষের মতো সাবলীল বাংলায় Conversational AI স্বয়ংক্রিয় ভয়েস কল করে অর্ডার ও সাইজ নিশ্চিত করে",
+                "কল রিসিভ করে গ্রাহক হ্যাঁ বললেই ড্যাশবোর্ডে স্ট্যাটাস স্বয়ংক্রিয়ভাবে CONFIRMED হয়ে যায়",
+                "অর্ডার আসার সাথে সাথে সেকেন্ডের মধ্যে কল পৌঁছে যায়, কনভার্সন রেট বহুগুণ বাড়ে",
+              ],
+              traditional: [
+                "কর্মী রেখে ঘণ্টার পর ঘণ্টা শত শত কাস্টমারকে ম্যানুয়াল ফোন কল করতে হয়",
+                "ফোন বিজি থাকা বা না ধরার কারণে অর্ডার ঝুলে থাকে এবং ক্যানসেলেশন বাড়ে",
+                "কল সেন্টার পরিচালনা করতে গিয়ে প্রতি মাসে বিশাল কর্মী বেতন খরচ হয়",
+              ],
+            },
+            {
+              title: "কুরিয়ার ফ্রড যাচাই ও রিটার্ন প্রতিরোধ",
+              icon: ShieldAlert,
+              nishchinto: [
+                "Steadfast, Pathao ও RedX সেন্ট্রাল নেটওয়ার্কে ০-১০০% নির্ভুল রিস্ক স্কোরিং",
+                "বারবার পার্সেল ফেরত দেওয়া ও ফেক অর্ডারকারীদের মোবাইল নম্বর আগেই ব্লকলিস্টে ধরা পড়ে",
+                "হাই-রিস্ক অর্ডারে স্বয়ংক্রিয়ভাবে অগ্রিম ডেলিভারি চার্জ নেওয়ার অ্যালার্ট প্রদান",
+              ],
+              traditional: [
+                "আন্দাজে পার্সেল বুকিং দেওয়া হয়, ফলে ডেলিভারি চার্জের হাজার হাজার টাকা লোকসান",
+                "কোনো সেন্ট্রাল ব্লকলিস্ট সুবিধা না থাকায় ভুয়া ক্রেতাদের ফাঁদে পড়তে হয়",
+                "মাস শেষে কুরিয়ার রিটার্ন রেট ৩০% ছাড়িয়ে যায় এবং আসল প্রফিট শূন্যে নামে",
+              ],
+            },
+            {
+              title: "প্যাকিং ও হ্যান্ডওভার ওয়্যারহাউস স্ক্যান",
+              icon: Barcode,
+              nishchinto: [
+                "প্যাকিং স্ক্যান: প্রতিটি ইনভয়েসের সাথে পণ্য মিলিয়ে স্ক্যান, ভুল প্রোডাক্ট পাঠানো অসম্ভব",
+                "কুরিয়ার মার্ক স্ক্যান: ডেলিভারিম্যানকে পার্সেল হস্তান্তরের নিখুঁত ডিজিটাল বারকোড অডিট",
+                "রিটার্ন কালেকশন স্ক্যান: কুরিয়ার হাব থেকে ফেরত আসা পার্সেল স্ক্যান করে স্টক এডজাস্টমেন্ট",
+              ],
+              traditional: [
+                "ম্যানুয়ালি প্যাকেটে স্লিপ সাঁটানো, ভুল সাইজ বা ভিন্ন পণ্য ডেলিভারির মারাত্মক ঝুঁকি",
+                "কুরিয়ার রাইডারের কাছে পার্সেল হারিয়ে গেলে কোনো সুনির্দিষ্ট প্রমাণ থাকে না",
+                "রিটার্ন আসা পার্সেল হিসাবের বাইরে হারিয়ে যায় এবং স্টক গরমিল তৈরি হয়",
+              ],
+            },
+            {
+              title: "ইনকমপ্লিট অর্ডার ড্রপ-অফ ক্যাচার",
+              icon: ClipboardList,
+              nishchinto: [
+                "চেকআউট ফর্মে নাম ও মোবাইল নম্বর টাইপ করে ফর্ম সাবমিট না করলেও ডেটা সংরক্ষিত হয়",
+                "স্বয়ংক্রিয় WhatsApp ড্রপ-অফ রিকভারি মেসেজ পাঠিয়ে ৩০% অর্ডার উদ্ধার করা যায়",
+                "বিজ্ঞাপনের ট্র্যাফিক লস কমিয়ে সরাসরি বিক্রি বৃদ্ধি পায়",
+              ],
+              traditional: [
+                "ফর্ম সম্পূর্ণ সাবমিট না করলে কাস্টমারের কোনো তথ্য বা ফোন নম্বর ট্র্যাক করা যায় না",
+                "বিজ্ঞাপনের সম্পূর্ণ ভিজিটর ও আগ্রহীদের কোনো ফলো-আপ করা সম্ভব হয় না",
+                "প্রতিদিন শত শত潜在 ক্রেতা হাতছাড়া হয়ে যায়",
+              ],
+            },
+            {
+              title: "কাস্টমার ডেটা গার্ড (ফোন নম্বর মাস্কিং)",
+              icon: Lock,
+              nishchinto: [
+                "1-Click Phone Masking: কর্মীদের সামনে কাস্টমারের নম্বর আংশিক গোপন (যেমন: 017****3344) থাকে",
+                "কর্মচারী চাকরি ছেড়ে গেলেও আপনার মূল্যবান কাস্টমার ডেটাবেস চুরি বা লিক হওয়া অসম্ভব",
+                "রোল-বেসড অ্যাক্সেস কন্ট্রোলের মাধ্যমে শুধু অনুমোদিত ম্যানেজারই মূল ডেটা দেখতে পান",
+              ],
+              traditional: [
+                "কর্মী ও মডারেটরদের সামনে উন্মুক্ত এক্সেল শিটে সম্পূর্ণ ফোন নম্বর ও ঠিকানা থাকে",
+                "কর্মী চাকরি ছাড়ার সময় গ্রাহক ডেটাবেস চুরি করে প্রতিযোগীদের কাছে দিয়ে দেওয়ার ঝুঁকি থাকে",
+                "ডেটা লিক হওয়ার কোনো লগ বা সিকিউরিটি অডিট সুবিধা থাকে না",
+              ],
+            },
+            {
+              title: "আসল নিট লাভ-ক্ষতি ও কুরিয়ার রিকনসিলিয়েশন",
+              icon: Receipt,
+              nishchinto: [
+                "COGS (পণ্যের কেনা দাম) + কুরিয়ার ডেলিভারি ফি + মেটা অ্যাড স্পেন্ড বাদ দিয়ে ট্রু নিট প্রফিট",
+                "কুরিয়ার কোম্পানি থেকে ব্যাংক বা বিকাশে আসা পেমেন্টের সাথে ইনভয়েস মিলিয়ে ডিসপুট শনাক্তকরণ",
+                "কোনো কুরিয়ার অতিরিক্ত চার্জ কেটে নিলে তাৎক্ষণিক ডিসপুট তুলে টাকা ফেরত নিশ্চিত করা",
+              ],
+              traditional: [
+                "শুধু মোট বিক্রয়মূল্য (Revenue) দেখে অনুমান করে ব্যবসা চালানো হয়, আসল লাভ অজানা থাকে",
+                "কুরিয়ার কোম্পানি সিওডি পেমেন্টে কম টাকা পাঠালেও তা ধরতে না পেরে লাখ টাকার লোকসান হয়",
+                "মাস শেষে অ্যাকাউন্টিং মেলাতে গিয়ে হিসাবের মারাত্মক গরমিল তৈরি হয়",
+              ],
+            },
+            {
+              title: "মাল্টি-চ্যানেল অর্ডার সিঙ্ক (Shopify/Woo/Facebook)",
+              icon: Layers,
+              nishchinto: [
+                "Shopify, WooCommerce, কাস্টম ল্যান্ডিং পেজ ও ফেসবুকের সব অর্ডার এক সেন্ট্রাল ড্যাশবোর্ডে",
+                "কোনো অর্ডার মিস হওয়ার সুযোগ নেই, অটোমেটিক স্টক সিঙ্ক",
+                "কুরিয়ারে ১-ক্লিকে বাল্ক বুকিং ও একসাথে ১০০+ ইনভয়েস প্রিন্ট",
+              ],
+              traditional: [
+                "ওয়েবসাইট, মেসেঞ্জার এবং ফোন অর্ডারের জন্য আলাদা আলাদা ট্যাব ও খাতা সামলাতে হয়",
+                "কুরিয়ার পোর্টালে গিয়ে এক এক করে ম্যানুয়ালি অর্ডার টাইপ করতে ঘণ্টার পর ঘণ্টা সময় অপচয়",
+                "এক চ্যানেলে বিক্রি হলে অন্য চ্যানেলে স্টক আপডেট করতে ভুলে গিয়ে ব্যাক-অর্ডার তৈরি হয়",
+              ],
+            },
+          ].map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={idx}
+                className="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-md transition-all overflow-hidden flex flex-col justify-between"
+              >
+                {/* Header */}
+                <div className="bg-slate-50/80 px-5 py-3.5 border-b border-slate-100 flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <h3 className="font-bold text-sm text-slate-900">{item.title}</h3>
+                </div>
+
+                {/* Point by Point Comparison */}
+                <div className="p-5 space-y-4 flex-1">
+                  {/* Nishchinto Solution */}
+                  <div className="bg-teal-50/50 rounded-xl p-3.5 border border-teal-100/80 space-y-2">
+                    <div className="flex items-center gap-2 text-teal-900 font-bold text-xs">
+                      <span className="w-2 h-2 rounded-full bg-teal-600"></span>
+                      <span>Nishchinto স্বয়ংক্রিয় সমাধান:</span>
+                    </div>
+                    <ul className="space-y-1.5 text-xs text-slate-700">
+                      {item.nishchinto.map((pt, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <Check className="w-3.5 h-3.5 text-teal-600 shrink-0 mt-0.5" />
+                          <span className="leading-relaxed">{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Traditional Manual Failure */}
+                  <div className="bg-slate-50/80 rounded-xl p-3.5 border border-slate-200/60 space-y-2">
+                    <div className="flex items-center gap-2 text-rose-900 font-bold text-xs">
+                      <span className="w-2 h-2 rounded-full bg-rose-500"></span>
+                      <span>প্রচলিত ও ম্যানুয়াল পদ্ধতি:</span>
+                    </div>
+                    <ul className="space-y-1.5 text-xs text-slate-600">
+                      {item.traditional.map((pt, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <X className="w-3.5 h-3.5 text-rose-500 shrink-0 mt-0.5" />
+                          <span className="leading-relaxed">{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -1090,7 +1179,7 @@ export default function PublicHomePage() {
             <div className="space-y-4">
               <NishchintoLogo size="md" showBangla={true} />
               <p className="text-xs text-slate-600 leading-relaxed max-w-xs">
-                বাংলাদেশের সর্বাধুনিক পূর্ণাঙ্গ ই-কমার্স অটোমেশন সলিউশন। আমরা আপনার লস কমিয়ে প্রফিট বাড়াতে সাহায্য করি।
+                বাংলাদেশের ই-কমার্স ও এফ-কমার্স উদ্যোক্তাদের নির্ভরযোগ্য বিজনেস অপারেটিং সিস্টেম। অর্ডার প্রসেসিং, কুরিয়ার ফ্রড গার্ড ও এআই অটোমেশনে ব্যবসাকে করুন সুরক্ষিত, লাভজনক ও সম্পূর্ণ নিশ্চিন্ত।
               </p>
             </div>
 
@@ -1099,9 +1188,9 @@ export default function PublicHomePage() {
               <h5 className="font-bold text-slate-900 text-sm">কোম্পানি</h5>
               <ul className="space-y-2 text-xs text-slate-600">
                 <li>
-                  <a href="#why-us" className="hover:text-teal-700 transition-colors">
+                  <Link href="/about" className="hover:text-teal-700 transition-colors">
                     আমাদের গল্প
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#features" className="hover:text-teal-700 transition-colors">
@@ -1114,9 +1203,9 @@ export default function PublicHomePage() {
                   </a>
                 </li>
                 <li>
-                  <a href="#calculator" className="hover:text-teal-700 transition-colors">
+                  <Link href="/blog" className="hover:text-teal-700 transition-colors">
                     ব্লগ
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
