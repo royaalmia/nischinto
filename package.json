@@ -5,8 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx --yes @opennextjs/cloudflare build --dangerouslyUseUnsupportedNextVersion",
+    "build:next": "next build",
     "start": "next start",
+    "deploy": "npx --yes @opennextjs/cloudflare build --dangerouslyUseUnsupportedNextVersion && npx wrangler deploy",
+    "preview": "npx --yes @opennextjs/cloudflare build --dangerouslyUseUnsupportedNextVersion && npx wrangler dev",
     "lint": "next lint",
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",
