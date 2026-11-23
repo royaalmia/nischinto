@@ -51,6 +51,45 @@ export default function PublicHomePage() {
   // Active Feature Tab
   const [activeFeatureTab, setActiveFeatureTab] = useState<number>(0);
 
+  // FAQ Accordion State
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const orderStatuses = [
+    { title: "All Orders", bn: "সকল অর্ডার", count: "১,৮৫০", badge: "Live" },
+    { title: "Pending", bn: "পেন্ডিং", count: "৪২", badge: "Action" },
+    { title: "Confirmed", bn: "কনফার্মড", count: "১২৮", badge: "AI Confirmed" },
+    { title: "Processing", bn: "প্রসেসিং", count: "৮৫", badge: "Packing" },
+    { title: "Hold Followup", bn: "হোল্ড ফলো-আপ", count: "৯", badge: "Alert" },
+    { title: "In Courier", bn: "ইন-কুরিয়ার", count: "৪১২", badge: "Transit" },
+    { title: "COD Changed", bn: "সিওডি চেঞ্জড", count: "৬", badge: "Check" },
+    { title: "Delivered", bn: "ডেলিভার্ড", count: "১,১৪০", badge: "Success" },
+    { title: "Returned", bn: "রিটার্নড", count: "৩৮", badge: "Loss Guard" },
+    { title: "Pending Return", bn: "পেন্ডিং রিটার্ন", count: "১২", badge: "Tracking" },
+    { title: "Damage", bn: "ড্যামেজ পণ্য", count: "৩", badge: "Audit" },
+    { title: "Hand Delivery", bn: "হ্যান্ড ডেলিভারি", count: "২৭", badge: "Local" },
+    { title: "Return Collection", bn: "রিটার্ন কালেকশন", count: "১৭", badge: "Barcode" },
+    { title: "Courier Pay Validate", bn: "কুরিয়ার ভ্যালিডেশন", count: "৳২,৮৫,৪০০", badge: "Settled" },
+  ];
+
+  const faqs = [
+    {
+      q: "Nishchinto শুরু করতে কি ওয়েবসাইট বা নিজস্ব ডোমেইন থাকা বাধ্যতামূলক?",
+      a: "না, কোনো ওয়েবসাইট ছাড়াই আপনি ফেসবুক পেজ বা ম্যানুয়াল অর্ডারের মাধ্যমেই Nishchinto ব্যবহার করতে পারবেন। তবে আপনার যদি WooCommerce বা Shopify ওয়েবসাইট থাকে, তবে ১-ক্লিকে তা স্বয়ংক্রিয়ভাবে ইন্টিগ্রেট করা যায়।",
+    },
+    {
+      q: "কুরিয়ার কোম্পানিগুলোর (Steadfast, Pathao, RedX) সাথে কীভাবে যুক্ত হবে?",
+      a: "খুবই সহজ! শুধু আপনার কুরিয়ার অ্যাকাউন্ট থেকে API Key এবং Secret এনে Nishchinto সেটিংসে পেস্ট করলেই ১ ক্লিকে পার্সেল বুকিং, বারকোড এবং ট্র্যাকিং শুরু হয়ে যাবে।",
+    },
+    {
+      q: "বাংলা AI ভয়েস কল কি আসলেই মানুষের মতো কথা বলে?",
+      a: "হ্যাঁ, আমাদের নিউরাল এআই ইঞ্জিন সম্পূর্ণ সাবলীল বাংলায় কথা বলে। এটি গ্রাহকের নাম, অর্ডারকৃত পণ্য ও সাইজ উল্লেখ করে ডেলিভারির সম্মতি নেয় এবং ড্যাশবোর্ডে স্ট্যাটাস স্বয়ংক্রিয়ভাবে আপডেট করে দেয়।",
+    },
+    {
+      q: "সেন্ট্রাল ফ্রড গার্ড কীভাবে রিটার্ন লস কমায়?",
+      a: "Steadfast, Pathao ও RedX-এর কেন্দ্রীয় ডেটাবেসে কোনো নম্বরের অতীত রিটার্ন ও ডেলিভারি হিস্টোরি ক্রস-ম্যাচ করে ০-১০০% রিস্ক স্কোর বের করে। ফলে বারবার পণ্য ফেরত দেওয়া ভুয়া গ্রাহকদের পার্সেল পাঠানোর আগেই অগ্রিম চার্জ নেওয়া যায়।",
+    },
+  ];
+
   // Calculation for ROI
   const averageReturnRateWithoutCRM = 0.22;
   const averageReturnRateWithNishchinto = 0.08;
@@ -473,6 +512,126 @@ export default function PublicHomePage() {
               )}
             </div>
           </div>
+
+          {/* Floating Live Automation Preview Highlights */}
+          <div className="pt-6 grid grid-cols-1 md:grid-cols-3 gap-3 max-w-4xl mx-auto text-left text-xs">
+            {/* Live Card 1: Steadfast Auto Booking */}
+            <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
+                <Truck className="w-4 h-4" />
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-1.5 font-bold text-slate-900">
+                  <span>Steadfast অটো বুকিং</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                </div>
+                <p className="text-[11px] text-slate-500 leading-tight">
+                  অর্ডার কনফার্ম হলেই ১-ক্লিকে কনসাইনমেন্ট কোড ও ট্র্যাকিং জেনারেটেড।
+                </p>
+              </div>
+            </div>
+
+            {/* Live Card 2: Bangla AI Calling */}
+            <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center shrink-0">
+                <PhoneCall className="w-4 h-4" />
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-1.5 font-bold text-slate-900">
+                  <span>বাংলা AI ভয়েস কল</span>
+                  <span className="text-[9px] font-mono font-bold bg-indigo-100 text-indigo-800 px-1 rounded">
+                    LIVE
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 leading-tight">
+                  মানুষের মতো মিষ্টি ভাষায় গ্রাহককে কল করে সাইজ ও ঠিকানা ভেরিফিকেশন।
+                </p>
+              </div>
+            </div>
+
+            {/* Live Card 3: Barcode & Packing Scan */}
+            <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center shrink-0">
+                <Barcode className="w-4 h-4" />
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-1.5 font-bold text-slate-900">
+                  <span>প্যাকিং ও মার্ক স্ক্যান</span>
+                  <span className="text-[9px] font-mono font-bold bg-amber-100 text-amber-800 px-1 rounded">
+                    0 ERROR
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 leading-tight">
+                  ভুল পণ্য ডেলিভারি ও কুরিয়ারে পার্সেল হারিয়ে যাওয়ার ক্ষতি ০% এ নামান।
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2.5 Partners & Couriers Integrations Strip */}
+      <section className="py-8 bg-slate-50/80 border-y border-slate-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-4">
+          <p className="text-center text-[11px] font-bold text-slate-600 uppercase tracking-widest">
+            দেশের শীর্ষ কুরিয়ার, পেমেন্ট গেটওয়ে ও চ্যানেলগুলোর সাথে নিরবচ্ছিন্ন সংযোগ
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs font-semibold text-slate-700">
+            {[
+              { name: "Steadfast Courier", badge: "API Certified" },
+              { name: "Pathao Logistics", badge: "Live Hermes" },
+              { name: "RedX Delivery", badge: "Sync" },
+              { name: "Paperfly Wings", badge: "Coverage" },
+              { name: "eCourier", badge: "Express" },
+              { name: "bKash Merchant", badge: "Direct Pay" },
+              { name: "Nagad Gateway", badge: "Instant" },
+              { name: "Meta Graph API v21", badge: "CAPI Server" },
+              { name: "Shopify & WooCommerce", badge: "1-Click Sync" },
+            ].map((p, idx) => (
+              <div
+                key={idx}
+                className="px-3.5 py-1.5 bg-white border border-slate-200 rounded-xl shadow-xs flex items-center gap-2 hover:border-teal-500 transition-colors"
+              >
+                <span className="text-slate-900 font-bold">{p.name}</span>
+                <span className="text-[10px] font-mono text-teal-700 bg-teal-50 px-1.5 py-0.2 rounded font-semibold">
+                  {p.badge}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 2.75 Dedicated 17-Status Order Pipeline Showcase */}
+      <section className="py-14 max-w-6xl mx-auto px-4 sm:px-6 space-y-6">
+        <div className="text-center space-y-2 max-w-2xl mx-auto">
+          <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
+            ১৭টি ডেডিকেটেড স্ট্যাটাস ট্র্যাকিং
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+            অর্ডারের প্রতিটি মুহূর্ত পাই টু পাই ট্র্যাক করুন
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600">
+            BizMation সহ যেকোনো সাধারণ সফটওয়্যারের চেয়ে গভীর ও সূক্ষ্ম অর্ডার লাইফসাইকেল ম্যানেজমেন্ট
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5 pt-2">
+          {orderStatuses.map((st, i) => (
+            <div
+              key={i}
+              className="p-3 bg-white border border-slate-200 rounded-xl hover:border-teal-400 hover:shadow-xs transition-all space-y-1.5 text-center"
+            >
+              <div className="flex justify-between items-center text-[10px]">
+                <span className="font-mono text-slate-400 font-bold">#{i + 1}</span>
+                <span className="px-1 rounded bg-teal-50 text-teal-800 font-mono text-[9px] font-bold">
+                  {st.badge}
+                </span>
+              </div>
+              <div className="font-bold text-xs text-slate-900">{st.bn}</div>
+              <div className="text-[11px] text-slate-500 font-medium">{st.title}</div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -980,18 +1139,7 @@ export default function PublicHomePage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <MapPin className="w-3.5 h-3.5 text-teal-600 shrink-0 mt-0.5" />
-                  <span>নীলফামারী, বাংলাদেশ</span>
-                </li>
-                <li className="flex items-center gap-2 pt-1">
-                  <MessageCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <a
-                    href="https://wa.me/8801960821012"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-emerald-700 font-semibold hover:underline"
-                  >
-                    WhatsApp সাপোর্ট
-                  </a>
+                  <span>Nilphamari, Bangladesh</span>
                 </li>
               </ul>
             </div>
