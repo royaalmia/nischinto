@@ -8,8 +8,8 @@ import { Lock, Mail, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("owner@nischinto.com");
-  const [password, setPassword] = useState("password123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
@@ -21,35 +21,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50/20 to-white flex flex-col justify-center items-center p-4">
-      <div className="max-w-md w-full bg-white rounded-3xl border border-slate-200/80 shadow-2xl p-8 space-y-6">
+    <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center p-4">
+      <div className="max-w-md w-full bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
         {/* Brand Logo */}
         <div className="flex flex-col items-center text-center space-y-2">
           <Link href="/">
-            <NishchintoLogo size="lg" showTagline={true} />
+            <NishchintoLogo size="md" showTagline={true} />
           </Link>
-          <h2 className="text-xl font-bold text-slate-900 pt-2">মার্চেন্ট লগইন পোর্টাল</h2>
+          <h2 className="text-xl font-bold text-slate-900 pt-1">মার্চেন্ট লগইন</h2>
           <p className="text-xs text-slate-500">
             আপনার ড্যাশবোর্ডে প্রবেশ করতে ক্রেডেনশিয়াল লিখুন
           </p>
-        </div>
-
-        {/* Demo Fast Fill Pill */}
-        <div className="p-3 bg-teal-50 border border-teal-200/80 rounded-xl flex items-center justify-between text-xs text-teal-900">
-          <div className="flex items-center gap-1.5 font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-teal-600" />
-            <span>ডেমো মার্চেন্ট অ্যাকাউন্ট প্রস্তুত</span>
-          </div>
-          <button
-            type="button"
-            onClick={() => {
-              setEmail("owner@nischinto.com");
-              setPassword("password123");
-            }}
-            className="text-[11px] font-bold text-teal-700 underline"
-          >
-            অটো-ফিল করুন
-          </button>
         </div>
 
         {/* Form */}

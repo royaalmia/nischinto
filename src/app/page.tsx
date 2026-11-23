@@ -344,16 +344,9 @@ export default function PublicHomePage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <Link
               href="/register"
-              className="w-full sm:w-auto px-6 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs rounded-xl shadow-sm transition-all"
+              className="w-full sm:w-auto px-8 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs rounded-xl shadow-sm transition-all"
             >
               ফ্রি ট্রায়াল শুরু করুন
-            </Link>
-
-            <Link
-              href="/checkout"
-              className="w-full sm:w-auto px-5 py-3.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-xl shadow-sm transition-all"
-            >
-              ১-পেজ চেকআউট ডেমো দেখুন
             </Link>
           </div>
 
@@ -362,15 +355,15 @@ export default function PublicHomePage() {
             <div className="bg-slate-900 rounded-2xl p-4 sm:p-6 shadow-xl border border-slate-800 text-left space-y-3">
               <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
                 <span className="text-xs text-slate-300 font-medium">
-                  সেন্ট্রাল ফ্রড গার্ড টেস্ট উইজেট
+                  সেন্ট্রাল কুরিয়ার ফ্রড যাচাই পোর্টাল
                 </span>
                 <span className="text-[10px] text-teal-400 bg-teal-950 border border-teal-800 px-2 py-0.5 rounded font-mono">
-                  LIVE API READY
+                  LIVE API CONNECTED
                 </span>
               </div>
 
               <p className="text-xs text-slate-400">
-                কাস্টমারের নম্বর লিখে কুরিয়ার ডেটাবেসের অতীত রেকর্ড যাচাই করুন:
+                যেকোনো কাস্টমারের ফোন নম্বর দিয়ে কুরিয়ার নেটওয়ার্কের রেকর্ড যাচাই করুন:
               </p>
 
               <form onSubmit={handleDemoCheck} className="flex flex-col sm:flex-row gap-2">
@@ -801,10 +794,7 @@ export default function PublicHomePage() {
           <NishchintoLogo size="sm" showBangla={true} />
           <p>© 2026 Nishchinto.app. সর্বস্বত্ব সংরক্ষিত।</p>
           <div className="flex items-center gap-4">
-            <Link href="/admin" className="hover:text-teal-700">
-              সুপার অ্যাডমিন
-            </Link>
-            <Link href="/login" className="hover:text-teal-700">
+            <Link href="/login" className="hover:text-teal-700 font-medium">
               মার্চেন্ট লগইন
             </Link>
           </div>

@@ -35,21 +35,12 @@ export default function Header({
       {/* Left: Store Selector & Indicator */}
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2.5 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl">
-          <Store className="w-4 h-4 text-blue-600" />
+          <Store className="w-4 h-4 text-teal-600" />
           <span className="text-sm font-semibold text-slate-800">
             Nischinto Fashion & Gadgets
           </span>
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
         </div>
-
-        <Link
-          href="/checkout"
-          target="_blank"
-          className="hidden sm:flex items-center gap-1.5 text-xs text-slate-500 hover:text-blue-600 transition-colors font-medium"
-        >
-          <span>স্টোর প্রিভিউ</span>
-          <ExternalLink className="w-3.5 h-3.5" />
-        </Link>
       </div>
 
       {/* Right: Security Masking, Wallet Credits & Actions */}

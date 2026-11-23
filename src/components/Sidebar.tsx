@@ -34,7 +34,6 @@ const navigation = [
   { name: "টিম পারমিশন (RBAC)", href: "/team", icon: Users },
   { name: "পণ্য ও ইনভেন্টরি", href: "/products", icon: Boxes },
   { name: "ইন্টিগ্রেশন ও সেটিংস", href: "/settings", icon: Settings },
-  { name: "এক্সপ্রেস চেকআউট ডেমো", href: "/checkout", icon: ShoppingCart, badge: "Demo" },
 ];
 
 export default function Sidebar() {
