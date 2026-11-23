@@ -230,7 +230,7 @@ export default function PublicHomePage() {
             সাশ্রয় ক্যালকুলেটর
           </a>
           <a href="#why-us" className="hover:text-teal-700 transition-colors">
-            পদ্ধতিগত তুলনা
+            কেন Nishchinto
           </a>
           <a href="#pricing" className="hover:text-teal-700 transition-colors">
             সাবস্ক্রিপশন
@@ -246,10 +246,10 @@ export default function PublicHomePage() {
             লগইন
           </Link>
           <Link
-            href="/dashboard"
+            href="/register"
             className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold rounded-xl shadow-sm transition-all"
           >
-            মার্চেন্ট ড্যাশবোর্ড
+            অ্যাকাউন্ট খুলুন
           </Link>
         </div>
 
@@ -293,7 +293,7 @@ export default function PublicHomePage() {
               onClick={() => setMobileMenuOpen(false)}
               className="py-1 hover:text-teal-700"
             >
-              পদ্ধতিগত তুলনা
+              কেন Nishchinto
             </a>
             <a
               href="#pricing"
@@ -311,10 +311,10 @@ export default function PublicHomePage() {
               লগইন
             </Link>
             <Link
-              href="/dashboard"
+              href="/register"
               className="w-full text-center py-2.5 text-xs font-semibold bg-teal-600 text-white rounded-xl"
             >
-              মার্চেন্ট ড্যাশবোর্ড
+              অ্যাকাউন্ট খুলুন
             </Link>
           </div>
         </div>
@@ -521,11 +521,14 @@ export default function PublicHomePage() {
       <section id="why-us" className="py-16 max-w-5xl mx-auto px-4 sm:px-6 space-y-10">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="text-xs font-semibold text-teal-700 uppercase tracking-wider">
-            পদ্ধতিগত পার্থক্য
+            কেন Nishchinto?
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            প্রচলিত পদ্ধতি বনাম নিশ্চিন্ত স্বয়ংক্রিয় প্ল্যাটফর্ম
+            কেন Nishchinto বেছে নেবেন?
           </h2>
+          <p className="text-xs sm:text-sm text-slate-500">
+            কীভাবে আপনার ব্যবসাকে ঘণ্টার পর ঘণ্টা সময় অপচয় এবং লাখ টাকার রিটার্ন ক্ষতি থেকে মুক্ত রাখবেন
+          </p>
         </div>
 
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-x-auto">
