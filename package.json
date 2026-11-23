@@ -5,11 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx --yes @opennextjs/cloudflare build --dangerouslyUseUnsupportedNextVersion",
+    "build": "next build && opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion --skipNextBuild",
     "build:next": "next build",
     "start": "next start",
-    "deploy": "npx --yes @opennextjs/cloudflare build --dangerouslyUseUnsupportedNextVersion && npx wrangler deploy",
-    "preview": "npx --yes @opennextjs/cloudflare build --dangerouslyUseUnsupportedNextVersion && npx wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "npm run build && wrangler dev",
     "lint": "next lint",
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",
@@ -25,6 +25,7 @@
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.18",
     "@types/node": "^20.17.6",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -32,6 +33,7 @@
     "postcss": "^8.4.49",
     "prisma": "^5.22.0",
     "tailwindcss": "^3.4.15",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "wrangler": "^4.167.0"
   }
 }
