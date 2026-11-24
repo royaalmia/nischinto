@@ -34,7 +34,18 @@ export default function BillingPage() {
       let merchantId = "";
       let mUser: any = null;
 
-      if (typeof window !== "undefined") {
+      try {
+        const sRes = await fetch("/api/auth/session");
+        const sData = await sRes.json();
+        if (sData.success && sData.authenticated && sData.user) {
+          mUser = sData.user;
+          merchantId = mUser.id || "";
+          setMerchant(mUser);
+          setWalletBalance(Number(mUser.walletBalance) || 0);
+        }
+      } catch (err) {}
+
+      if (!mUser && typeof window !== "undefined") {
         const raw = localStorage.getItem("merchant_user");
         if (raw) {
           mUser = JSON.parse(raw);

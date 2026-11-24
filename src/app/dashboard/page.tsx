@@ -231,50 +231,50 @@ export default function OrdersPage() {
         )}
 
         {/* Top KPI Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-500">মোট অর্ডার</p>
-              <h3 className="text-2xl font-bold text-slate-900 mt-1">{orders.length} টি</h3>
-              <p className="text-[11px] text-emerald-600 font-semibold mt-1">
-                সফল ডেলিভারি: {totalDelivered} টি
+              <p className="text-[11px] sm:text-xs font-semibold text-slate-500">মোট অর্ডার</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">{orders.length} টি</h3>
+              <p className="text-[10px] sm:text-[11px] text-emerald-600 font-semibold mt-0.5 truncate">
+                সফল: {totalDelivered} টি
               </p>
             </div>
-            <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
-              <Package className="w-6 h-6" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <Package className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div className="bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-500">ইনকমপ্লিট / ড্রপ অফ</p>
-              <h3 className="text-2xl font-bold text-amber-600 mt-1">{totalIncomplete} টি</h3>
-              <p className="text-[11px] text-slate-500 mt-1">ফর্ম না পাঠিয়ে বের হওয়া কাস্টমার</p>
+              <p className="text-[11px] sm:text-xs font-semibold text-slate-500">ড্রপ অফ / ইনকমপ্লিট</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-amber-600 mt-1">{totalIncomplete} টি</h3>
+              <p className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 truncate">ড্রপ-অফ কাস্টমার</p>
             </div>
-            <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
-              <Clock className="w-6 h-6" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+              <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div className="bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-500">উচ্চ ঝুঁকি / ফ্রড আটকানো</p>
-              <h3 className="text-2xl font-bold text-red-600 mt-1">{totalHighRisk} টি</h3>
-              <p className="text-[11px] text-red-500 font-semibold mt-1">অগ্রিম পেমেন্ট রিকমেন্ডেড</p>
+              <p className="text-[11px] sm:text-xs font-semibold text-slate-500">উচ্চ ঝুঁকি / ফ্রড</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-red-600 mt-1">{totalHighRisk} টি</h3>
+              <p className="text-[10px] sm:text-[11px] text-red-500 font-semibold mt-0.5 truncate">অগ্রিম পেমেন্ট</p>
             </div>
-            <div className="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
-              <ShieldAlert className="w-6 h-6" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+              <ShieldAlert className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+          <div className="bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-500">AI অটোমেশন রেট</p>
-              <h3 className="text-2xl font-bold text-indigo-600 mt-1">৯৪.৫%</h3>
-              <p className="text-[11px] text-indigo-600 font-semibold mt-1">AI কল ও কুরিয়ার সিঙ্ক সক্রিয়</p>
+              <p className="text-[11px] sm:text-xs font-semibold text-slate-500">AI অটোমেশন রেট</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-indigo-600 mt-1">৯৪.৫%</h3>
+              <p className="text-[10px] sm:text-[11px] text-indigo-600 font-semibold mt-0.5 truncate">AI ভয়েস সিঙ্ক</p>
             </div>
-            <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
-              <Sparkles className="w-6 h-6" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
           </div>
         </div>
@@ -424,22 +424,22 @@ export default function OrdersPage() {
         )}
 
         {/* Filter Tabs & Search Bar */}
-        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-4 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            {/* Status Pills */}
-            <div className="flex flex-wrap items-center gap-1.5">
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-3.5 sm:p-4 space-y-3.5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            {/* Status Pills with Horizontal Swipe on Mobile */}
+            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-1 w-full sm:w-auto min-w-0">
               {[
                 { label: "সব অর্ডার", value: "ALL" },
-                { label: "অপেক্ষমান (Pending)", value: "PENDING" },
-                { label: "ইনকমপ্লিট (Drop-off)", value: "INCOMPLETE" },
+                { label: "অপেক্ষমান", value: "PENDING" },
+                { label: "ইনকমপ্লিট", value: "INCOMPLETE" },
                 { label: "কনফার্মড", value: "CONFIRMED" },
-                { label: "কুরিয়ারে আছে", value: "IN_COURIER" },
+                { label: "কুরিয়ারে", value: "IN_COURIER" },
                 { label: "ডেলিভার্ড", value: "DELIVERED" },
               ].map((tab) => (
                 <button
                   key={tab.value}
                   onClick={() => setSelectedStatus(tab.value)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-all cursor-pointer ${
                     selectedStatus === tab.value
                       ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20"
                       : "bg-slate-50 text-slate-600 hover:bg-slate-100"
@@ -451,15 +451,15 @@ export default function OrdersPage() {
             </div>
 
             {/* Search Input */}
-            <div className="relative w-full sm:w-72">
+            <div className="relative w-full sm:w-72 shrink-0">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="ফোন নম্বর, অর্ডার আইডি দিয়ে খুঁজুন..."
+                placeholder="ফোন নম্বর বা অর্ডার আইডি..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && fetchOrders()}
-                className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
               />
             </div>
           </div>

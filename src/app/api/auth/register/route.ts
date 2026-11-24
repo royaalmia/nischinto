@@ -9,6 +9,7 @@ export async function POST(request: Request) {
       ownerName,
       email,
       phone,
+      password,
       category = "GENERAL",
       plan = "PRO_AI",
       emailVerified = true,
@@ -48,6 +49,7 @@ export async function POST(request: Request) {
           ownerName,
           email: cleanEmail,
           phone,
+          password: password || undefined,
           category,
           plan,
           status: "ACTIVE",
@@ -106,21 +108,32 @@ export async function POST(request: Request) {
       };
     }
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       success: true,
       message: "আপনার মার্চেন্ট অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!",
       data: merchant,
     });
+
+    if (merchant && merchant.id) {
+      res.cookies.set("nishchinto_session", merchant.id, {
+        path: "/",
+        httpOnly: false,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 60 * 60 * 24 * 30,
+      });
+      res.cookies.set("nishchinto_role", "MERCHANT", {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 30,
+      });
+    }
+
+    return res;
   } catch (error: any) {
     console.error("Merchant Registration Fallback:", error);
     return NextResponse.json({
-      success: true,
-      message: "আপনার মার্চেন্ট অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!",
-      data: {
-        id: `mch_${Date.now()}`,
-        businessName: "My Store",
-        walletBalance: 0.0,
-      },
-    });
+      success: false,
+      error: error.message || "রেজিস্ট্রেশন ত্রুটি!",
+    }, { status: 500 });
   }
 }

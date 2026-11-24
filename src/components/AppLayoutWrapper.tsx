@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import MobileBottomNav from "@/components/MobileBottomNav";
 import MerchantAiChatbot from "@/components/MerchantAiChatbot";
 
 export default function AppLayoutWrapper({
@@ -34,9 +35,10 @@ export default function AppLayoutWrapper({
   return (
     <div className="min-h-screen flex w-full bg-slate-50 text-slate-900 antialiased">
       <Sidebar />
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen pb-20 lg:pb-0">
         {children}
       </div>
+      <MobileBottomNav />
       <MerchantAiChatbot />
     </div>
   );

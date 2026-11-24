@@ -20,6 +20,7 @@ import {
   Smartphone,
   ExternalLink,
   User,
+  Menu,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -94,8 +95,26 @@ export default function Header({
     }
   };
 
-  // Load Merchant Profile & Notifications
-  const loadProfile = () => {
+  // Load Merchant Profile & Notifications (Server-backed session)
+  const loadProfile = async () => {
+    try {
+      const res = await fetch("/api/auth/session");
+      const json = await res.json();
+      if (json.success && json.authenticated && json.user) {
+        setMerchantData({
+          id: json.user.id,
+          businessName: json.user.businessName || "আমার স্টোর",
+          ownerName: json.user.ownerName || "মার্চেন্ট",
+          category: json.user.category || "GENERAL",
+          walletBalance: Number(json.user.walletBalance) || 0,
+          isVerified: json.user.isVerified !== false,
+        });
+        return;
+      }
+    } catch (e) {
+      console.warn("Session fetch fallback", e);
+    }
+
     if (typeof window !== "undefined") {
       const storedImpersonation = sessionStorage.getItem("impersonating_merchant_name");
       if (storedImpersonation) {
@@ -273,14 +292,27 @@ export default function Header({
         </div>
       )}
 
-      <header className="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">
-        {/* Left: Dynamic Store Name, Category & Verified Badge */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2.5 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl shadow-2xs">
+      <header className="h-16 bg-white border-b border-slate-200 px-3 sm:px-6 flex items-center justify-between sticky top-0 z-30">
+        {/* Left: Mobile Menu Trigger + Dynamic Store Name */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.dispatchEvent(new Event("open-mobile-menu"));
+              }
+            }}
+            className="lg:hidden p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer"
+            title="মেনু খুলুন"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+
+          <div className="flex items-center gap-2 px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl shadow-2xs">
             <Store className="w-4 h-4 text-teal-600 shrink-0" />
             
             {/* Real Store Name */}
-            <span className="text-xs sm:text-sm font-bold text-slate-900 truncate max-w-[140px] sm:max-w-[240px]">
+            <span className="text-xs sm:text-sm font-bold text-slate-900 truncate max-w-[100px] sm:max-w-[220px]">
               {impersonatedStore || merchantData.businessName}
             </span>
 
@@ -288,14 +320,14 @@ export default function Header({
             {merchantData.isVerified ? (
               <span
                 title="অ্যাডমিন ভেরিফাইড মার্চেন্ট অ্যাকাউন্ট"
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[10px] font-bold border border-emerald-200 shadow-2xs"
+                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[10px] font-bold border border-emerald-200 shadow-2xs"
               >
                 <BadgeCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span className="hidden md:inline">ভেরিফাইড</span>
+                <span className="hidden sm:inline">ভেরিফাইড</span>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 text-[10px] font-semibold border border-amber-200">
-                <span>অনুমোদন অপেক্ষমাণ</span>
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-800 text-[10px] font-semibold border border-amber-200">
+                <span>পেন্ডিং</span>
               </span>
             )}
 

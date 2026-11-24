@@ -13,6 +13,9 @@ model Merchant {
   ownerName         String
   email             String    @unique
   phone             String
+  password          String?
+  address           String?
+  district          String?
   category          String    @default("GENERAL") // FASHION, GADGET, FOOD, COSMETICS, JEWELRY, HOME_DECOR, BOOKS, GROCERY, HEALTHCARE, AUTOMOBILE, GENERAL
   status            String    @default("ACTIVE") // PENDING_APPROVAL, ACTIVE, SUSPENDED
   isVerified        Boolean   @default(true) // Admin verified badge
@@ -268,5 +271,28 @@ model PaymentMethod {
   isDefault     Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+}
+
+model LandingPage {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  merchantId      String?
+  title           String
+  subtitle        String?
+  category        String   @default("GENERAL")
+  offerPrice      Float
+  originalPrice   Float
+  deliveryInside  Float    @default(70.0)
+  deliveryOutside Float    @default(130.0)
+  imageUrl        String?
+  features        String   @default("[]")
+  stockCount      Int      @default(20)
+  reviewCount     Int      @default(50)
+  rating          Float    @default(4.9)
+  views           Int      @default(0)
+  orders          Int      @default(0)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 

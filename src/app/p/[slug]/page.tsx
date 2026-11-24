@@ -100,18 +100,22 @@ export default function CustomerLandingPage() {
     };
   });
 
-  // Load custom saved data if created by merchant in dashboard
+  // Load real server-backed landing page data
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem(`landing_${slug}`);
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          setLandingData(parsed);
-        } catch (e) {
-          console.error(e);
+    const fetchPage = async () => {
+      try {
+        const res = await fetch(`/api/landing-pages/${slug}`);
+        const json = await res.json();
+        if (json.success && json.data) {
+          setLandingData(json.data);
+          return;
         }
+      } catch (e) {
+        console.warn("Server landing page fetch error:", e);
       }
+    };
+    if (slug) {
+      fetchPage();
     }
   }, [slug]);
 

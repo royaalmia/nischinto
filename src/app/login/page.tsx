@@ -11,59 +11,34 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMsg(null);
     
     try {
-      // Find merchant by email or phone
-      const res = await fetch("/api/admin/merchants");
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
       const data = await res.json();
-      
-      let matchedMerchant: any = null;
-      if (data.success && Array.isArray(data.data)) {
-        matchedMerchant = data.data.find(
-          (m: any) =>
-            m.email?.toLowerCase() === email.trim().toLowerCase() ||
-            m.phone === email.trim()
-        );
-      }
+      setLoading(false);
 
-      if (!matchedMerchant && typeof window !== "undefined") {
-        const rawAll = localStorage.getItem("all_merchants");
-        if (rawAll) {
-          const list = JSON.parse(rawAll);
-          if (Array.isArray(list)) {
-            matchedMerchant = list.find(
-              (m: any) =>
-                m.email?.toLowerCase() === email.trim().toLowerCase() ||
-                m.phone === email.trim()
-            );
-          }
+      if (data.success) {
+        if (typeof window !== "undefined" && data.user) {
+          localStorage.setItem("merchant_user", JSON.stringify(data.user));
         }
+        router.push(data.redirect || "/dashboard");
+      } else {
+        setErrorMsg(data.error || "লগইন ব্যর্থ হয়েছে। তথ্য যাচাই করে আবার চেষ্টা করুন।");
       }
-
-      if (matchedMerchant && typeof window !== "undefined") {
-        localStorage.setItem("merchant_user", JSON.stringify(matchedMerchant));
-      } else if (typeof window !== "undefined") {
-        // Fallback for custom store login
-        const fallbackMerchant = {
-          businessName: email.split("@")[0] || "আমার স্টোর",
-          email: email.trim(),
-          category: "GENERAL",
-          walletBalance: 0.0,
-          isVerified: true,
-        };
-        localStorage.setItem("merchant_user", JSON.stringify(fallbackMerchant));
-      }
-    } catch (err) {
-      console.warn("Login lookup failed, proceeding with fallback", err);
+    } catch (err: any) {
+      setLoading(false);
+      setErrorMsg("সার্ভারের সাথে সংযোগ স্থাপন করা যায়নি।");
     }
-
-    setTimeout(() => {
-      router.push("/dashboard");
-    }, 400);
   };
 
   return (
@@ -79,6 +54,13 @@ export default function LoginPage() {
             আপনার ড্যাশবোর্ডে প্রবেশ করতে ক্রেডেনশিয়াল লিখুন
           </p>
         </div>
+
+        {/* Error alert */}
+        {errorMsg && (
+          <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl font-medium">
+            {errorMsg}
+          </div>
+        )}
 
         {/* Form */}
         <form onSubmit={handleLogin} className="space-y-4">

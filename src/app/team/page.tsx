@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import {
   Users,
@@ -15,44 +15,32 @@ import {
 } from "lucide-react";
 
 export default function TeamPage() {
-  const [teamMembers, setTeamMembers] = useState<any[]>([
-    {
-      id: "USR-1",
-      name: "রহিম চৌধুরী (আপনি)",
-      email: "owner@nischinto.com",
-      role: "SUPER_ADMIN",
-      phoneAccess: "UNMASKED",
-      ordersHandled: 1420,
-      status: "ACTIVE",
-    },
-    {
-      id: "USR-2",
-      name: "সুমাইয়া জাহান",
-      email: "callagent1@nischinto.com",
-      role: "CALL_AGENT",
-      phoneAccess: "MASKED",
-      ordersHandled: 340,
-      status: "ACTIVE",
-    },
-    {
-      id: "USR-3",
-      name: "মো: তারেকুল ইসলাম",
-      email: "packer@nischinto.com",
-      role: "PACKING_STAFF",
-      phoneAccess: "MASKED",
-      ordersHandled: 512,
-      status: "ACTIVE",
-    },
-    {
-      id: "USR-4",
-      name: "শামীম রেজা",
-      email: "moderator@nischinto.com",
-      role: "MODERATOR",
-      phoneAccess: "MASKED",
-      ordersHandled: 198,
-      status: "ACTIVE",
-    },
-  ]);
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const res = await fetch("/api/auth/session");
+        const json = await res.json();
+        if (json.success && json.authenticated && json.user) {
+          setTeamMembers([
+            {
+              id: "USR-OWNER",
+              name: `${json.user.ownerName || "মার্চেন্ট"} (অ্যাকাউন্ট ওনার)`,
+              email: json.user.email || "merchant@store.nishchinto.app",
+              role: "SUPER_ADMIN",
+              phoneAccess: "UNMASKED",
+              ordersHandled: 0,
+              status: "ACTIVE",
+            },
+          ]);
+        }
+      } catch (e) {
+        console.warn("Team session fetch error", e);
+      }
+    };
+    fetchTeam();
+  }, []);
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [name, setName] = useState("");

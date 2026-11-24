@@ -161,6 +161,7 @@ export default function RegisterPage() {
           ownerName,
           email,
           phone,
+          password,
           category: selectedCategory,
           plan,
           emailVerified: true,
@@ -171,38 +172,6 @@ export default function RegisterPage() {
       setSubmitting(false);
 
       if (regData.success) {
-        const registeredMerchant = regData.data || {
-          id: `mch_${Date.now()}`,
-          businessName,
-          ownerName,
-          email,
-          phone,
-          category: selectedCategory,
-          plan,
-          walletBalance: 0.0,
-          ordersProcessed: 0,
-          status: "ACTIVE",
-          isVerified: true,
-          emailVerified: true,
-          joinedDate: new Date().toISOString().split("T")[0],
-        };
-
-        if (typeof window !== "undefined") {
-          localStorage.setItem("merchant_user", JSON.stringify(registeredMerchant));
-
-          // Sync to Super Admin all_merchants registry
-          try {
-            const rawAll = localStorage.getItem("all_merchants");
-            const allList = rawAll ? JSON.parse(rawAll) : [];
-            const filtered = allList.filter(
-              (m: any) => m.email !== registeredMerchant.email && m.phone !== registeredMerchant.phone
-            );
-            localStorage.setItem("all_merchants", JSON.stringify([registeredMerchant, ...filtered]));
-          } catch (e) {
-            console.error("Local sync error", e);
-          }
-        }
-
         router.push("/dashboard");
       } else {
         setErrorMsg(regData.error || "নিবন্ধন সম্পন্ন করা যায়নি।");

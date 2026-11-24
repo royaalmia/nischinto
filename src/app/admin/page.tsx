@@ -48,10 +48,19 @@ import {
   Check,
   X,
   LogIn,
+  LogOut,
   BadgeCheck,
 } from "lucide-react";
 
 export default function SuperAdminPage() {
+  // Super Admin Auth State (admin@nischinto.app / Admin@2026)
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [adminAuthLoading, setAdminAuthLoading] = useState(true);
+  const [adminEmail, setAdminEmail] = useState("admin@nischinto.app");
+  const [adminPassword, setAdminPassword] = useState("");
+  const [adminAuthError, setAdminAuthError] = useState<string | null>(null);
+  const [adminSubmitting, setAdminSubmitting] = useState(false);
+
   const [activeTab, setActiveTab] = useState<
     "OVERVIEW" | "MERCHANTS" | "DEPOSITS" | "PAYMENT_METHODS" | "SUBSCRIPTIONS" | "FRAUD_DB" | "AI_GATEWAYS" | "COURIERS" | "SYSTEM_SETTINGS" | "AUDIT_LOGS"
   >("OVERVIEW");
@@ -113,95 +122,32 @@ export default function SuperAdminPage() {
     },
   ]);
 
-  // Fetch Real Registered Merchants from API & Local Storage
+  // Fetch Real Registered Merchants purely from Database API (Zero fake demo accounts, zero localStorage reliance)
   const fetchMerchants = async () => {
     try {
       setLoadingMerchants(true);
-      let apiMerchants: any[] = [];
-      try {
-        const res = await fetch("/api/admin/merchants");
-        const json = await res.json();
-        if (json.success && Array.isArray(json.data)) {
-          apiMerchants = json.data.map((m: any) => ({
+      const res = await fetch("/api/admin/merchants");
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        const list = json.data
+          .filter((m: any) => m.email !== "admin@nischinto.app")
+          .map((m: any) => ({
             id: m.id,
             storeName: m.businessName || m.storeName || "আমার স্টোর",
             ownerName: m.ownerName || "মার্চেন্ট",
             phone: m.phone || "N/A",
             email: m.email || "N/A",
-            plan: m.plan || "GROWTH",
-            ordersProcessed: m.orders ? m.orders.length : 0,
+            plan: m.plan || "PRO_AI",
+            ordersProcessed: m.orders ? m.orders.length : (m.ordersProcessed || 0),
             walletBalance: m.walletBalance ?? 0,
             joinedDate: m.createdAt ? new Date(m.createdAt).toLocaleDateString("bn-BD") : "২০২৬-১১-২৪",
-            status: "ACTIVE",
+            status: m.status || "ACTIVE",
+            isVerified: m.isVerified !== false,
           }));
-        }
-      } catch (err) {
-        console.warn("API merchants fetch fallback to localStorage:", err);
+        setMerchants(list);
       }
-
-      // Check localStorage for newly registered merchants
-      let localMerchants: any[] = [];
-      if (typeof window !== "undefined") {
-        try {
-          const rawAll = localStorage.getItem("all_merchants");
-          if (rawAll) {
-            const parsed = JSON.parse(rawAll);
-            if (Array.isArray(parsed)) {
-              localMerchants = parsed.map((m: any) => ({
-                id: m.id || `MCH-${Date.now()}`,
-                storeName: m.businessName || m.storeName || "আমার স্টোর",
-                ownerName: m.ownerName || "মার্চেন্ট",
-                phone: m.phone || "N/A",
-                email: m.email || "N/A",
-                plan: m.plan || "PRO_AI",
-                ordersProcessed: m.ordersProcessed ?? 0,
-                walletBalance: m.walletBalance ?? 0,
-                joinedDate: m.joinedDate || "২০২৬-১১-২৪",
-                status: m.status || "ACTIVE",
-              }));
-            }
-          }
-
-          // Also check single merchant_user session
-          const rawUser = localStorage.getItem("merchant_user");
-          if (rawUser) {
-            const single = JSON.parse(rawUser);
-            if (single && single.businessName) {
-              const formatted = {
-                id: single.id || `MCH-${Date.now()}`,
-                storeName: single.businessName || single.storeName,
-                ownerName: single.ownerName || "মার্চেন্ট",
-                phone: single.phone || "N/A",
-                email: single.email || "N/A",
-                plan: single.plan || "PRO_AI",
-                ordersProcessed: single.ordersProcessed ?? 0,
-                walletBalance: single.walletBalance ?? 0,
-                joinedDate: single.joinedDate || "২০২৬-১১-২৪",
-                status: "ACTIVE",
-              };
-              if (!localMerchants.some((m) => m.email === formatted.email && m.phone === formatted.phone)) {
-                localMerchants.unshift(formatted);
-              }
-            }
-          }
-        } catch (e) {
-          console.error("Local storage merchants parse error", e);
-        }
-      }
-
-      // Merge and deduplicate by phone/email
-      const map = new Map<string, any>();
-      [...apiMerchants, ...localMerchants].forEach((m) => {
-        const key = m.phone !== "N/A" ? m.phone : m.email;
-        if (!map.has(key)) {
-          map.set(key, m);
-        }
-      });
-
-      const merged = Array.from(map.values());
-      setMerchants(merged);
     } catch (e) {
-      console.error(e);
+      console.error("Fetch merchants error:", e);
     } finally {
       setLoadingMerchants(false);
     }
@@ -268,36 +214,81 @@ export default function SuperAdminPage() {
     }
   };
 
-  const handleToggleVerification = (mId: string) => {
+  const handleToggleVerification = async (mId: string) => {
+    const target = merchants.find((m) => m.id === mId);
+    if (!target) return;
+    const nextVal = !target.isVerified;
+
     setMerchants((prev) =>
-      prev.map((m) => {
-        if (m.id === mId) {
-          const nextVal = !m.isVerified;
-          showToast(`${m.storeName} ${nextVal ? "ভেরিফাই ও অনুমোদিত হয়েছে ✓" : "ভেরিফিকেশন প্রত্যাহার করা হয়েছে"}`);
-          logAdminAction("MERCHANT_VERIFICATION", `${m.storeName} (${m.ownerName}) ভেরিফিকেশন: ${nextVal ? "APPROVED" : "REVOKED"}`);
-          
-          if (typeof window !== "undefined") {
-            try {
-              const rawAll = localStorage.getItem("all_merchants");
-              if (rawAll) {
-                const list = JSON.parse(rawAll);
-                const updated = list.map((item: any) => item.id === mId ? { ...item, isVerified: nextVal } : item);
-                localStorage.setItem("all_merchants", JSON.stringify(updated));
-              }
-              const rawUser = localStorage.getItem("merchant_user");
-              if (rawUser) {
-                const u = JSON.parse(rawUser);
-                if (u.id === mId) {
-                  localStorage.setItem("merchant_user", JSON.stringify({ ...u, isVerified: nextVal }));
-                }
-              }
-            } catch (e) {}
-          }
-          return { ...m, isVerified: nextVal };
-        }
-        return m;
-      })
+      prev.map((m) => (m.id === mId ? { ...m, isVerified: nextVal } : m))
     );
+
+    showToast(`${target.storeName} ${nextVal ? "ভেরিফাই ও অনুমোদিত হয়েছে ✓" : "ভেরিফিকেশন প্রত্যাহার করা হয়েছে"}`);
+    logAdminAction("MERCHANT_VERIFICATION", `${target.storeName} (${target.ownerName}) ভেরিফিকেশন: ${nextVal ? "APPROVED" : "REVOKED"}`);
+
+    try {
+      await fetch("/api/admin/merchants", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: mId, isVerified: nextVal }),
+      });
+    } catch (e) {
+      console.warn("Failed to persist verification to server", e);
+    }
+  };
+
+  // Check Admin Session on mount
+  useEffect(() => {
+    const checkAdminSession = async () => {
+      try {
+        const res = await fetch("/api/auth/session");
+        const json = await res.json();
+        if (json.success && json.authenticated && json.role === "SUPER_ADMIN") {
+          setIsAdminAuthenticated(true);
+        }
+      } catch (e) {
+      } finally {
+        setAdminAuthLoading(false);
+      }
+    };
+    checkAdminSession();
+  }, []);
+
+  const handleAdminLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAdminSubmitting(true);
+    setAdminAuthError(null);
+
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: adminEmail, password: adminPassword }),
+      });
+      const data = await res.json();
+      setAdminSubmitting(false);
+
+      if (data.success && data.role === "SUPER_ADMIN") {
+        setIsAdminAuthenticated(true);
+        showToast("সুপার অ্যাডমিন লগইন সফল হয়েছে ✓");
+        fetchMerchants();
+        fetchDeposits();
+        fetchPaymentMethods();
+      } else {
+        setAdminAuthError(data.error || "ভুল অ্যাডমিন ইমেইল বা পাসওয়ার্ড!");
+      }
+    } catch (e) {
+      setAdminSubmitting(false);
+      setAdminAuthError("সার্ভারের সাথে সংযোগ স্থাপন করা যায়নি।");
+    }
+  };
+
+  const handleAdminLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch (e) {}
+    setIsAdminAuthenticated(false);
+    setAdminPassword("");
   };
 
   useEffect(() => {
@@ -670,6 +661,84 @@ export default function SuperAdminPage() {
     return matchesSearch && matchesPlan;
   });
 
+  // Admin Login Screen if not authenticated
+  if (adminAuthLoading) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+        <RefreshCw className="w-8 h-8 text-teal-400 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!isAdminAuthenticated) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4">
+        <div className="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl animate-in zoom-in-95 text-slate-100">
+          <div className="text-center space-y-2">
+            <div className="w-16 h-16 rounded-2xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center mx-auto mb-2">
+              <ShieldCheck className="w-8 h-8" />
+            </div>
+            <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white">
+              Nischinto Super Admin
+            </h1>
+            <p className="text-xs text-slate-400">
+              প্ল্যাটফর্ম প্রশাসন ও সেন্ট্রাল সিস্টেম কন্ট্রোল প্যানেল
+            </p>
+          </div>
+
+          {adminAuthError && (
+            <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-300 text-xs rounded-xl font-medium">
+              {adminAuthError}
+            </div>
+          )}
+
+          <form onSubmit={handleAdminLogin} className="space-y-4">
+            <div>
+              <label className="text-xs font-bold text-slate-300 block mb-1">
+                অ্যাডমিন ইমেইল
+              </label>
+              <input
+                type="email"
+                required
+                value={adminEmail}
+                onChange={(e) => setAdminEmail(e.target.value)}
+                placeholder="admin@nischinto.app"
+                className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium text-white focus:outline-none focus:border-teal-400"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-slate-300 block mb-1">
+                অ্যাডমিন পাসওয়ার্ড
+              </label>
+              <input
+                type="password"
+                required
+                value={adminPassword}
+                onChange={(e) => setAdminPassword(e.target.value)}
+                placeholder="Admin@2026"
+                className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs font-medium text-white focus:outline-none focus:border-teal-400"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={adminSubmitting}
+              className="w-full py-3 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Lock className="w-4 h-4" />
+              <span>{adminSubmitting ? "যাচাই করা হচ্ছে..." : "অ্যাডমিন প্যানেলে প্রবেশ করুন"}</span>
+            </button>
+          </form>
+
+          <div className="text-center pt-2 text-[11px] text-slate-500">
+            <span>সুরক্ষিত সার্ভার গেটওয়ে • এনক্রিপ্টেড সেশন</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-teal-500 selection:text-white">
       {/* Toast Notification */}
@@ -681,36 +750,44 @@ export default function SuperAdminPage() {
       )}
 
       {/* Top Navbar */}
-      <header className="h-16 bg-white border-b border-slate-200/80 px-6 flex items-center justify-between sticky top-0 z-40 shadow-sm">
-        <div className="flex items-center gap-4">
-          <Link href="/" className="flex items-center gap-2.5">
-            <NishchintoLogo size="sm" showBangla={true} />
+      <header className="h-16 bg-white border-b border-slate-200/80 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-40 shadow-sm">
+        <div className="flex items-center gap-2 sm:gap-4 truncate">
+          <Link href="/" className="flex items-center gap-2 shrink-0">
+            <NishchintoLogo size="sm" showBangla={false} />
           </Link>
           <span className="hidden sm:inline-block text-slate-300">|</span>
-          <div className="flex items-center gap-2 px-2.5 py-1 bg-red-50 border border-red-200 rounded-lg text-red-700 text-[11px] font-bold">
+          <div className="flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 bg-red-50 border border-red-200 rounded-lg text-red-700 text-[10px] sm:text-[11px] font-bold shrink-0">
             <Lock className="w-3 h-3 text-red-600" />
-            <span>SUPER ADMIN MASTER CONTROL</span>
+            <span className="truncate">SUPER ADMIN</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 text-xs bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 text-slate-700 font-medium">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="hidden lg:flex items-center gap-2 text-xs bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 text-slate-700 font-medium">
             <Activity className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
-            <span>সার্ভার স্বাস্থ্য: ১০০% লাইভ</span>
+            <span>সার্ভার লাইভ</span>
           </div>
           <Link
             href="/dashboard"
-            className="text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5"
+            className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-2.5 py-1.5 rounded-xl transition-all shadow-2xs flex items-center gap-1.5"
           >
-            <span>মার্চেন্ট ড্যাশবোর্ড দেখুন</span>
+            <span className="hidden sm:inline">মার্চেন্ট ড্যাশবোর্ড</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </Link>
+          <button
+            onClick={handleAdminLogout}
+            title="অ্যাডমিন প্যানেল থেকে লগআউট"
+            className="text-xs bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold px-2.5 sm:px-3 py-1.5 rounded-xl transition-all border border-rose-200 flex items-center gap-1 cursor-pointer"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">লগআউট</span>
+          </button>
         </div>
       </header>
 
       {/* Master Tabs Subheader */}
-      <div className="bg-white/95 backdrop-blur-md border-b border-slate-200 px-6 sticky top-16 z-30 overflow-x-auto scrollbar-none shadow-xs">
-        <div className="flex items-center gap-1.5 py-2.5 max-w-7xl mx-auto">
+      <div className="bg-white/95 backdrop-blur-md border-b border-slate-200 px-3 sm:px-6 sticky top-16 z-30 overflow-x-auto scrollbar-none shadow-xs">
+        <div className="flex items-center gap-1.5 py-2.5 max-w-7xl mx-auto min-w-max">
           {[
             { id: "OVERVIEW", label: "প্ল্যাটফর্ম ওভারভিউ", icon: TrendingUp },
             { id: "MERCHANTS", label: "মার্চেন্ট ও স্টোরস", icon: Users, badge: merchants.length },

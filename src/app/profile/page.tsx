@@ -48,11 +48,12 @@ export default function ProfilePage() {
   const [passwordLoading, setPasswordLoading] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const raw = localStorage.getItem("merchant_user");
-      if (raw) {
-        try {
-          const u = JSON.parse(raw);
+    const loadProfileData = async () => {
+      try {
+        const res = await fetch("/api/auth/session");
+        const json = await res.json();
+        if (json.success && json.authenticated && json.user) {
+          const u = json.user;
           setMerchantId(u.id || "");
           setBusinessName(u.businessName || "");
           setOwnerName(u.ownerName || "");
@@ -64,11 +65,33 @@ export default function ProfilePage() {
           setIsVerified(u.isVerified !== false);
           setWalletBalance(Number(u.walletBalance) || 0);
           setPlan(u.plan || "PRO_AI");
-        } catch (e) {
-          console.error("Profile parse error", e);
+          return;
+        }
+      } catch (e) {}
+
+      if (typeof window !== "undefined") {
+        const raw = localStorage.getItem("merchant_user");
+        if (raw) {
+          try {
+            const u = JSON.parse(raw);
+            setMerchantId(u.id || "");
+            setBusinessName(u.businessName || "");
+            setOwnerName(u.ownerName || "");
+            setPhone(u.phone || "");
+            setEmail(u.email || "");
+            setCategory(u.category || "GENERAL");
+            setAddress(u.address || "");
+            setDistrict(u.district || "Dhaka");
+            setIsVerified(u.isVerified !== false);
+            setWalletBalance(Number(u.walletBalance) || 0);
+            setPlan(u.plan || "PRO_AI");
+          } catch (e) {
+            console.error("Profile parse error", e);
+          }
         }
       }
-    }
+    };
+    loadProfileData();
   }, []);
 
   const showToast = (text: string, type: "success" | "error" = "success") => {

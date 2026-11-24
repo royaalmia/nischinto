@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NishchintoLogo from "./NishchintoLogo";
@@ -22,6 +23,7 @@ import {
   Globe,
   CreditCard,
   User,
+  X,
 } from "lucide-react";
 
 const navigation = [
@@ -44,15 +46,41 @@ const navigation = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  return (
-    <aside className="w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 h-screen sticky top-0 overflow-y-auto">
+  useEffect(() => {
+    const handleOpen = () => setMobileOpen(true);
+    const handleClose = () => setMobileOpen(false);
+
+    window.addEventListener("open-mobile-menu", handleOpen);
+    window.addEventListener("close-mobile-menu", handleClose);
+
+    return () => {
+      window.removeEventListener("open-mobile-menu", handleOpen);
+      window.removeEventListener("close-mobile-menu", handleClose);
+    };
+  }, []);
+
+  // Close on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  const navContent = (
+    <div className="flex flex-col justify-between h-full">
       <div>
         {/* Brand Header */}
-        <div className="p-4 border-b border-slate-100 bg-white sticky top-0 z-10">
+        <div className="p-4 border-b border-slate-100 bg-white sticky top-0 z-10 flex items-center justify-between">
           <Link href="/dashboard" className="flex items-center gap-3">
             <NishchintoLogo size="sm" showBangla={true} />
           </Link>
+          <button
+            onClick={() => setMobileOpen(false)}
+            title="মেনু বন্ধ করুন"
+            className="lg:hidden p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Navigation Items */}
@@ -114,6 +142,30 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
-    </aside>
+    </div>
+  );
+
+  return (
+    <>
+      {/* 1. Desktop Fixed Sidebar */}
+      <aside className="hidden lg:flex w-64 bg-white border-r border-slate-200 flex-col justify-between shrink-0 h-screen sticky top-0 overflow-y-auto">
+        {navContent}
+      </aside>
+
+      {/* 2. Mobile Slide-out Drawer */}
+      {mobileOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex animate-in fade-in duration-200">
+          {/* Dark Backdrop */}
+          <div
+            onClick={() => setMobileOpen(false)}
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs cursor-pointer"
+          />
+          {/* Drawer Panel */}
+          <div className="relative w-72 max-w-[85vw] bg-white h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200 overflow-y-auto">
+            {navContent}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

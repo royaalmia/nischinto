@@ -14,6 +14,7 @@ class EdgeMemoryStore {
   aiCallLogs: any[] = [];
   depositRequests: any[] = [];
   notifications: any[] = [];
+  landingPages: any[] = [];
   paymentMethods: any[] = [
     {
       id: "pm_bkash",
@@ -79,6 +80,7 @@ function createModelHandler(modelName: string) {
       else if (modelName === "depositRequest") list = memoryStore.depositRequests;
       else if (modelName === "notification") list = memoryStore.notifications;
       else if (modelName === "paymentMethod") list = memoryStore.paymentMethods;
+      else if (modelName === "landingPage") list = memoryStore.landingPages;
       else if (modelName === "courierConfig") list = memoryStore.courierConfigs;
       else if (modelName === "aiAdCampaign") list = memoryStore.campaigns;
       else if (modelName === "courierSettlement") list = memoryStore.settlements;
@@ -87,6 +89,7 @@ function createModelHandler(modelName: string) {
       else if (modelName === "depositRequest") list = memoryStore.depositRequests;
       else if (modelName === "notification") list = memoryStore.notifications;
       else if (modelName === "paymentMethod") list = memoryStore.paymentMethods;
+      else if (modelName === "landingPage") list = memoryStore.landingPages;
 
       if (args?.where) {
         return list.filter((item) => {
@@ -117,6 +120,7 @@ function createModelHandler(modelName: string) {
       else if (modelName === "depositRequest") list = memoryStore.depositRequests;
       else if (modelName === "notification") list = memoryStore.notifications;
       else if (modelName === "paymentMethod") list = memoryStore.paymentMethods;
+      else if (modelName === "landingPage") list = memoryStore.landingPages;
 
       return (
         list.find((item) => {
@@ -153,6 +157,7 @@ function createModelHandler(modelName: string) {
       else if (modelName === "depositRequest") memoryStore.depositRequests.unshift(data);
       else if (modelName === "notification") memoryStore.notifications.unshift(data);
       else if (modelName === "paymentMethod") memoryStore.paymentMethods.unshift(data);
+      else if (modelName === "landingPage") memoryStore.landingPages.unshift(data);
 
       return data;
     },
@@ -189,6 +194,7 @@ function createModelHandler(modelName: string) {
       let list: any[] = [];
       if (modelName === "paymentMethod") list = memoryStore.paymentMethods;
       else if (modelName === "product") list = memoryStore.products;
+      else if (modelName === "landingPage") list = memoryStore.landingPages;
       const idx = list.findIndex((item) => item.id === where.id);
       if (idx !== -1) {
         return list.splice(idx, 1)[0];

@@ -78,17 +78,20 @@ export default function LandingPagesManagement() {
 
     fetchInventory();
 
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("merchant_landing_pages");
-      if (stored) {
-        try {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) {
-            setPages(parsed);
-          }
-        } catch (e) {}
+    const fetchLandingPages = async () => {
+      try {
+        const res = await fetch("/api/landing-pages");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          setPages(json.data);
+          return;
+        }
+      } catch (e) {
+        console.warn("Server landing pages fetch error:", e);
       }
-    }
+    };
+
+    fetchLandingPages();
   }, []);
 
   // AI Content Assistant State
@@ -210,9 +213,27 @@ export default function LandingPagesManagement() {
 
     const updated = [newPage, ...pages];
     setPages(updated);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("merchant_landing_pages", JSON.stringify(updated));
-      localStorage.setItem(`landing_${cleanSlug}`, JSON.stringify(newPage));
+
+    // Persist to Server Database so anyone who gets the URL can view/order
+    try {
+      fetch("/api/landing-pages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          slug: cleanSlug,
+          title,
+          subtitle,
+          category,
+          offerPrice,
+          originalPrice,
+          deliveryInside: Number(deliveryChargeInside) || 70,
+          deliveryOutside: Number(deliveryChargeOutside) || 130,
+          imageUrl: newPage.imageUrl,
+          features: newPage.features,
+        }),
+      });
+    } catch (e) {
+      console.warn("Failed to persist landing page to server", e);
     }
 
     setShowCreateModal(false);
@@ -227,10 +248,10 @@ export default function LandingPagesManagement() {
     if (!confirm("আপনি কি নিশ্চিত এই ল্যান্ডিং পেজটি মুছে ফেলতে চান?")) return;
     const filtered = pages.filter((p) => p.id !== id);
     setPages(filtered);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("merchant_landing_pages", JSON.stringify(filtered));
-      localStorage.removeItem(`landing_${itemSlug}`);
-    }
+
+    try {
+      fetch(`/api/landing-pages/${itemSlug}`, { method: "DELETE" });
+    } catch (e) {}
   };
 
   // Download Standalone Ready-to-use HTML code
