@@ -91,6 +91,9 @@ export default function LandingPagesManagement() {
     }
   }, []);
 
+  // AI Content Assistant State
+  const [aiGenerating, setAiGenerating] = useState(false);
+
   // When user selects a product from their inventory, auto-fill form
   const handleSelectProduct = (prodId: string) => {
     setSelectedProductId(prodId);
@@ -109,6 +112,57 @@ export default function LandingPagesManagement() {
       setSlug(cleanSlug || `item-${Date.now().toString().slice(-4)}`);
       setSubtitle(`🔥 সীমিত সময়ের মেগা অফার! "${prod.title}" বিশেষ ছাড়ে সংগ্রহ করুন।`);
     }
+  };
+
+  // AI Content Generator: creates high-converting titles, subtitles, features & offers tailored to category
+  const handleAiGenerateContent = () => {
+    setAiGenerating(true);
+    setTimeout(() => {
+      setAiGenerating(false);
+
+      const targetTitle = title.trim() || (
+        category === "FASHION" ? "প্রিমিয়াম ড্রপ-শোল্ডার ওভারসাইজড টি-শার্ট" :
+        category === "FOOD" ? "১০০% খাঁটি সুন্দরবন প্রাকৃতিক চাকের মধু" :
+        category === "GADGETS" ? "অ্যাক্টিভ নয়েজ ক্যানসেলিং ট্রু ওয়্যারলেস ইয়ারবাডস প্রো" :
+        category === "COSMETICS" ? "অর্গানিক গ্লোয়িং অ্যান্ড রিপেয়ার স্কিনকেয়ার সিরাম" :
+        category === "JEWELRY" ? "হাতে তৈরি রাজকীয় ডিজাইনার পার্টি জুয়েলারি সেট" :
+        category === "HOME" ? "স্মার্ট মডার্ন লিভিং রুম ও অফিস ডেকোরেশন ল্যাম্প" :
+        category === "KIDS" ? "শিশুদের মেধা বিকাশে এডুকেশনাল ইন্টারেক্টিভ লার্নিং টয়" :
+        "এক্সক্লুসিভ প্রিমিয়াম কোয়ালিটি সুপার প্রোডাক্ট"
+      );
+
+      if (!title) setTitle(targetTitle);
+
+      const cleanSlug = targetTitle
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "-")
+        .replace(/-+/g, "-")
+        .slice(0, 30);
+      if (!slug) setSlug(cleanSlug || `deal-${Date.now().toString().slice(-4)}`);
+
+      // Subtitle
+      setSubtitle(`🔥 মেগা ডিসকাউন্ট অফার! "${targetTitle}" ডেলিভারি ম্যানের সামনে পণ্য দেখে শতভাগ নিশ্চিত হয়ে মূল্য পরিশোধ করুন।`);
+
+      // Category-specific high-converting features
+      let feats = "";
+      if (category === "FASHION") {
+        feats = "১০০% প্রিমিয়াম কম্বড কটন ফেব্রিক ও আধুনিক আরামদায়ক ফিটিং\nরং এবং প্রিন্টের স্থায়িত্বে ১০০% লাইফটাইম গ্যারান্টি\nকুরিয়ারে পার্সেল খুলে চেক করে নেওয়ার সুবিধা\nসারা দেশে ২-৩ দিনে দ্রুততম ক্যাশ অন ডেলিভারি\nসাইজ সংক্রান্ত কোনো সমস্যা হলে ৭ দিনের সহজ এক্সচেঞ্জ গ্যারান্টি";
+      } else if (category === "FOOD") {
+        feats = "১০০% খাঁটি, প্রাকৃতিক ও কেমিক্যালমুক্ত স্বাস্থ্যকর উপাদান\nবিএসটিআই ও ল্যাব টেস্টের সর্বোচ্চ মাননিয়ন্ত্রণ নিশ্চিত\nসরাসরি বাগান ও খামার থেকে সংগৃহীত ফ্রেশ পণ্য\nসারা দেশে দ্রুত সুরক্ষিত ফুড-গ্রেড প্যাকেজিং ও হোম ডেলিভারি\nকোনো ভেজাল প্রমাণে ১০০% মানি ব্যাক গ্যারান্টি";
+      } else if (category === "GADGETS") {
+        feats = "অরিজিনাল হাই-ফাই বাউন্সিং বেস ও ক্রিস্টাল ক্লিয়ার সাউন্ড কোয়ালিটি\nদীর্ঘস্থায়ী ব্যাটারি ব্যাকআপ ও আল্ট্রা-ফাস্ট টাইপ-সি চার্জিং\nহালকা, টেকসই ও প্রিমিয়াম ওয়াটারপ্রুফ ডিজাইন\n৬ মাসের অফিসিয়াল ব্র্যান্ড রিপ্লেসমেন্ট ওয়ারেন্টি\nরাইডারের সামনে সম্পূর্ণ পার্সেল চেক করে পেমেন্ট করার সুবিধা";
+      } else if (category === "COSMETICS") {
+        feats = "ডার্মাটোলজিস্ট টেস্টেড ও ১০০% নিরাপদ অর্গানিক উপাদান\nত্বকের আর্দ্রতা ধরে রেখে ন্যাচারাল গ্লো ফিরিয়ে আনে\nকোনো প্যারাবেন, ক্ষতিকারক কেমিক্যাল বা সাইড-ইফেক্ট নেই\nসব ধরণের স্কিন টাইপে প্রতিদিন ব্যবহারের উপযোগী\nসরাসরি অথেনটিক ইমপোর্টেড ব্র্যান্ড কোয়ালিটি";
+      } else {
+        feats = "১০০% অরিজিনাল এক্সক্লুসিভ প্রিমিয়াম কোয়ালিটি\nপণ্য হাতে পেয়ে পুরোপুরি চেক করে নেওয়ার পূর্ণ স্বাধীনতা\nসারা দেশে দ্রুত ক্যাশ অন ডেলিভারি (Cash on Delivery)\nপণ্যে কোনো ত্রুটি থাকলে তাৎক্ষণিক ফ্রি রিটার্ন বা রিপ্লেসমেন্ট\n২৪/৭ গ্রাহক সেবা ও অর্ডারের পর সার্বক্ষণিক লাইভ ট্র্যাকিং";
+      }
+      setFeaturesText(feats);
+
+      if (!offerPrice || offerPrice === 1200) {
+        setOfferPrice(1250);
+        setOriginalPrice(1850);
+      }
+    }, 400);
   };
 
   // Upload image from device
@@ -525,6 +579,33 @@ export default function LandingPagesManagement() {
 
               <form onSubmit={handleCreateLandingPage} className="space-y-4">
                 
+                {/* ⚡ Nishchinto AI Landing Page Assistant Banner */}
+                <div className="p-3.5 bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-indigo-500/10 border border-teal-300/60 rounded-2xl flex items-center justify-between gap-3 shadow-2xs">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center shadow-xs shrink-0">
+                      <Sparkles className="w-5 h-5 animate-pulse" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        <span>⚡ Nishchinto AI ল্যান্ডিং পেজ অ্যাসিস্ট্যান্ট</span>
+                        <span className="text-[9px] bg-teal-100 text-teal-800 px-1.5 py-0.2 rounded-full font-bold">1-Click</span>
+                      </h4>
+                      <p className="text-[11px] text-slate-600">
+                        ১-ক্লিকে পণ্যের হাই-কনভার্টিং শিরোনাম, আকর্ষণীয় সাবটাইটেল, ফিচারস ও অফার সাজিয়ে নিন।
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleAiGenerateContent}
+                    disabled={aiGenerating}
+                    className="px-3.5 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center gap-1.5 shrink-0 cursor-pointer disabled:opacity-50"
+                  >
+                    <Sparkles className={`w-3.5 h-3.5 ${aiGenerating ? "animate-spin" : ""}`} />
+                    <span>{aiGenerating ? "সাজানো হচ্ছে..." : "AI দিয়ে সাজান"}</span>
+                  </button>
+                </div>
+
                 {/* 1. Pick from Inventory Option */}
                 {storeProducts.length > 0 && (
                   <div className="p-3 bg-teal-50/70 border border-teal-200 rounded-2xl space-y-1.5">
@@ -594,9 +675,22 @@ export default function LandingPagesManagement() {
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">
-                      আকর্ষণীয় অফার সাব-টাইটেল
-                    </label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-xs font-bold text-slate-700">
+                        আকর্ষণীয় অফার সাব-টাইটেল
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const t = title || "এই বিশেষ অফার";
+                          setSubtitle(`🔥 সীমিত সময়ের আকর্ষণীয় মেগা অফার! "${t}" ডেলিভারি ম্যানের সামনে পণ্য দেখে শতভাগ নিশ্চিত হয়ে ক্যাশ অন ডেলিভারিতে সংগ্রহ করুন।`);
+                        }}
+                        className="text-[10px] text-teal-600 font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                      >
+                        <Sparkles className="w-3 h-3 text-teal-600" />
+                        <span>AI সাব-টাইটেল</span>
+                      </button>
+                    </div>
                     <input
                       type="text"
                       placeholder="যেমন: 🔥 সীমিত সময়ের মেগা অফার! ৫০% ডিসকাউন্টে সংগ্রহ করুন"
@@ -685,11 +779,21 @@ export default function LandingPagesManagement() {
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">
-                    আকর্ষণীয় সুবিধা ও ফিচার (প্রতি লাইনে একটি)
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-xs font-bold text-slate-700">
+                      আকর্ষণীয় সুবিধা ও ফিচার (প্রতি লাইনে একটি)
+                    </label>
+                    <button
+                      type="button"
+                      onClick={handleAiGenerateContent}
+                      className="text-[10px] text-teal-600 font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                    >
+                      <Sparkles className="w-3 h-3 text-teal-600" />
+                      <span>AI ফিচার জেনারেটর</span>
+                    </button>
+                  </div>
                   <textarea
-                    rows={3}
+                    rows={4}
                     value={featuresText}
                     onChange={(e) => setFeaturesText(e.target.value)}
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-teal-500"

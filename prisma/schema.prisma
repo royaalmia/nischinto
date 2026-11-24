@@ -254,3 +254,19 @@ model Notification {
   createdAt   DateTime @default(now())
 }
 
+model PaymentMethod {
+  id            String   @id @default(cuid())
+  method        String   // BKASH, NAGAD, ROCKET, UPAY, BANK
+  title         String   // e.g. "bKash Merchant", "Nagad Personal", "BRAC Bank"
+  accountType   String   @default("MERCHANT") // MERCHANT, PERSONAL, AGENT, CURRENT
+  accountNumber String   // e.g. "01700000000" or Bank A/C
+  bankName      String?  // BRAC Bank, City Bank
+  branchName    String?
+  routingNumber String?
+  instructions  String?  // "Make Payment" or "Send Money"
+  isActive      Boolean  @default(true)
+  isDefault     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+

@@ -38,7 +38,6 @@ export default function RegisterPage() {
 
   // OTP Fields
   const [otpCode, setOtpCode] = useState("");
-  const [devOtpHint, setDevOtpHint] = useState<string | null>(null);
   const [resendingOtp, setResendingOtp] = useState(false);
 
   // State
@@ -95,9 +94,6 @@ export default function RegisterPage() {
       if (data.success) {
         setStep(2);
         setSuccessMsg(data.message);
-        if (data.devOtp) {
-          setDevOtpHint(data.devOtp);
-        }
       } else {
         setErrorMsg(data.error || "ওটিপি পাঠাতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
       }
@@ -121,7 +117,6 @@ export default function RegisterPage() {
       setResendingOtp(false);
       if (data.success) {
         setSuccessMsg("আপনার ইমেইলে নতুন ৬-সংখ্যার ওটিপি কোড পাঠানো হয়েছে!");
-        if (data.devOtp) setDevOtpHint(data.devOtp);
       } else {
         setErrorMsg(data.error || "পুনরায় ওটিপি পাঠানো যায়নি।");
       }
@@ -451,24 +446,11 @@ export default function RegisterPage() {
             <div className="p-4 bg-teal-50 border border-teal-200 rounded-2xl space-y-2 text-center">
               <span className="text-3xl">📩</span>
               <h3 className="text-sm font-bold text-slate-900">
-                ভেরিফিকেশন ওটিপি পাঠানো হয়েছে
+                ইমেইল ভেরিফিকেশন ওটিপি পাঠানো হয়েছে
               </h3>
               <p className="text-xs text-slate-600">
-                <strong>{email}</strong> ইমেইলে একটি ৬-সংখ্যার ভেরিফিকেশন কোড পাঠানো হয়েছে।
+                <strong>{email}</strong> ঠিকানায় ৬-সংখ্যার ভেরিফিকেশন কোড পাঠানো হয়েছে। অনুগ্রহ করে আপনার ইনবক্স (বা স্প্যাম ফোল্ডার) চেক করে কোডটি লিখুন।
               </p>
-              {devOtpHint && (
-                <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-white border border-teal-300 rounded-xl text-xs text-teal-800 font-mono font-bold">
-                  <span>🔑 টেস্ট ওটিপি কোড:</span>
-                  <span className="text-sm tracking-widest text-teal-900">{devOtpHint}</span>
-                  <button
-                    type="button"
-                    onClick={() => setOtpCode(devOtpHint)}
-                    className="ml-1 text-[10px] text-teal-600 underline font-sans"
-                  >
-                    অটো ফিল করুন
-                  </button>
-                </div>
-              )}
             </div>
 
             <div>

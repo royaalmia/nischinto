@@ -14,6 +14,55 @@ class EdgeMemoryStore {
   aiCallLogs: any[] = [];
   depositRequests: any[] = [];
   notifications: any[] = [];
+  paymentMethods: any[] = [
+    {
+      id: "pm_bkash",
+      method: "BKASH",
+      title: "বিকাশ মার্চেন্ট অ্যাকাউন্ট",
+      accountType: "MERCHANT",
+      accountNumber: "01700-000000",
+      instructions: "Make Payment অপশন ব্যবহার করে পেমেন্ট করুন",
+      isActive: true,
+      isDefault: true,
+      createdAt: new Date(),
+    },
+    {
+      id: "pm_nagad",
+      method: "NAGAD",
+      title: "নগদ পার্সোনাল অ্যাকাউন্ট",
+      accountType: "PERSONAL",
+      accountNumber: "01800-000000",
+      instructions: "Send Money অপশন ব্যবহার করুন",
+      isActive: true,
+      isDefault: false,
+      createdAt: new Date(),
+    },
+    {
+      id: "pm_rocket",
+      method: "ROCKET",
+      title: "রকেট অ্যাকাউন্ট",
+      accountType: "PERSONAL",
+      accountNumber: "01900-000000-8",
+      instructions: "Send Money অপশন ব্যবহার করুন",
+      isActive: true,
+      isDefault: false,
+      createdAt: new Date(),
+    },
+    {
+      id: "pm_bank",
+      method: "BANK",
+      title: "ব্র্যাক ব্যাংক পিএলসি (BRAC Bank PLC)",
+      accountType: "CURRENT",
+      accountNumber: "1501204892019001",
+      bankName: "BRAC Bank PLC",
+      branchName: "Gulshan Branch, Dhaka",
+      routingNumber: "060261726",
+      instructions: "হিসাব নাম: Nischinto Technologies Ltd",
+      isActive: true,
+      isDefault: false,
+      createdAt: new Date(),
+    },
+  ];
 }
 
 const memoryStore = new EdgeMemoryStore();
@@ -29,6 +78,7 @@ function createModelHandler(modelName: string) {
       else if (modelName === "order") list = memoryStore.orders;
       else if (modelName === "depositRequest") list = memoryStore.depositRequests;
       else if (modelName === "notification") list = memoryStore.notifications;
+      else if (modelName === "paymentMethod") list = memoryStore.paymentMethods;
       else if (modelName === "courierConfig") list = memoryStore.courierConfigs;
       else if (modelName === "aiAdCampaign") list = memoryStore.campaigns;
       else if (modelName === "courierSettlement") list = memoryStore.settlements;
@@ -36,6 +86,7 @@ function createModelHandler(modelName: string) {
       else if (modelName === "aiCallLog") list = memoryStore.aiCallLogs;
       else if (modelName === "depositRequest") list = memoryStore.depositRequests;
       else if (modelName === "notification") list = memoryStore.notifications;
+      else if (modelName === "paymentMethod") list = memoryStore.paymentMethods;
 
       if (args?.where) {
         return list.filter((item) => {
@@ -65,6 +116,7 @@ function createModelHandler(modelName: string) {
       else if (modelName === "order") list = memoryStore.orders;
       else if (modelName === "depositRequest") list = memoryStore.depositRequests;
       else if (modelName === "notification") list = memoryStore.notifications;
+      else if (modelName === "paymentMethod") list = memoryStore.paymentMethods;
 
       return (
         list.find((item) => {
@@ -100,6 +152,7 @@ function createModelHandler(modelName: string) {
       else if (modelName === "aiCallLog") memoryStore.aiCallLogs.push(data);
       else if (modelName === "depositRequest") memoryStore.depositRequests.unshift(data);
       else if (modelName === "notification") memoryStore.notifications.unshift(data);
+      else if (modelName === "paymentMethod") memoryStore.paymentMethods.unshift(data);
 
       return data;
     },
@@ -129,6 +182,18 @@ function createModelHandler(modelName: string) {
         Object.assign(item, args.data || {});
       }
       return { count: list.length };
+    },
+
+    delete: async (args: any = {}) => {
+      const where = args?.where || {};
+      let list: any[] = [];
+      if (modelName === "paymentMethod") list = memoryStore.paymentMethods;
+      else if (modelName === "product") list = memoryStore.products;
+      const idx = list.findIndex((item) => item.id === where.id);
+      if (idx !== -1) {
+        return list.splice(idx, 1)[0];
+      }
+      return { id: where.id };
     },
 
     upsert: async (args: any = {}) => {

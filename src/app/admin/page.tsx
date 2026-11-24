@@ -53,7 +53,7 @@ import {
 
 export default function SuperAdminPage() {
   const [activeTab, setActiveTab] = useState<
-    "OVERVIEW" | "MERCHANTS" | "DEPOSITS" | "SUBSCRIPTIONS" | "FRAUD_DB" | "AI_GATEWAYS" | "COURIERS" | "SYSTEM_SETTINGS" | "AUDIT_LOGS"
+    "OVERVIEW" | "MERCHANTS" | "DEPOSITS" | "PAYMENT_METHODS" | "SUBSCRIPTIONS" | "FRAUD_DB" | "AI_GATEWAYS" | "COURIERS" | "SYSTEM_SETTINGS" | "AUDIT_LOGS"
   >("OVERVIEW");
 
   const [search, setSearch] = useState("");
@@ -67,6 +67,19 @@ export default function SuperAdminPage() {
   const [newPhone, setNewPhone] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPlan, setNewPlan] = useState("GROWTH");
+
+  // Payment Methods State & Modal
+  const [paymentMethodsList, setPaymentMethodsList] = useState<any[]>([]);
+  const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
+  const [isAddPaymentOpen, setIsAddPaymentOpen] = useState(false);
+  const [newPmMethod, setNewPmMethod] = useState<"BKASH" | "NAGAD" | "ROCKET" | "UPAY" | "BANK">("BKASH");
+  const [newPmTitle, setNewPmTitle] = useState("");
+  const [newPmType, setNewPmType] = useState<"MERCHANT" | "PERSONAL" | "AGENT" | "CURRENT">("MERCHANT");
+  const [newPmNumber, setNewPmNumber] = useState("");
+  const [newPmBankName, setNewPmBankName] = useState("");
+  const [newPmBranch, setNewPmBranch] = useState("");
+  const [newPmRouting, setNewPmRouting] = useState("");
+  const [newPmInstructions, setNewPmInstructions] = useState("");
 
   // Real Merchants State (Zero Fake Demo Stores)
   const [merchants, setMerchants] = useState<any[]>([]);
@@ -290,7 +303,102 @@ export default function SuperAdminPage() {
   useEffect(() => {
     fetchMerchants();
     fetchDeposits();
+    fetchPaymentMethods();
   }, []);
+
+  // Payment Methods Handlers
+  const fetchPaymentMethods = async () => {
+    try {
+      setLoadingPaymentMethods(true);
+      const res = await fetch("/api/admin/payment-methods");
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        setPaymentMethodsList(json.data);
+      }
+    } catch (e) {
+      console.warn("Payment methods fetch error:", e);
+    } finally {
+      setLoadingPaymentMethods(false);
+    }
+  };
+
+  const handleTogglePaymentMethodActive = async (id: string, currentStatus: boolean) => {
+    try {
+      const res = await fetch("/api/admin/payment-methods", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, isActive: !currentStatus }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        showToast(json.message || "পেমেন্ট অ্যাকাউন্ট স্ট্যাটাস আপডেট হয়েছে!");
+        fetchPaymentMethods();
+        logAdminAction("PAYMENT_METHOD_TOGGLE", `পেমেন্ট অ্যাকাউন্ট ID: ${id} স্ট্যাটাস: ${!currentStatus ? "ACTIVE" : "INACTIVE"}`);
+      }
+    } catch (e) {
+      showToast("স্ট্যাটাস আপডেট করা যায়নি।");
+    }
+  };
+
+  const handleCreatePaymentMethod = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newPmNumber) {
+      showToast("অনুগ্রহ করে অ্যাকাউন্ট নম্বর লিখুন।");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/admin/payment-methods", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          method: newPmMethod,
+          title: newPmTitle || `${newPmMethod} অ্যাকাউন্ট`,
+          accountType: newPmType,
+          accountNumber: newPmNumber,
+          bankName: newPmMethod === "BANK" ? newPmBankName : undefined,
+          branchName: newPmMethod === "BANK" ? newPmBranch : undefined,
+          routingNumber: newPmMethod === "BANK" ? newPmRouting : undefined,
+          instructions: newPmInstructions || (newPmMethod === "BKASH" ? "Make Payment অপশন ব্যবহার করুন" : "Send Money অপশন ব্যবহার করুন"),
+          isActive: true,
+        }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        showToast("নতুন পেমেন্ট অ্যাকাউন্ট সফলভাবে যোগ হয়েছে!");
+        setIsAddPaymentOpen(false);
+        setNewPmNumber("");
+        setNewPmTitle("");
+        setNewPmInstructions("");
+        setNewPmBankName("");
+        setNewPmBranch("");
+        setNewPmRouting("");
+        fetchPaymentMethods();
+        logAdminAction("PAYMENT_METHOD_CREATED", `নতুন মেথড যোগ: ${newPmMethod} (${newPmNumber})`);
+      } else {
+        showToast(json.error || "অ্যাকাউন্ট যোগ করা যায়নি।");
+      }
+    } catch (e) {
+      showToast("সার্ভার ত্রুটি!");
+    }
+  };
+
+  const handleDeletePaymentMethod = async (id: string) => {
+    if (!confirm("আপনি কি নিশ্চিত এই পেমেন্ট অ্যাকাউন্টটি মুছে ফেলতে চান?")) return;
+    try {
+      const res = await fetch(`/api/admin/payment-methods?id=${id}`, {
+        method: "DELETE",
+      });
+      const json = await res.json();
+      if (json.success) {
+        showToast("পেমেন্ট অ্যাকাউন্ট মুছে ফেলা হয়েছে।");
+        fetchPaymentMethods();
+        logAdminAction("PAYMENT_METHOD_DELETED", `পেমেন্ট মেথড ডিলিট: ID ${id}`);
+      }
+    } catch (e) {
+      showToast("মুছে ফেলতে সমস্যা হয়েছে।");
+    }
+  };
 
   // Pending Subscription Payments Queue
   const [pendingPayments, setPendingPayments] = useState<any[]>([]);
@@ -614,6 +722,15 @@ export default function SuperAdminPage() {
                 ? `${deposits.filter((d) => d.status === "PENDING").length} পেন্ডিং`
                 : undefined,
               badgeColor: "bg-teal-700 text-white",
+            },
+            {
+              id: "PAYMENT_METHODS",
+              label: "পেমেন্ট একাউন্টস ও মেথড",
+              icon: CreditCard,
+              badge: paymentMethodsList.filter((p) => p.isActive).length > 0
+                ? `${paymentMethodsList.filter((p) => p.isActive).length} সক্রিয়`
+                : undefined,
+              badgeColor: "bg-emerald-600 text-white",
             },
             {
               id: "SUBSCRIPTIONS",
@@ -1066,7 +1183,151 @@ export default function SuperAdminPage() {
         )}
 
         {/* ============================================================== */}
-        {/* TAB 3: SUBSCRIPTIONS & BILLING APPROVAL */}
+        {/* TAB: PAYMENT METHODS & ACCOUNTS MANAGER */}
+        {/* ============================================================== */}
+        {activeTab === "PAYMENT_METHODS" && (
+          <div className="space-y-6 animate-in fade-in">
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+              <div className="flex flex-wrap justify-between items-center border-b border-slate-100 pb-3 gap-2">
+                <div>
+                  <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+                    <CreditCard className="w-4 h-4 text-teal-600" />
+                    <span>পেমেন্ট গেটওয়ে ও অ্যাকাউন্টস ব্যবস্থাপনা</span>
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    মার্চেন্ট প্যানেলে ব্যালেন্স রিচার্জের সময় প্রদর্শিত বিকাশ, নগদ, রকেট ও ব্যাংক একাউন্ট নম্বর যুক্ত, সক্রিয়/নিষ্ক্রিয় ও মুছে ফেলুন।
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={fetchPaymentMethods}
+                    className="px-3 py-1.5 border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-xl flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 ${loadingPaymentMethods ? "animate-spin" : ""}`} />
+                    <span>রিফ্রেশ</span>
+                  </button>
+                  <button
+                    onClick={() => setIsAddPaymentOpen(true)}
+                    className="px-3.5 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>নতুন অ্যাকাউন্ট যোগ করুন</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Status Summary Chips */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
+                  <div>
+                    <span className="text-[11px] text-slate-500 block font-semibold">মোট অ্যাকাউন্ট</span>
+                    <span className="text-lg font-bold text-slate-900">{paymentMethodsList.length} টি</span>
+                  </div>
+                  <CreditCard className="w-6 h-6 text-slate-400" />
+                </div>
+                <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between">
+                  <div>
+                    <span className="text-[11px] text-emerald-700 block font-semibold">সক্রিয় গেটওয়ে (Active)</span>
+                    <span className="text-lg font-bold text-emerald-800">
+                      {paymentMethodsList.filter((p) => p.isActive).length} টি
+                    </span>
+                  </div>
+                  <Check className="w-6 h-6 text-emerald-500" />
+                </div>
+                <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between">
+                  <div>
+                    <span className="text-[11px] text-amber-700 block font-semibold">নিষ্ক্রিয় (Inactive)</span>
+                    <span className="text-lg font-bold text-amber-800">
+                      {paymentMethodsList.filter((p) => !p.isActive).length} টি
+                    </span>
+                  </div>
+                  <X className="w-6 h-6 text-amber-500" />
+                </div>
+              </div>
+
+              {/* Accounts List Table */}
+              {paymentMethodsList.length === 0 ? (
+                <div className="p-12 text-center text-xs text-slate-400 space-y-2">
+                  <p className="font-bold text-slate-700">কোনো পেমেন্ট অ্যাকাউন্ট পাওয়া যায়নি</p>
+                  <p>উপরের বাটন চেপে বিকাশ, নগদ বা ব্যাংক একাউন্ট নম্বর যোগ করুন।</p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs text-left">
+                    <thead>
+                      <tr className="border-b border-slate-200 bg-slate-50 text-slate-500 font-bold">
+                        <th className="p-3">মেথড ও নাম</th>
+                        <th className="p-3">অ্যাকাউন্ট টাইপ</th>
+                        <th className="p-3">অ্যাকাউন্ট নম্বর / A/C</th>
+                        <th className="p-3">নির্দেশনা / ব্যাংক ডিটেইলস</th>
+                        <th className="p-3">স্ট্যাটাস</th>
+                        <th className="p-3 text-right">অ্যাকশন</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 text-slate-700">
+                      {paymentMethodsList.map((pm) => (
+                        <tr key={pm.id} className="hover:bg-slate-50 transition-colors">
+                          <td className="p-3">
+                            <div className="flex items-center gap-2">
+                              <span className={`px-2 py-0.5 rounded font-mono font-bold text-[10px] ${
+                                pm.method === "BKASH"
+                                  ? "bg-pink-50 text-pink-700 border border-pink-200"
+                                  : pm.method === "NAGAD"
+                                  ? "bg-amber-50 text-amber-700 border border-amber-200"
+                                  : pm.method === "ROCKET"
+                                  ? "bg-purple-50 text-purple-700 border border-purple-200"
+                                  : pm.method === "BANK"
+                                  ? "bg-blue-50 text-blue-700 border border-blue-200"
+                                  : "bg-slate-100 text-slate-700 border border-slate-200"
+                              }`}>
+                                {pm.method}
+                              </span>
+                              <span className="font-bold text-slate-900">{pm.title}</span>
+                            </div>
+                          </td>
+                          <td className="p-3">
+                            <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-semibold text-[10px]">
+                              {pm.accountType}
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            <span className="font-mono font-bold text-slate-900 text-sm">{pm.accountNumber}</span>
+                          </td>
+                          <td className="p-3 max-w-xs text-slate-500 text-[11px]">
+                            {pm.bankName && <p className="font-semibold text-slate-700">{pm.bankName} ({pm.branchName || "Main Branch"})</p>}
+                            <p>{pm.instructions || "N/A"}</p>
+                          </td>
+                          <td className="p-3">
+                            <button
+                              onClick={() => handleTogglePaymentMethodActive(pm.id, pm.isActive)}
+                              className={`px-2.5 py-1 rounded-full text-[10px] font-bold border transition-all cursor-pointer flex items-center gap-1 ${
+                                pm.isActive
+                                  ? "bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-100"
+                                  : "bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200"
+                              }`}
+                            >
+                              <span>{pm.isActive ? "সক্রিয় ✓" : "নিষ্ক্রিয় ✕"}</span>
+                            </button>
+                          </td>
+                          <td className="p-3 text-right">
+                            <button
+                              onClick={() => handleDeletePaymentMethod(pm.id)}
+                              className="px-2 py-1 text-rose-600 hover:bg-rose-50 rounded-lg text-xs font-semibold transition-all inline-flex items-center gap-1 cursor-pointer"
+                              title="অ্যাকাউন্ট মুছে ফেলুন"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                              <span>মুছুন</span>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
         {/* ============================================================== */}
         {activeTab === "SUBSCRIPTIONS" && (
           <div className="space-y-6 animate-in fade-in">
@@ -1568,6 +1829,145 @@ export default function SuperAdminPage() {
                   className="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-sm transition-all"
                 >
                   স্টোর তৈরি সম্পন্ন করুন
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* New Payment Method / Account Modal */}
+      {isAddPaymentOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-in zoom-in-95">
+            <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+              <h3 className="font-bold text-base text-slate-900 flex items-center gap-2">
+                <CreditCard className="w-5 h-5 text-teal-600" />
+                <span>নতুন পেমেন্ট অ্যাকাউন্ট যুক্ত করুন</span>
+              </h3>
+              <button
+                onClick={() => setIsAddPaymentOpen(false)}
+                className="text-slate-400 hover:text-slate-600 font-bold"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreatePaymentMethod} className="space-y-3 text-xs">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-slate-700 block mb-1 font-bold">পেমেন্ট মেথড *</label>
+                  <select
+                    value={newPmMethod}
+                    onChange={(e) => setNewPmMethod(e.target.value as any)}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold focus:outline-none focus:border-teal-600"
+                  >
+                    <option value="BKASH">বিকাশ (bKash)</option>
+                    <option value="NAGAD">নগদ (Nagad)</option>
+                    <option value="ROCKET">রকেট (Rocket)</option>
+                    <option value="UPAY">উপায় (Upay)</option>
+                    <option value="BANK">ব্যাংক ট্রান্সফার (Bank)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-slate-700 block mb-1 font-bold">অ্যাকাউন্ট টাইপ *</label>
+                  <select
+                    value={newPmType}
+                    onChange={(e) => setNewPmType(e.target.value as any)}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold focus:outline-none focus:border-teal-600"
+                  >
+                    <option value="MERCHANT">মার্চেন্ট (Merchant)</option>
+                    <option value="PERSONAL">পার্সোনাল (Personal)</option>
+                    <option value="AGENT">এজেন্ট (Agent)</option>
+                    <option value="CURRENT">কারেন্ট অ্যাকাউন্ট (Current A/C)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-slate-700 block mb-1 font-bold">অ্যাকাউন্টের শিরোনাম *</label>
+                <input
+                  type="text"
+                  required
+                  value={newPmTitle}
+                  onChange={(e) => setNewPmTitle(e.target.value)}
+                  placeholder="যেমন: বিকাশ মার্চেন্ট অ্যাকাউন্ট / ব্র্যাক ব্যাংক"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-teal-600 focus:bg-white"
+                />
+              </div>
+
+              <div>
+                <label className="text-slate-700 block mb-1 font-bold">অ্যাকাউন্ট নম্বর / A/C *</label>
+                <input
+                  type="text"
+                  required
+                  value={newPmNumber}
+                  onChange={(e) => setNewPmNumber(e.target.value)}
+                  placeholder="017XXXXXXXX বা ব্যাংক অ্যাকাউন্ট নম্বর"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-mono font-bold focus:outline-none focus:border-teal-600 focus:bg-white"
+                />
+              </div>
+
+              {newPmMethod === "BANK" && (
+                <div className="grid grid-cols-3 gap-2">
+                  <div>
+                    <label className="text-slate-700 block mb-1 font-bold">ব্যাংক নাম</label>
+                    <input
+                      type="text"
+                      value={newPmBankName}
+                      onChange={(e) => setNewPmBankName(e.target.value)}
+                      placeholder="BRAC Bank"
+                      className="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-slate-700 block mb-1 font-bold">ব্রাঞ্চ নাম</label>
+                    <input
+                      type="text"
+                      value={newPmBranch}
+                      onChange={(e) => setNewPmBranch(e.target.value)}
+                      placeholder="Gulshan Branch"
+                      className="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-slate-700 block mb-1 font-bold">রাউটিং নং</label>
+                    <input
+                      type="text"
+                      value={newPmRouting}
+                      onChange={(e) => setNewPmRouting(e.target.value)}
+                      placeholder="060261726"
+                      className="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-mono"
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div>
+                <label className="text-slate-700 block mb-1 font-bold">পেমেন্ট নির্দেশনা (Instructions)</label>
+                <input
+                  type="text"
+                  value={newPmInstructions}
+                  onChange={(e) => setNewPmInstructions(e.target.value)}
+                  placeholder="যেমন: Make Payment অপশন ব্যবহার করে পেমেন্ট করুন"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-teal-600 focus:bg-white"
+                />
+              </div>
+
+              <div className="pt-3 flex justify-end gap-2 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsAddPaymentOpen(false)}
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold cursor-pointer"
+                >
+                  বাতিল
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold shadow-sm transition-all cursor-pointer"
+                >
+                  অ্যাকাউন্ট যোগ করুন
                 </button>
               </div>
             </form>
