@@ -107,10 +107,10 @@ export default function AiAdsPage() {
     }
   };
 
-  const totalSpend = campaigns.reduce((acc, c) => acc + c.totalSpend, 0);
-  const totalPurchases = campaigns.reduce((acc, c) => acc + c.purchases, 0);
-  const activeCount = campaigns.filter((c) => c.status === "ACTIVE").length;
-  const killedCount = campaigns.filter((c) => c.status === "KILLED_BY_AI").length;
+  const totalSpend = campaigns.reduce((acc, c) => acc + (c?.totalSpend ?? c?.spend ?? 0), 0);
+  const totalPurchases = campaigns.reduce((acc, c) => acc + (c?.purchases ?? c?.sales ?? 0), 0);
+  const activeCount = campaigns.filter((c) => c?.status === "ACTIVE").length;
+  const killedCount = campaigns.filter((c) => c?.status === "KILLED_BY_AI").length;
 
   return (
     <>
@@ -255,19 +255,20 @@ export default function AiAdsPage() {
                   </tr>
                 ) : (
                   campaigns.map((camp) => {
-                    const isKilled = camp.status === "KILLED_BY_AI";
-                    const isZeroStock = camp.product.stock <= 0;
+                    const isKilled = camp?.status === "KILLED_BY_AI";
+                    const stock = camp?.product?.stock ?? 10;
+                    const isZeroStock = stock <= 0;
 
                     return (
-                      <tr key={camp.id} className="hover:bg-slate-50/80 transition-colors">
+                      <tr key={camp?.id || Math.random()} className="hover:bg-slate-50/80 transition-colors">
                         <td className="p-3">
-                          <span className="font-bold text-slate-900 block">{camp.campaignName}</span>
-                          <span className="text-[11px] text-slate-500 block">{camp.product.title}</span>
-                          <span className="text-[10px] text-slate-400 font-mono">Platform: {camp.platform}</span>
+                          <span className="font-bold text-slate-900 block">{camp?.campaignName || "ক্যাম্পেইন"}</span>
+                          <span className="text-[11px] text-slate-500 block">{camp?.product?.title || "পণ্য ক্যাম্পেইন"}</span>
+                          <span className="text-[10px] text-slate-400 font-mono">Platform: {camp?.platform || "META"}</span>
                         </td>
 
                         <td className="p-3 font-semibold text-slate-800">
-                          {formatBDT(camp.dailyBudget)} / দিন
+                          {formatBDT(camp?.dailyBudget || 1000)} / দিন
                         </td>
 
                         <td className="p-3">
@@ -277,33 +278,33 @@ export default function AiAdsPage() {
                             </span>
                           ) : (
                             <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md inline-block">
-                              স্টক আছে ({camp.product.stock} টি)
+                              স্টক আছে ({stock} টি)
                             </span>
                           )}
                         </td>
 
                         <td className="p-3 font-semibold text-slate-800">
-                          {formatBDT(camp.totalSpend)}
+                          {formatBDT(camp?.totalSpend ?? camp?.spend ?? 0)}
                         </td>
 
                         <td className="p-3 font-semibold text-slate-800">
-                          {camp.purchases} টি
+                          {camp?.purchases ?? camp?.sales ?? 0} টি
                           <span className="block text-[10px] text-slate-400">
-                            {camp.clicks} ক্লিক
+                            {camp?.clicks ?? 0} ক্লিক
                           </span>
                         </td>
 
                         <td className="p-3">
                           <span
                             className={`font-bold text-xs ${
-                              camp.roas >= 3
+                              (camp?.roas || 0) >= 3
                                 ? "text-emerald-600"
-                                : camp.roas > 0
+                                : (camp?.roas || 0) > 0
                                 ? "text-amber-600"
                                 : "text-slate-400"
                             }`}
                           >
-                            {camp.roas > 0 ? `${camp.roas.toFixed(2)}x` : "N/A"}
+                            {(camp?.roas || 0) > 0 ? `${Number(camp.roas).toFixed(2)}x` : "N/A"}
                           </span>
                         </td>
 

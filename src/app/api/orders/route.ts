@@ -62,9 +62,18 @@ export async function POST(request: Request) {
     } = body;
 
     // 1. Find or create merchant
-    const merchant = await prisma.merchant.findFirst();
+    let merchant = await prisma.merchant.findFirst();
     if (!merchant) {
-      return NextResponse.json({ success: false, error: "No merchant found" }, { status: 400 });
+      merchant = await prisma.merchant.create({
+        data: {
+          businessName: "My Store",
+          ownerName: "মার্চেন্ট",
+          email: "merchant@nishchinto.app",
+          phone: "01700000000",
+          plan: "PRO_AI",
+          walletBalance: 200,
+        },
+      });
     }
 
     // 2. Find product

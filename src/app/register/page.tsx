@@ -39,6 +39,34 @@ export default function RegisterPage() {
       setSubmitting(false);
 
       if (data.success) {
+        if (typeof window !== "undefined") {
+          const registeredMerchant = data.data || {
+            id: `mch_${Date.now()}`,
+            businessName,
+            ownerName,
+            email,
+            phone,
+            plan,
+            walletBalance: 200.0,
+            ordersProcessed: 0,
+            status: "ACTIVE",
+            joinedDate: new Date().toISOString().split("T")[0],
+          };
+
+          // Set current logged in merchant
+          localStorage.setItem("merchant_user", JSON.stringify(registeredMerchant));
+
+          // Save to all_merchants registry so Super Admin displays it
+          try {
+            const rawAll = localStorage.getItem("all_merchants");
+            const allList = rawAll ? JSON.parse(rawAll) : [];
+            const filtered = allList.filter((m: any) => m.email !== registeredMerchant.email && m.phone !== registeredMerchant.phone);
+            localStorage.setItem("all_merchants", JSON.stringify([registeredMerchant, ...filtered]));
+          } catch (e) {
+            console.error("Failed to sync registered merchant to localStorage", e);
+          }
+        }
+
         // Redirect directly to merchant dashboard
         router.push("/dashboard");
       } else {

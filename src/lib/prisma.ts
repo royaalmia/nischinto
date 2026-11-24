@@ -2,40 +2,9 @@ import { PrismaClient } from "@prisma/client";
 
 // In-Memory Edge Store for Cloudflare Workers when native SQLite / fs.readdir is unavailable
 class EdgeMemoryStore {
-  merchants: any[] = [
-    {
-      id: "mch_default_101",
-      businessName: "Nischinto Fashion & Gadgets",
-      ownerName: "Rahim Chowdhury",
-      email: "owner@nischinto.com",
-      phone: "01711223344",
-      plan: "PRO_AI",
-      walletBalance: 1450.0,
-      createdAt: new Date(),
-    },
-  ];
-
-  courierConfigs: any[] = [
-    {
-      id: "cfg_01",
-      merchantId: "mch_default_101",
-      courierName: "STEADFAST",
-      apiKey: "sf_live_key_9876543210",
-      secretKey: "sf_secret_token_abcdef",
-      isActive: true,
-      isDefault: true,
-    },
-    {
-      id: "cfg_02",
-      merchantId: "mch_default_101",
-      courierName: "PATHAO",
-      apiKey: "pathao_client_id_456",
-      secretKey: "pathao_client_secret_xyz",
-      isActive: true,
-      isDefault: false,
-    },
-  ];
-
+  // Start with clean empty store - no fake demo accounts or fake demo orders
+  merchants: any[] = [];
+  courierConfigs: any[] = [];
   products: any[] = [
     {
       id: "prod_01",
@@ -78,236 +47,10 @@ class EdgeMemoryStore {
     },
   ];
 
-  customers: any[] = [
-    {
-      id: "cust_01",
-      phone: "01755123456",
-      name: "Tanvir Ahmed",
-      address: "House 12, Road 4, Sector 7, Uttara",
-      district: "Dhaka",
-      thana: "Uttara",
-      totalOrders: 6,
-      deliveredOrders: 6,
-      returnedOrders: 0,
-      fraudScore: 5,
-    },
-    {
-      id: "cust_02",
-      phone: "01999000111",
-      name: "Kamrul Hasan",
-      address: "Mirpur 10, Block C",
-      district: "Dhaka",
-      thana: "Mirpur",
-      totalOrders: 7,
-      deliveredOrders: 1,
-      returnedOrders: 6,
-      fraudScore: 88,
-    },
-  ];
-
-  orders: any[] = [
-    {
-      id: "ord_1001",
-      merchantId: "mch_default_101",
-      customerId: "cust_01",
-      orderNumber: "ORD-1001",
-      totalAmount: 730.0,
-      deliveryCharge: 80.0,
-      discount: 0.0,
-      status: "DELIVERED",
-      fraudRiskScore: 5,
-      fraudRiskLevel: "LOW",
-      courierName: "STEADFAST",
-      courierTrackingId: "ST-892147",
-      courierStatus: "DELIVERED",
-      courierFee: 130.0,
-      notes: "ডেলিভারি সম্পন্ন",
-      source: "WEBSITE",
-      createdAt: new Date(Date.now() - 86400000 * 2),
-      customer: {
-        id: "cust_01",
-        phone: "01755123456",
-        name: "Tanvir Ahmed",
-        address: "House 12, Road 4, Sector 7, Uttara",
-        district: "Dhaka",
-        thana: "Uttara",
-        totalOrders: 6,
-        deliveredOrders: 6,
-        returnedOrders: 0,
-        fraudScore: 5,
-      },
-      items: [
-        {
-          id: "item_01",
-          orderId: "ord_1001",
-          productId: "prod_01",
-          quantity: 1,
-          unitPrice: 650.0,
-          product: {
-            title: "Premium Heavyweight Drop-Shoulder T-Shirt",
-            sku: "TS-DROP-001",
-            price: 650.0,
-          },
-        },
-      ],
-      aiCalls: [],
-      disputes: [],
-    },
-    {
-      id: "ord_1002",
-      merchantId: "mch_default_101",
-      customerId: "cust_02",
-      orderNumber: "ORD-1002",
-      totalAmount: 1530.0,
-      deliveryCharge: 80.0,
-      discount: 0.0,
-      status: "HOLD",
-      fraudRiskScore: 88,
-      fraudRiskLevel: "HIGH",
-      courierName: "STEADFAST",
-      courierTrackingId: null,
-      courierStatus: "UNBOOKED",
-      courierFee: 0.0,
-      notes: "সেন্ট্রাল কুরিয়ার ফ্রড অ্যালার্ট: পার্সেল পাঠানোর পূর্বে অগ্রিম ডেলিভারি চার্জ নিন",
-      source: "WEBSITE",
-      createdAt: new Date(Date.now() - 3600000 * 4),
-      customer: {
-        id: "cust_02",
-        phone: "01999000111",
-        name: "Kamrul Hasan",
-        address: "Mirpur 10, Block C",
-        district: "Dhaka",
-        thana: "Mirpur",
-        totalOrders: 7,
-        deliveredOrders: 1,
-        returnedOrders: 6,
-        fraudScore: 88,
-      },
-      items: [
-        {
-          id: "item_02",
-          orderId: "ord_1002",
-          productId: "prod_02",
-          quantity: 1,
-          unitPrice: 1450.0,
-          product: {
-            title: "Waterproof Travel Laptop Backpack (Anti-Theft)",
-            sku: "BP-SAFE-002",
-            price: 1450.0,
-          },
-        },
-      ],
-      aiCalls: [],
-      disputes: [],
-    },
-    {
-      id: "ord_1003",
-      merchantId: "mch_default_101",
-      customerId: "cust_01",
-      orderNumber: "ORD-1003",
-      totalAmount: 730.0,
-      deliveryCharge: 80.0,
-      discount: 0.0,
-      status: "CONFIRMED",
-      fraudRiskScore: 5,
-      fraudRiskLevel: "LOW",
-      courierName: "STEADFAST",
-      courierTrackingId: null,
-      courierStatus: "UNBOOKED",
-      courierFee: 0.0,
-      notes: "বাংলা AI ভয়েস কল সফলভাবে সম্পন্ন - গ্রাহক অর্ডার নিশ্চিত করেছেন",
-      source: "FACEBOOK",
-      createdAt: new Date(Date.now() - 3600000 * 2),
-      customer: {
-        id: "cust_01",
-        phone: "01755123456",
-        name: "Tanvir Ahmed",
-        address: "House 12, Road 4, Sector 7, Uttara",
-        district: "Dhaka",
-        thana: "Uttara",
-        totalOrders: 6,
-        deliveredOrders: 6,
-        returnedOrders: 0,
-        fraudScore: 5,
-      },
-      items: [
-        {
-          id: "item_03",
-          orderId: "ord_1003",
-          productId: "prod_01",
-          quantity: 1,
-          unitPrice: 650.0,
-          product: {
-            title: "Premium Heavyweight Drop-Shoulder T-Shirt",
-            sku: "TS-DROP-001",
-            price: 650.0,
-          },
-        },
-      ],
-      aiCalls: [
-        {
-          id: "call_01",
-          orderId: "ord_1003",
-          status: "CONFIRMED",
-          durationSeconds: 38,
-          costBDT: 1.25,
-          transcript: "AI: আসসালামু আলাইকুম... গ্রাহক: হ্যাঁ অর্ডার পাঠাইয়া দেন।",
-        },
-      ],
-      disputes: [],
-    },
-  ];
-
-  campaigns: any[] = [
-    {
-      id: "camp_01",
-      merchantId: "mch_default_101",
-      productId: "prod_01",
-      platform: "META",
-      campaignName: "T-Shirt Summer Drop Campaign",
-      dailyBudget: 25.0,
-      status: "ACTIVE",
-      roas: 4.2,
-      spend: 320.0,
-      sales: 1344.0,
-      autoPauseOnLowStock: true,
-      lastOptimizedAt: new Date(),
-    },
-    {
-      id: "camp_02",
-      merchantId: "mch_default_101",
-      productId: "prod_03",
-      platform: "META",
-      campaignName: "ANC Earbuds Scaler",
-      dailyBudget: 40.0,
-      status: "AUTO_PAUSED",
-      roas: 3.8,
-      spend: 480.0,
-      sales: 1824.0,
-      autoPauseOnLowStock: true,
-      lastOptimizedAt: new Date(),
-    },
-  ];
-
-  settlements: any[] = [
-    {
-      id: "set_01",
-      merchantId: "mch_default_101",
-      orderId: "ord_1001",
-      courierName: "STEADFAST",
-      codAmount: 730.0,
-      courierFee: 130.0,
-      netSettledAmount: 600.0,
-      cogsAmount: 280.0,
-      adSpendAmount: 75.0,
-      trueNetProfit: 245.0,
-      status: "SETTLED",
-      disputeRaised: false,
-      disputeReason: null,
-      createdAt: new Date(),
-    },
-  ];
-
+  customers: any[] = [];
+  orders: any[] = [];
+  campaigns: any[] = [];
+  settlements: any[] = [];
   disputes: any[] = [];
   aiCallLogs: any[] = [];
 }
@@ -431,6 +174,26 @@ function createModelHandler(modelName: string) {
 
 // Resilient Prisma Proxy wrapper
 function createResilientPrisma() {
+  // Cloudflare Workers / Edge environments do not have native Node fs/SQLite runtime.
+  // When no remote database connection is provided (or when SQLite file is used in production),
+  // directly use EdgeMemoryStore to prevent any unenv fs.readdir errors.
+  const isEdgeWorker =
+    typeof process === "undefined" ||
+    process.env.NEXT_RUNTIME === "edge" ||
+    !process.env.DATABASE_URL ||
+    process.env.DATABASE_URL.startsWith("file:");
+
+  if (isEdgeWorker) {
+    return new Proxy(
+      {},
+      {
+        get(_target, prop: string) {
+          return createModelHandler(prop);
+        },
+      }
+    ) as unknown as PrismaClient;
+  }
+
   let realPrisma: any = null;
 
   try {

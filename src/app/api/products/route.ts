@@ -17,9 +17,18 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { title, sku, price, costPrice, stock = 10, image, description } = body;
 
-    const merchant = await prisma.merchant.findFirst();
+    let merchant = await prisma.merchant.findFirst();
     if (!merchant) {
-      return NextResponse.json({ success: false, error: "Merchant not found" }, { status: 404 });
+      merchant = await prisma.merchant.create({
+        data: {
+          businessName: "My Store",
+          ownerName: "মার্চেন্ট",
+          email: "merchant@nishchinto.app",
+          phone: "01700000000",
+          plan: "PRO_AI",
+          walletBalance: 200,
+        },
+      });
     }
 
     const product = await prisma.product.create({
