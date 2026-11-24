@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import NishchintoLogo from "@/components/NishchintoLogo";
-import { BUSINESS_CATEGORIES, BusinessCategory } from "@/lib/categories";
+import { BUSINESS_CATEGORIES } from "@/lib/categories";
 import {
   Lock,
   Mail,
@@ -15,16 +15,13 @@ import {
   CheckCircle2,
   Search,
   Check,
+  Clock,
   ShieldCheck,
-  RotateCcw,
-  Sparkles,
+  CheckCheck,
 } from "lucide-react";
 
 export default function RegisterPage() {
   const router = useRouter();
-
-  // Step 1: Info & Category, Step 2: Email OTP
-  const [step, setStep] = useState<1 | 2>(1);
 
   // Form Fields
   const [businessName, setBusinessName] = useState("");
@@ -34,16 +31,13 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("GENERAL");
   const [categorySearch, setCategorySearch] = useState("");
-  const [plan, setPlan] = useState("PRO_AI");
-
-  // OTP Fields
-  const [otpCode, setOtpCode] = useState("");
-  const [resendingOtp, setResendingOtp] = useState(false);
+  const [plan] = useState("PRO_AI");
 
   // State
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submittedStore, setSubmittedStore] = useState("");
 
   // Filtered categories
   const filteredCategories = useMemo(() => {
@@ -65,11 +59,10 @@ export default function RegisterPage() {
     );
   }, [selectedCategory]);
 
-  // Request Email OTP (Move to Step 2)
-  const handleProceedToOtp = async (e: React.FormEvent) => {
+  // Submit registration directly (No OTP required - Pending Admin Approval)
+  const handleSubmitRegistration = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg(null);
-    setSuccessMsg(null);
 
     if (!businessName || !ownerName || !email || !phone || !password) {
       setErrorMsg("অনুগ্রহ করে সকল প্রয়োজনীয় তথ্য সঠিকভাবে পূরণ করুন।");
@@ -83,77 +76,7 @@ export default function RegisterPage() {
 
     setSubmitting(true);
     try {
-      const res = await fetch("/api/auth/otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, action: "SEND" }),
-      });
-      const data = await res.json();
-      setSubmitting(false);
-
-      if (data.success) {
-        setStep(2);
-        setSuccessMsg(data.message);
-      } else {
-        setErrorMsg(data.error || "ওটিপি পাঠাতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
-      }
-    } catch (err: any) {
-      setSubmitting(false);
-      setErrorMsg("সার্ভারের সাথে সংযোগ স্থাপন করা যায়নি।");
-    }
-  };
-
-  // Resend OTP
-  const handleResendOtp = async () => {
-    setErrorMsg(null);
-    setResendingOtp(true);
-    try {
-      const res = await fetch("/api/auth/otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, action: "SEND" }),
-      });
-      const data = await res.json();
-      setResendingOtp(false);
-      if (data.success) {
-        setSuccessMsg("আপনার ইমেইলে নতুন ৬-সংখ্যার ওটিপি কোড পাঠানো হয়েছে!");
-      } else {
-        setErrorMsg(data.error || "পুনরায় ওটিপি পাঠানো যায়নি।");
-      }
-    } catch (err) {
-      setResendingOtp(false);
-      setErrorMsg("সংযোগ ত্রুটি!");
-    }
-  };
-
-  // Verify OTP and Complete Registration
-  const handleVerifyAndRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMsg(null);
-
-    if (!otpCode || otpCode.trim().length !== 6) {
-      setErrorMsg("অনুগ্রহ করে সঠিক ৬-সংখ্যার ওটিপি কোড লিখুন।");
-      return;
-    }
-
-    setSubmitting(true);
-    try {
-      // 1. Verify OTP
-      const verifyRes = await fetch("/api/auth/otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, action: "VERIFY", code: otpCode }),
-      });
-      const verifyData = await verifyRes.json();
-
-      if (!verifyData.success) {
-        setSubmitting(false);
-        setErrorMsg(verifyData.error || "ভুল ওটিপি কোড! অনুগ্রহ করে আবার চেষ্টা করুন।");
-        return;
-      }
-
-      // 2. Register Merchant Account
-      const regRes = await fetch("/api/auth/register", {
+      const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -164,17 +87,17 @@ export default function RegisterPage() {
           password,
           category: selectedCategory,
           plan,
-          emailVerified: true,
         }),
       });
 
-      const regData = await regRes.json();
+      const data = await res.json();
       setSubmitting(false);
 
-      if (regData.success) {
-        router.push("/dashboard");
+      if (data.success) {
+        setSubmittedStore(businessName);
+        setIsSubmitted(true);
       } else {
-        setErrorMsg(regData.error || "নিবন্ধন সম্পন্ন করা যায়নি।");
+        setErrorMsg(data.error || "নিবন্ধন সম্পন্ন করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।");
       }
     } catch (err: any) {
       setSubmitting(false);
@@ -183,7 +106,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center p-4 py-10">
+    <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center p-4 py-8 sm:py-12">
       <div className="max-w-xl w-full bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
         
         {/* Brand Header */}
@@ -193,62 +116,60 @@ export default function RegisterPage() {
           </Link>
           <div className="pt-2">
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-              {step === 1 ? "নতুন মার্চেন্ট অ্যাকাউন্ট খুলুন" : "ইমেইল ওটিপি ভেরিফিকেশন"}
+              {isSubmitted ? "নিবন্ধন আবেদন গৃহীত হয়েছে" : "নতুন মার্চেন্ট অ্যাকাউন্ট খুলুন"}
             </h2>
             <p className="text-xs text-slate-500 mt-1">
-              {step === 1
-                ? "আপনার স্টোরের ধরন (Category) নির্বাচন করুন ও বিনামূল্যে শুরু করুন।"
-                : `${email} ঠিকানায় পাঠানো ৬-সংখ্যার কোডটি প্রবেশ করান।`}
+              {isSubmitted
+                ? "অ্যাডমিন অনুমোদন সম্পন্ন হওয়ার পর আপনার অ্যাকাউন্ট সক্রিয় হবে"
+                : "আপনার স্টোরের তথ্য দিন ও বিজনেস শুরু করুন"}
             </p>
           </div>
         </div>
 
-        {/* Stepper Indicator */}
-        <div className="flex items-center justify-center gap-3">
-          <div className="flex items-center gap-2">
-            <span
-              className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center transition-all ${
-                step === 1
-                  ? "bg-teal-600 text-white shadow-xs"
-                  : "bg-teal-100 text-teal-800"
-              }`}
-            >
-              ১
-            </span>
-            <span className="text-xs font-bold text-slate-800">স্টোর ও ক্যাটাগরি</span>
-          </div>
-          <div className="w-8 h-0.5 bg-slate-200"></div>
-          <div className="flex items-center gap-2">
-            <span
-              className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center transition-all ${
-                step === 2
-                  ? "bg-teal-600 text-white shadow-xs"
-                  : "bg-slate-100 text-slate-400"
-              }`}
-            >
-              ২
-            </span>
-            <span className="text-xs font-bold text-slate-500">ইমেইল ভেরিফাই</span>
-          </div>
-        </div>
-
-        {/* Error / Success Notifications */}
+        {/* Error Notification */}
         {errorMsg && (
           <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl font-medium animate-in fade-in">
             {errorMsg}
           </div>
         )}
 
-        {successMsg && (
-          <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-xl font-medium flex items-center gap-2 animate-in fade-in">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span>{successMsg}</span>
-          </div>
-        )}
+        {/* SUCCESS / PENDING APPROVAL SCREEN */}
+        {isSubmitted ? (
+          <div className="space-y-6 text-center animate-in fade-in">
+            <div className="p-6 bg-amber-50/70 border border-amber-200 rounded-3xl space-y-3">
+              <div className="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto shadow-xs">
+                <Clock className="w-7 h-7 stroke-[2.2]" />
+              </div>
+              <h3 className="text-base font-bold text-slate-900">
+                আপনার আবেদন সফলভাবে জমা নেওয়া হয়েছে!
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed max-w-md mx-auto">
+                স্টোর: <strong className="text-slate-900">{submittedStore}</strong>। প্ল্যাটফর্মের নিরাপত্তা ও গুণগত মান নিশ্চিত করতে আপনার মার্চেন্ট প্রোফাইলটি বর্তমানে <strong>অ্যাডমিন অনুমোদনের (Pending Approval)</strong> অপেক্ষায় রয়েছে।
+              </p>
+              <div className="p-3 bg-white/80 rounded-xl border border-amber-200/60 text-[11px] text-amber-900 font-medium">
+                অ্যাডমিন কর্তৃক ভেরিফাই ও অনুমোদন (Approve) করার পর আপনি আপনার ইমেইল/ফোন ও পাসওয়ার্ড দিয়ে সরাসরি লগইন করতে পারবেন।
+              </div>
+            </div>
 
-        {/* STEP 1: Basic Info & Business Category Selection */}
-        {step === 1 && (
-          <form onSubmit={handleProceedToOtp} className="space-y-4">
+            <div className="space-y-3 pt-2">
+              <Link
+                href="/login"
+                className="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span>লগইন পেজে যান</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/"
+                className="block text-xs font-semibold text-slate-500 hover:text-slate-800"
+              >
+                হোমপেজে ফিরে যান
+              </Link>
+            </div>
+          </div>
+        ) : (
+          /* REGISTRATION FORM (NO OTP REQUIRED) */
+          <form onSubmit={handleSubmitRegistration} className="space-y-4">
             <div>
               <label className="text-xs font-bold text-slate-700 block mb-1">
                 ব্যবসা বা স্টোরের নাম <span className="text-red-500">*</span>
@@ -266,7 +187,7 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* Clean & Easy Category Selector */}
+            {/* Category Selector */}
             <div className="space-y-2 pt-1">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-bold text-slate-700">
@@ -289,8 +210,8 @@ export default function RegisterPage() {
                 />
               </div>
 
-              {/* Clean, Compact Category Pills Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-48 overflow-y-auto p-1 border border-slate-200 rounded-xl bg-slate-50/50 custom-scrollbar">
+              {/* Compact Category Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-44 overflow-y-auto p-1 border border-slate-200 rounded-xl bg-slate-50/50 custom-scrollbar">
                 {filteredCategories.map((cat) => {
                   const isSelected = selectedCategory === cat.id;
                   return (
@@ -390,81 +311,22 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer hover:shadow-md"
             >
-              <span>{submitting ? "কোড পাঠানো হচ্ছে..." : "ওটিপি ভেরিফাই"}</span>
+              <span>{submitting ? "আবেদন জমা হচ্ছে..." : "নিবন্ধন আবেদন জমা দিন"}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
         )}
 
-        {/* STEP 2: Email OTP Verification */}
-        {step === 2 && (
-          <form onSubmit={handleVerifyAndRegister} className="space-y-5 animate-in fade-in">
-            <div className="p-4 bg-teal-50 border border-teal-200 rounded-2xl space-y-2 text-center">
-              <span className="text-3xl">📩</span>
-              <h3 className="text-sm font-bold text-slate-900">
-                ইমেইল ভেরিফিকেশন ওটিপি পাঠানো হয়েছে
-              </h3>
-              <p className="text-xs text-slate-600">
-                <strong>{email}</strong> ঠিকানায় ৬-সংখ্যার ভেরিফিকেশন কোড পাঠানো হয়েছে। অনুগ্রহ করে আপনার ইনবক্স (বা স্প্যাম ফোল্ডার) চেক করে কোডটি লিখুন।
-              </p>
-            </div>
-
-            <div>
-              <label className="text-xs font-bold text-slate-700 block text-center mb-2">
-                ৬-সংখ্যার কোডটি লিখুন
-              </label>
-              <div className="max-w-[280px] mx-auto">
-                <input
-                  type="text"
-                  maxLength={6}
-                  required
-                  autoFocus
-                  value={otpCode}
-                  onChange={(e) => setOtpCode(e.target.value.replace(/[^0-9]/g, ""))}
-                  placeholder="------"
-                  className="w-full py-3 text-center text-2xl font-mono tracking-[0.5em] bg-slate-50 border-2 border-slate-300 rounded-2xl font-black text-slate-900 focus:outline-none focus:border-teal-600 focus:bg-white shadow-inner"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between text-xs px-2">
-              <button
-                type="button"
-                onClick={() => setStep(1)}
-                className="text-slate-500 hover:text-slate-800 font-medium"
-              >
-                ← ইমেইল বা তথ্য পরিবর্তন
-              </button>
-              <button
-                type="button"
-                disabled={resendingOtp}
-                onClick={handleResendOtp}
-                className="text-teal-700 font-bold hover:underline flex items-center gap-1"
-              >
-                <RotateCcw className={`w-3 h-3 ${resendingOtp ? "animate-spin" : ""}`} />
-                <span>{resendingOtp ? "পাঠানো হচ্ছে..." : "পুনরায় ওটিপি পাঠান"}</span>
-              </button>
-            </div>
-
-            <button
-              type="submit"
-              disabled={submitting || otpCode.length !== 6}
-              className="w-full py-3.5 bg-teal-600 hover:bg-teal-700 disabled:bg-slate-300 text-white font-bold text-xs rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 hover:shadow-md cursor-pointer"
-            >
-              <ShieldCheck className="w-4 h-4" />
-              <span>{submitting ? "যাচাই করা হচ্ছে..." : "অ্যাকাউন্ট ভেরিফাই ও সক্রিয় করুন"}</span>
-            </button>
-          </form>
+        {!isSubmitted && (
+          <div className="text-center pt-1 text-xs text-slate-500">
+            <span>ইতিমধ্যে অ্যাকাউন্ট রয়েছে? </span>
+            <Link href="/login" className="font-semibold text-teal-700 hover:underline">
+              লগইন করুন
+            </Link>
+          </div>
         )}
-
-        <div className="text-center pt-1 text-xs text-slate-500">
-          <span>ইতিমধ্যে অ্যাকাউন্ট রয়েছে? </span>
-          <Link href="/login" className="font-semibold text-teal-700 hover:underline">
-            লগইন করুন
-          </Link>
-        </div>
       </div>
     </div>
   );

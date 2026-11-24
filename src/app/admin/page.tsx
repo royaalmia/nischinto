@@ -48,6 +48,7 @@ import {
   Check,
   X,
   LogIn,
+  Clock,
   LogOut,
   BadgeCheck,
 } from "lucide-react";
@@ -67,6 +68,7 @@ export default function SuperAdminPage() {
 
   const [search, setSearch] = useState("");
   const [planFilter, setPlanFilter] = useState("ALL");
+  const [merchantStatusFilter, setMerchantStatusFilter] = useState("ALL");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // New Merchant Modal State
@@ -569,18 +571,50 @@ export default function SuperAdminPage() {
   };
 
   // Actions
-  const handleToggleMerchantStatus = (id: string) => {
+  const handleApproveMerchant = async (id: string) => {
+    try {
+      const res = await fetch("/api/admin/merchants", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status: "ACTIVE", isVerified: true }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast("মার্চেন্ট অ্যাকাউন্ট সফলভাবে অনুমোদন (Approved) ও সক্রিয় করা হয়েছে ✓");
+        setMerchants((prev) =>
+          prev.map((m) => (m.id === id ? { ...m, status: "ACTIVE", isVerified: true } : m))
+        );
+        logAdminAction("MERCHANT_APPROVED", `মার্চেন্ট আইডি ${id} সক্রিয় ও অনুমোদিত হয়েছে`);
+      } else {
+        showToast(data.error || "অনুমোদন করতে সমস্যা হয়েছে।");
+      }
+    } catch (e) {
+      showToast("সার্ভার ত্রুটি!");
+    }
+  };
+
+  const handleToggleMerchantStatus = async (id: string) => {
+    const target = merchants.find((m) => m.id === id);
+    if (!target) return;
+    const nextStatus = target.status === "ACTIVE" ? "SUSPENDED" : "ACTIVE";
+    const nextVerified = nextStatus === "ACTIVE";
+
     setMerchants((prev) =>
-      prev.map((m) => {
-        if (m.id === id) {
-          const nextStatus = m.status === "ACTIVE" ? "SUSPENDED" : "ACTIVE";
-          showToast(`মার্চেন্ট ${m.storeName} স্ট্যাটাস ${nextStatus} করা হয়েছে`);
-          logAdminAction("MERCHANT_STATUS_CHANGE", `${m.storeName} স্ট্যাটাস পরিবর্তন: ${nextStatus}`);
-          return { ...m, status: nextStatus };
-        }
-        return m;
-      })
+      prev.map((m) => (m.id === id ? { ...m, status: nextStatus, isVerified: nextVerified } : m))
     );
+
+    showToast(`মার্চেন্ট ${target.storeName} স্ট্যাটাস ${nextStatus} করা হয়েছে`);
+    logAdminAction("MERCHANT_STATUS_CHANGE", `${target.storeName} স্ট্যাটাস পরিবর্তন: ${nextStatus}`);
+
+    try {
+      await fetch("/api/admin/merchants", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status: nextStatus, isVerified: nextVerified }),
+      });
+    } catch (e) {
+      console.warn("Failed to persist merchant status", e);
+    }
   };
 
   const handleWalletRecharge = (id: string, amount: number) => {
@@ -652,13 +686,22 @@ export default function SuperAdminPage() {
     showToast(`নম্বর ${phone} ফ্রড ডেটাবেস থেকে সরানো হয়েছে`);
   };
 
+  const pendingMerchantsCount = merchants.filter(
+    (m) => m.status === "PENDING" || !m.isVerified
+  ).length;
+
   const filteredMerchants = merchants.filter((m) => {
     const matchesSearch =
       (m.storeName || "").toLowerCase().includes(search.toLowerCase()) ||
       (m.ownerName || "").toLowerCase().includes(search.toLowerCase()) ||
       (m.phone || "").includes(search);
     const matchesPlan = planFilter === "ALL" || m.plan === planFilter;
-    return matchesSearch && matchesPlan;
+    const matchesStatus =
+      merchantStatusFilter === "ALL" ||
+      (merchantStatusFilter === "PENDING" && (m.status === "PENDING" || !m.isVerified)) ||
+      (merchantStatusFilter === "ACTIVE" && m.status === "ACTIVE" && m.isVerified) ||
+      (merchantStatusFilter === "SUSPENDED" && m.status === "SUSPENDED");
+    return matchesSearch && matchesPlan && matchesStatus;
   });
 
   // Admin Login Screen if not authenticated
@@ -1016,22 +1059,46 @@ export default function SuperAdminPage() {
                   />
                 </div>
 
-                <div className="flex items-center gap-2 w-full sm:w-auto">
-                  <span className="text-xs text-slate-500 font-medium">প্ল্যান:</span>
-                  <select
-                    value={planFilter}
-                    onChange={(e) => setPlanFilter(e.target.value)}
-                    className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-teal-600"
-                  >
-                    <option value="ALL">সব প্ল্যান</option>
-                    <option value="STARTER">STARTER</option>
-                    <option value="GROWTH">GROWTH</option>
-                    <option value="PRO_AI">PRO_AI</option>
-                  </select>
+                <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs text-slate-500 font-medium">প্ল্যান:</span>
+                    <select
+                      value={planFilter}
+                      onChange={(e) => setPlanFilter(e.target.value)}
+                      className="px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-teal-600"
+                    >
+                      <option value="ALL">সব প্ল্যান</option>
+                      <option value="STARTER">STARTER</option>
+                      <option value="GROWTH">GROWTH</option>
+                      <option value="PRO_AI">PRO_AI</option>
+                    </select>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs text-slate-500 font-medium">স্ট্যাটাস:</span>
+                    <select
+                      value={merchantStatusFilter}
+                      onChange={(e) => setMerchantStatusFilter(e.target.value)}
+                      className="px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-teal-600"
+                    >
+                      <option value="ALL">সব স্টোর ({merchants.length})</option>
+                      <option value="PENDING">
+                        অনুমোদনের অপেক্ষায় {pendingMerchantsCount > 0 ? `(${pendingMerchantsCount})` : ""}
+                      </option>
+                      <option value="ACTIVE">সক্রিয় (Active)</option>
+                      <option value="SUSPENDED">স্থগিত (Suspended)</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 w-full sm:w-auto">
+                {pendingMerchantsCount > 0 && (
+                  <span className="px-2.5 py-1 bg-amber-500 text-white rounded-xl text-xs font-bold flex items-center gap-1 animate-pulse">
+                    <Clock className="w-3 h-3" />
+                    <span>{pendingMerchantsCount} টি অনুমোদন বাকি</span>
+                  </span>
+                )}
                 <button
                   onClick={fetchMerchants}
                   className="px-3 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-xl flex items-center gap-1.5"
@@ -1103,43 +1170,61 @@ export default function SuperAdminPage() {
                           {formatBDT(m.walletBalance || 0)}
                         </td>
                         <td className="p-3.5">
-                          <span
-                            className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                              m.status === "ACTIVE"
-                                ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                                : "bg-red-50 text-red-800 border border-red-200"
-                            }`}
-                          >
-                            {m.status}
-                          </span>
+                          {m.status === "PENDING" || !m.isVerified ? (
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 inline-flex items-center gap-1 shadow-2xs">
+                              <Clock className="w-2.5 h-2.5 text-amber-600 animate-pulse" />
+                              <span>অনুমোদনের অপেক্ষায়</span>
+                            </span>
+                          ) : m.status === "ACTIVE" ? (
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+                              সক্রিয় (Active)
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-red-50 text-red-800 border border-red-200">
+                              স্থগিত (Suspended)
+                            </span>
+                          )}
                         </td>
                         <td className="p-3.5 text-right">
                           <div className="flex items-center justify-end gap-1.5">
-                            <button
-                              onClick={() => handleImpersonateLogin(m)}
-                              title="মার্চেন্ট ড্যাশবোর্ডে লগইন করুন"
-                              className="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 text-[11px] font-bold rounded-lg transition-all flex items-center gap-1 shadow-2xs"
-                            >
-                              <LogIn className="w-3 h-3" />
-                              <span>লগইন</span>
-                            </button>
-                            <button
-                              onClick={() => handleWalletRecharge(m.id, 500)}
-                              title="৳ ৫০০ ওয়ালেট ক্রেডিট রিচার্জ"
-                              className="px-2 py-1 bg-teal-50 hover:bg-teal-100 border border-teal-200 text-teal-700 text-[11px] font-bold rounded-lg transition-all"
-                            >
-                              +৳৫০০
-                            </button>
-                            <button
-                              onClick={() => handleToggleMerchantStatus(m.id)}
-                              className={`px-2 py-1 border text-[11px] font-bold rounded-lg transition-all ${
-                                m.status === "ACTIVE"
-                                  ? "bg-amber-50 border-amber-200 text-amber-800 hover:bg-amber-100"
-                                  : "bg-emerald-50 border-emerald-200 text-emerald-800 hover:bg-emerald-100"
-                              }`}
-                            >
-                              {m.status === "ACTIVE" ? "সাসপেন্ড" : "সক্রিয়"}
-                            </button>
+                            {m.status === "PENDING" || !m.isVerified ? (
+                              <button
+                                onClick={() => handleApproveMerchant(m.id)}
+                                className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-bold rounded-lg transition-all flex items-center gap-1 shadow-xs cursor-pointer"
+                                title="মার্চেন্ট অ্যাকাউন্ট অনুমোদন ও সক্রিয় করুন"
+                              >
+                                <CheckCircle2 className="w-3.5 h-3.5" />
+                                <span>অনুমোদন দিন (Approve)</span>
+                              </button>
+                            ) : (
+                              <>
+                                <button
+                                  onClick={() => handleImpersonateLogin(m)}
+                                  title="মার্চেন্ট ড্যাশবোর্ডে লগইন করুন"
+                                  className="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 text-[11px] font-bold rounded-lg transition-all flex items-center gap-1 shadow-2xs"
+                                >
+                                  <LogIn className="w-3 h-3" />
+                                  <span>লগইন</span>
+                                </button>
+                                <button
+                                  onClick={() => handleWalletRecharge(m.id, 500)}
+                                  title="৳ ৫০০ ওয়ালেট ক্রেডিট রিচার্জ"
+                                  className="px-2 py-1 bg-teal-50 hover:bg-teal-100 border border-teal-200 text-teal-700 text-[11px] font-bold rounded-lg transition-all"
+                                >
+                                  +৳৫০০
+                                </button>
+                                <button
+                                  onClick={() => handleToggleMerchantStatus(m.id)}
+                                  className={`px-2 py-1 border text-[11px] font-bold rounded-lg transition-all ${
+                                    m.status === "ACTIVE"
+                                      ? "bg-amber-50 border-amber-200 text-amber-800 hover:bg-amber-100"
+                                      : "bg-emerald-50 border-emerald-200 text-emerald-800 hover:bg-emerald-100"
+                                  }`}
+                                >
+                                  {m.status === "ACTIVE" ? "সাসপেন্ড" : "সক্রিয়"}
+                                </button>
+                              </>
+                            )}
                           </div>
                         </td>
                       </tr>

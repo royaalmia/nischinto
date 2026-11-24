@@ -55,9 +55,15 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Error alert */}
+        {/* Error / Pending alert */}
         {errorMsg && (
-          <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl font-medium">
+          <div
+            className={`p-3.5 rounded-2xl text-xs font-medium border leading-relaxed ${
+              errorMsg.includes("অনুমোদনের") || errorMsg.includes("Pending")
+                ? "bg-amber-50 border-amber-200 text-amber-900"
+                : "bg-red-50 border-red-200 text-red-700"
+            }`}
+          >
             {errorMsg}
           </div>
         )}

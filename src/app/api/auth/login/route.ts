@@ -75,6 +75,27 @@ export async function POST(request: Request) {
       );
     }
 
+    // Check if account is approved by admin
+    if (merchant.status === "PENDING" || !merchant.isVerified) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "আপনার মার্চেন্ট অ্যাকাউন্টটি এখনো অ্যাডমিন অনুমোদনের (Pending Approval) অপেক্ষায় রয়েছে। অ্যাডমিন ভেরিফাই ও অনুমোদন করার পর আপনি ড্যাশবোর্ডে লগইন করতে পারবেন।",
+        },
+        { status: 403 }
+      );
+    }
+
+    if (merchant.status === "SUSPENDED") {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "আপনার মার্চেন্ট অ্যাকাউন্টটি স্থগিত (Suspended) রয়েছে। বিস্তারিত জানতে অ্যাডমিন সাপোর্টে যোগাযোগ করুন।",
+        },
+        { status: 403 }
+      );
+    }
+
     const response = NextResponse.json({
       success: true,
       role: "MERCHANT",

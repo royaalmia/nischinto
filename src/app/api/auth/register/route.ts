@@ -52,10 +52,10 @@ export async function POST(request: Request) {
           password: password || undefined,
           category,
           plan,
-          status: "ACTIVE",
-          isVerified: true,
-          emailVerified: Boolean(emailVerified),
-          walletBalance: 0.0, // Clean 0 starting balance - merchant recharges real balance
+          status: "PENDING", // Pending Admin Approval
+          isVerified: false,
+          emailVerified: false,
+          walletBalance: 0.0,
         },
       });
 
@@ -85,10 +85,10 @@ export async function POST(request: Request) {
       await prisma.notification.create({
         data: {
           merchantId: merchant.id,
-          title: "Nischinto.app-এ স্বাগতম!",
-          message: `অভিনন্দন ${ownerName}! আপনার স্টোর "${businessName}" সফলভাবে তৈরি হয়েছে। আপনার ক্যাটাগরি: ${category}। পণ্য যুক্ত করে কুরিয়ার ডেলিভারি শুরু করুন।`,
+          title: "আবেদন গৃহীত হয়েছে - Nischinto.app",
+          message: `স্বাগতম ${ownerName}! আপনার স্টোর "${businessName}" এর আবেদন সফলভাবে জমা নেওয়া হয়েছে। অ্যাডমিন অনুমোদনের পর আপনি সম্পূর্ণ ড্যাশবোর্ড ব্যবহার করতে পারবেন।`,
           type: "SYSTEM",
-          linkUrl: "/products",
+          linkUrl: "/dashboard",
         },
       });
     } catch (dbErr: any) {
@@ -99,36 +99,23 @@ export async function POST(request: Request) {
         ownerName,
         email: cleanEmail,
         phone,
+        password: password || undefined,
         category,
         plan,
-        status: "ACTIVE",
-        isVerified: true,
-        emailVerified: true,
+        status: "PENDING",
+        isVerified: false,
+        emailVerified: false,
         walletBalance: 0.0,
       };
     }
 
-    const res = NextResponse.json({
+    // Do NOT set session cookies yet - merchant must be approved by Admin first
+    return NextResponse.json({
       success: true,
-      message: "আপনার মার্চেন্ট অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!",
+      pendingApproval: true,
+      message: "আপনার মার্চেন্ট আবেদন সফলভাবে জমা নেওয়া হয়েছে! অ্যাডমিন অনুমোদনের পর অ্যাকাউন্টটি সক্রিয় হবে।",
       data: merchant,
     });
-
-    if (merchant && merchant.id) {
-      res.cookies.set("nishchinto_session", merchant.id, {
-        path: "/",
-        httpOnly: false,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        maxAge: 60 * 60 * 24 * 30,
-      });
-      res.cookies.set("nishchinto_role", "MERCHANT", {
-        path: "/",
-        maxAge: 60 * 60 * 24 * 30,
-      });
-    }
-
-    return res;
   } catch (error: any) {
     console.error("Merchant Registration Fallback:", error);
     return NextResponse.json({
