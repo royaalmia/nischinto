@@ -48,11 +48,12 @@ import {
   Check,
   X,
   LogIn,
+  BadgeCheck,
 } from "lucide-react";
 
 export default function SuperAdminPage() {
   const [activeTab, setActiveTab] = useState<
-    "OVERVIEW" | "MERCHANTS" | "SUBSCRIPTIONS" | "FRAUD_DB" | "AI_GATEWAYS" | "COURIERS" | "SYSTEM_SETTINGS" | "AUDIT_LOGS"
+    "OVERVIEW" | "MERCHANTS" | "DEPOSITS" | "SUBSCRIPTIONS" | "FRAUD_DB" | "AI_GATEWAYS" | "COURIERS" | "SYSTEM_SETTINGS" | "AUDIT_LOGS"
   >("OVERVIEW");
 
   const [search, setSearch] = useState("");
@@ -193,8 +194,102 @@ export default function SuperAdminPage() {
     }
   };
 
+  // Real Wallet Deposit Requests Queue
+  const [deposits, setDeposits] = useState<any[]>([]);
+  const [loadingDeposits, setLoadingDeposits] = useState(false);
+
+  const fetchDeposits = async () => {
+    try {
+      setLoadingDeposits(true);
+      const res = await fetch("/api/wallet/deposit?isAdmin=true");
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        setDeposits(json.data);
+      }
+    } catch (e) {
+      console.warn("Deposits fetch failed:", e);
+    } finally {
+      setLoadingDeposits(false);
+    }
+  };
+
+  const handleApproveDeposit = async (depId: string) => {
+    try {
+      const res = await fetch("/api/wallet/deposit", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ depositId: depId, action: "APPROVE" }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        showToast(json.message || "ডিপোজিট অনুমোদিত হয়েছে!");
+        fetchDeposits();
+        fetchMerchants();
+        logAdminAction("DEPOSIT_APPROVED", `ডিপোজিট আইডি ${depId} অনুমোদন করা হয়েছে`);
+      } else {
+        showToast(json.error || "অনুমোদন ব্যর্থ হয়েছে।");
+      }
+    } catch (e) {
+      showToast("অনুমোদন সম্পন্ন করা যায়নি।");
+    }
+  };
+
+  const handleRejectDeposit = async (depId: string) => {
+    const reason = prompt("বাতিলের কারণ লিখুন:") || "TrxID বা তথ্যের অমিল";
+    try {
+      const res = await fetch("/api/wallet/deposit", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ depositId: depId, action: "REJECT", adminRemarks: reason }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        showToast(json.message || "ডিপোজিট বাতিল করা হয়েছে।");
+        fetchDeposits();
+        logAdminAction("DEPOSIT_REJECTED", `ডিপোজিট আইডি ${depId} বাতিল করা হয়েছে (${reason})`);
+      } else {
+        showToast(json.error || "বাতিল করতে সমস্যা হয়েছে।");
+      }
+    } catch (e) {
+      showToast("অ্যাকশন সম্পন্ন করা যায়নি।");
+    }
+  };
+
+  const handleToggleVerification = (mId: string) => {
+    setMerchants((prev) =>
+      prev.map((m) => {
+        if (m.id === mId) {
+          const nextVal = !m.isVerified;
+          showToast(`${m.storeName} ${nextVal ? "ভেরিফাই ও অনুমোদিত হয়েছে ✓" : "ভেরিফিকেশন প্রত্যাহার করা হয়েছে"}`);
+          logAdminAction("MERCHANT_VERIFICATION", `${m.storeName} (${m.ownerName}) ভেরিফিকেশন: ${nextVal ? "APPROVED" : "REVOKED"}`);
+          
+          if (typeof window !== "undefined") {
+            try {
+              const rawAll = localStorage.getItem("all_merchants");
+              if (rawAll) {
+                const list = JSON.parse(rawAll);
+                const updated = list.map((item: any) => item.id === mId ? { ...item, isVerified: nextVal } : item);
+                localStorage.setItem("all_merchants", JSON.stringify(updated));
+              }
+              const rawUser = localStorage.getItem("merchant_user");
+              if (rawUser) {
+                const u = JSON.parse(rawUser);
+                if (u.id === mId) {
+                  localStorage.setItem("merchant_user", JSON.stringify({ ...u, isVerified: nextVal }));
+                }
+              }
+            } catch (e) {}
+          }
+          return { ...m, isVerified: nextVal };
+        }
+        return m;
+      })
+    );
+  };
+
   useEffect(() => {
     fetchMerchants();
+    fetchDeposits();
   }, []);
 
   // Pending Subscription Payments Queue
@@ -511,6 +606,15 @@ export default function SuperAdminPage() {
           {[
             { id: "OVERVIEW", label: "প্ল্যাটফর্ম ওভারভিউ", icon: TrendingUp },
             { id: "MERCHANTS", label: "মার্চেন্ট ও স্টোরস", icon: Users, badge: merchants.length },
+            {
+              id: "DEPOSITS",
+              label: "ডিপোজিট ও রিচার্জ অনুমোদন",
+              icon: DollarSign,
+              badge: deposits.filter((d) => d.status === "PENDING").length > 0
+                ? `${deposits.filter((d) => d.status === "PENDING").length} পেন্ডিং`
+                : undefined,
+              badgeColor: "bg-teal-700 text-white",
+            },
             {
               id: "SUBSCRIPTIONS",
               label: "সাবস্ক্রিপশন ও বিলিং",
@@ -849,6 +953,114 @@ export default function SuperAdminPage() {
                   )}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {/* ============================================================== */}
+        {/* TAB: WALLET DEPOSITS & RECHARGE APPROVAL */}
+        {/* ============================================================== */}
+        {activeTab === "DEPOSITS" && (
+          <div className="space-y-6 animate-in fade-in">
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+              <div className="flex flex-wrap justify-between items-center border-b border-slate-100 pb-3 gap-2">
+                <div>
+                  <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+                    <DollarSign className="w-4 h-4 text-teal-600" />
+                    <span>মার্চেন্ট ওয়ালেট ডিপোজিট ও রিচার্জ অনুমোদন কিউ</span>
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    বিকাশ, নগদ বা ব্যাংকের মাধ্যমে মার্চেন্টদের প্রেরিত TrxID যাচাই করে ওয়ালেট ব্যালান্স অনুমোদন ও ট্যাক্স ইনভয়েস জেনারেশন।
+                  </p>
+                </div>
+                <button
+                  onClick={fetchDeposits}
+                  className="px-3 py-1.5 border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-xl flex items-center gap-1.5 cursor-pointer"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${loadingDeposits ? "animate-spin" : ""}`} />
+                  <span>রিফ্রেশ</span>
+                </button>
+              </div>
+
+              {deposits.length === 0 ? (
+                <div className="p-12 text-center text-xs text-slate-400 space-y-2">
+                  <p className="font-bold text-slate-700">কোনো পেন্ডিং ডিপোজিট রিকোয়েস্ট নেই</p>
+                  <p>মার্চেন্ট ড্যাশবোর্ড থেকে রিচার্জ রিকোয়েস্ট পাঠালে তা এখানে তালিকাভুক্ত হবে।</p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs text-left">
+                    <thead>
+                      <tr className="border-b border-slate-200 bg-slate-50 text-slate-500 font-bold">
+                        <th className="p-3">মার্চেন্ট ও স্টোর</th>
+                        <th className="p-3">পরিমাণ</th>
+                        <th className="p-3">মেথড</th>
+                        <th className="p-3">প্রেরক নম্বর</th>
+                        <th className="p-3">ট্রানজেকশন ID (TrxID)</th>
+                        <th className="p-3">ইনভয়েস নং</th>
+                        <th className="p-3">স্ট্যাটাস</th>
+                        <th className="p-3 text-right">অ্যাকশন</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 text-slate-700">
+                      {deposits.map((dep) => (
+                        <tr key={dep.id} className="hover:bg-slate-50 transition-colors">
+                          <td className="p-3">
+                            <span className="font-bold text-slate-900 block">
+                              {dep.merchant?.businessName || "মার্চেন্ট"}
+                            </span>
+                            <span className="text-[10px] text-slate-400">
+                              {dep.merchant?.ownerName} • {dep.merchant?.phone}
+                            </span>
+                          </td>
+                          <td className="p-3 font-mono font-bold text-teal-700 text-sm">
+                            {formatBDT(dep.amount)}
+                          </td>
+                          <td className="p-3">
+                            <span className="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-slate-100 text-slate-800 border border-slate-200">
+                              {dep.method}
+                            </span>
+                          </td>
+                          <td className="p-3 font-mono">{dep.senderNumber}</td>
+                          <td className="p-3 font-mono font-bold text-indigo-700 uppercase">{dep.trxId}</td>
+                          <td className="p-3 font-mono text-slate-500">{dep.invoiceNumber || "INV-PENDING"}</td>
+                          <td className="p-3">
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                              dep.status === "APPROVED"
+                                ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                                : dep.status === "REJECTED"
+                                ? "bg-rose-50 text-rose-800 border border-rose-200"
+                                : "bg-amber-50 text-amber-800 border border-amber-200"
+                            }`}>
+                              {dep.status === "APPROVED" ? "অনুমোদিত ✓" : dep.status === "REJECTED" ? "বাতিল" : "অপেক্ষমাণ"}
+                            </span>
+                          </td>
+                          <td className="p-3 text-right">
+                            {dep.status === "PENDING" ? (
+                              <div className="flex items-center justify-end gap-1.5">
+                                <button
+                                  onClick={() => handleApproveDeposit(dep.id)}
+                                  className="px-2.5 py-1 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition-all shadow-xs cursor-pointer"
+                                >
+                                  অনুমোদন
+                                </button>
+                                <button
+                                  onClick={() => handleRejectDeposit(dep.id)}
+                                  className="px-2 py-1 bg-white hover:bg-rose-50 text-rose-600 border border-rose-200 font-bold rounded-lg transition-all cursor-pointer"
+                                >
+                                  বাতিল
+                                </button>
+                              </div>
+                            ) : (
+                              <span className="text-[11px] text-slate-400 font-medium">মীমাংসিত</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </div>
         )}

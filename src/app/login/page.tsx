@@ -12,12 +12,58 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    
+    try {
+      // Find merchant by email or phone
+      const res = await fetch("/api/admin/merchants");
+      const data = await res.json();
+      
+      let matchedMerchant: any = null;
+      if (data.success && Array.isArray(data.data)) {
+        matchedMerchant = data.data.find(
+          (m: any) =>
+            m.email?.toLowerCase() === email.trim().toLowerCase() ||
+            m.phone === email.trim()
+        );
+      }
+
+      if (!matchedMerchant && typeof window !== "undefined") {
+        const rawAll = localStorage.getItem("all_merchants");
+        if (rawAll) {
+          const list = JSON.parse(rawAll);
+          if (Array.isArray(list)) {
+            matchedMerchant = list.find(
+              (m: any) =>
+                m.email?.toLowerCase() === email.trim().toLowerCase() ||
+                m.phone === email.trim()
+            );
+          }
+        }
+      }
+
+      if (matchedMerchant && typeof window !== "undefined") {
+        localStorage.setItem("merchant_user", JSON.stringify(matchedMerchant));
+      } else if (typeof window !== "undefined") {
+        // Fallback for custom store login
+        const fallbackMerchant = {
+          businessName: email.split("@")[0] || "আমার স্টোর",
+          email: email.trim(),
+          category: "GENERAL",
+          walletBalance: 0.0,
+          isVerified: true,
+        };
+        localStorage.setItem("merchant_user", JSON.stringify(fallbackMerchant));
+      }
+    } catch (err) {
+      console.warn("Login lookup failed, proceeding with fallback", err);
+    }
+
     setTimeout(() => {
       router.push("/dashboard");
-    }, 600);
+    }, 400);
   };
 
   return (

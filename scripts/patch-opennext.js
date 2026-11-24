@@ -29,6 +29,17 @@ try {
       console.log('✅ Patched @opennextjs/aws helper.js (checkNextVersionSupport bypassed)');
     }
   }
+
+  // 3. Patch wrangler bin so it never fails on Cloudflare CI environments running Node 20
+  const wranglerBinPath = path.join(__dirname, '..', 'node_modules', 'wrangler', 'bin', 'wrangler.js');
+  if (fs.existsSync(wranglerBinPath)) {
+    let content = fs.readFileSync(wranglerBinPath, 'utf8');
+    if (content.includes('MIN_NODE_VERSION = "22.12.0"')) {
+      content = content.replace('MIN_NODE_VERSION = "22.12.0"', 'MIN_NODE_VERSION = "18.0.0"');
+      fs.writeFileSync(wranglerBinPath, content, 'utf8');
+      console.log('✅ Patched wrangler bin (MIN_NODE_VERSION lowered to 18.0.0 for Cloudflare CI compatibility)');
+    }
+  }
 } catch (err) {
   console.warn('⚠️ Warning during opennext patch:', err.message);
 }

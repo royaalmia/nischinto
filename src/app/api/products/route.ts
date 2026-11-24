@@ -1,9 +1,22 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const merchantId = searchParams.get("merchantId");
+    const category = searchParams.get("category");
+
+    const where: any = {};
+    if (merchantId) {
+      where.merchantId = merchantId;
+    }
+    if (category && category !== "ALL") {
+      where.category = category;
+    }
+
     const products = await prisma.product.findMany({
+      where,
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json({ success: true, data: products });
@@ -15,37 +28,56 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { title, sku, price, costPrice, stock = 10, image, description } = body;
+    const {
+      merchantId,
+      title,
+      sku,
+      category = "GENERAL",
+      price,
+      costPrice,
+      stock = 0,
+      image,
+      description,
+    } = body;
 
-    let merchant = await prisma.merchant.findFirst();
-    if (!merchant) {
-      merchant = await prisma.merchant.create({
-        data: {
-          businessName: "My Store",
-          ownerName: "মার্চেন্ট",
-          email: "merchant@nishchinto.app",
-          phone: "01700000000",
-          plan: "PRO_AI",
-          walletBalance: 200,
-        },
-      });
+    let targetMerchantId = merchantId;
+
+    if (!targetMerchantId) {
+      const merchant = await prisma.merchant.findFirst();
+      if (merchant) {
+        targetMerchantId = merchant.id;
+      } else {
+        const newMerchant = await prisma.merchant.create({
+          data: {
+            businessName: "আমার স্টোর",
+            ownerName: "মার্চেন্ট",
+            email: "merchant@nishchinto.app",
+            phone: "01700000000",
+            category: "GENERAL",
+            plan: "PRO_AI",
+            walletBalance: 0,
+          },
+        });
+        targetMerchantId = newMerchant.id;
+      }
     }
 
     const product = await prisma.product.create({
       data: {
-        merchantId: merchant.id,
+        merchantId: targetMerchantId,
         title,
-        sku: sku || `SKU-${Date.now().toString().slice(-5)}`,
+        sku: sku || `SKU-${Date.now().toString().slice(-6)}`,
+        category: category || "GENERAL",
         price: Number(price),
-        costPrice: Number(costPrice || price * 0.45),
+        costPrice: Number(costPrice || price * 0.5),
         stock: Number(stock),
-        image: image || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60",
-        description,
+        image: image || null,
+        description: description || null,
       },
     });
 
     return NextResponse.json({ success: true, data: product });
   } catch (error: any) {
-    return NextResponse.json({ success: true, data: [] });
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

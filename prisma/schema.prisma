@@ -8,23 +8,35 @@ generator client {
 }
 
 model Merchant {
-  id            String    @id @default(cuid())
-  businessName  String
-  ownerName     String
-  email         String    @unique
-  phone         String
-  plan          String    @default("PRO_TRIAL") // STARTER, GROWTH, PRO_AI
-  walletBalance Float     @default(500.0) // BDT credits for AI Calls & SMS
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id                String    @id @default(cuid())
+  businessName      String
+  ownerName         String
+  email             String    @unique
+  phone             String
+  category          String    @default("GENERAL") // FASHION, GADGET, FOOD, COSMETICS, JEWELRY, HOME_DECOR, BOOKS, GROCERY, HEALTHCARE, AUTOMOBILE, GENERAL
+  status            String    @default("ACTIVE") // PENDING_APPROVAL, ACTIVE, SUSPENDED
+  isVerified        Boolean   @default(true) // Admin verified badge
+  emailVerified     Boolean   @default(false)
+  otpCode           String?
+  otpExpiresAt      DateTime?
+  fbPageConnected   Boolean   @default(false)
+  fbPageName        String?
+  fbAdAccountId     String?
+  fbPageAccessToken String?
+  plan              String    @default("PRO_TRIAL") // STARTER, GROWTH, PRO_AI
+  walletBalance     Float     @default(0.0) // Real BDT credits - No fake demo balance
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 
-  products      Product[]
-  orders        Order[]
-  couriers      CourierConfig[]
-  adCampaigns   AiAdCampaign[]
-  aiCalls       AiCallLog[]
-  settlements   CourierSettlement[]
-  disputes      Dispute[]
+  products          Product[]
+  orders            Order[]
+  couriers          CourierConfig[]
+  adCampaigns       AiAdCampaign[]
+  aiCalls           AiCallLog[]
+  settlements       CourierSettlement[]
+  disputes          Dispute[]
+  deposits          DepositRequest[]
+  notifications     Notification[]
 }
 
 model Product {
@@ -33,6 +45,7 @@ model Product {
   merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
   title       String
   sku         String
+  category    String?  @default("GENERAL")
   description String?
   price       Float
   costPrice   Float    // COGS for True Profit calculation
@@ -211,3 +224,33 @@ model Dispute {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 }
+
+model DepositRequest {
+  id             String    @id @default(cuid())
+  merchantId     String
+  merchant       Merchant  @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  amount         Float
+  method         String    // BKASH, NAGAD, ROCKET, BANK
+  senderNumber   String
+  trxId          String    @unique
+  screenshotUrl  String?
+  status         String    @default("PENDING") // PENDING, APPROVED, REJECTED
+  invoiceNumber  String?   @unique
+  adminRemarks   String?
+  approvedAt     DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  merchantId  String
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  title       String
+  message     String
+  type        String   @default("INFO") // ORDER, DEPOSIT, AI_CALL, COURIER, SYSTEM
+  isRead      Boolean  @default(false)
+  linkUrl     String?
+  createdAt   DateTime @default(now())
+}
+

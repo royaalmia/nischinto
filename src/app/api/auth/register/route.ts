@@ -4,7 +4,15 @@ import { prisma } from "@/lib/prisma";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { businessName, ownerName, email, phone, plan = "PRO_AI" } = body;
+    const {
+      businessName,
+      ownerName,
+      email,
+      phone,
+      category = "GENERAL",
+      plan = "PRO_AI",
+      emailVerified = true,
+    } = body;
 
     if (!businessName || !ownerName || !email || !phone) {
       return NextResponse.json(
@@ -13,11 +21,13 @@ export async function POST(request: Request) {
       );
     }
 
+    const cleanEmail = email.toLowerCase().trim();
+
     // Check if email already exists
     let existing: any = null;
     try {
       existing = await prisma.merchant.findUnique({
-        where: { email },
+        where: { email: cleanEmail },
       });
     } catch (err: any) {
       console.warn("Edge check existing skipped:", err?.message);
@@ -36,13 +46,18 @@ export async function POST(request: Request) {
         data: {
           businessName,
           ownerName,
-          email,
+          email: cleanEmail,
           phone,
+          category,
           plan,
-          walletBalance: 200.0, // Welcome signup bonus ৳200 for AI Voice calls / SMS
+          status: "ACTIVE",
+          isVerified: true,
+          emailVerified: Boolean(emailVerified),
+          walletBalance: 0.0, // Clean 0 starting balance - merchant recharges real balance
         },
       });
 
+      // Initialize default couriers
       await prisma.courierConfig.createMany({
         data: [
           {
@@ -63,16 +78,31 @@ export async function POST(request: Request) {
           },
         ],
       });
+
+      // Create welcome notification
+      await prisma.notification.create({
+        data: {
+          merchantId: merchant.id,
+          title: "Nischinto.app-এ স্বাগতম!",
+          message: `অভিনন্দন ${ownerName}! আপনার স্টোর "${businessName}" সফলভাবে তৈরি হয়েছে। আপনার ক্যাটাগরি: ${category}। পণ্য যুক্ত করে কুরিয়ার ডেলিভারি শুরু করুন।`,
+          type: "SYSTEM",
+          linkUrl: "/products",
+        },
+      });
     } catch (dbErr: any) {
       console.warn("Edge DB create fallback used:", dbErr?.message);
       merchant = {
         id: `mch_${Date.now()}`,
         businessName,
         ownerName,
-        email,
+        email: cleanEmail,
         phone,
+        category,
         plan,
-        walletBalance: 200.0,
+        status: "ACTIVE",
+        isVerified: true,
+        emailVerified: true,
+        walletBalance: 0.0,
       };
     }
 
@@ -83,14 +113,13 @@ export async function POST(request: Request) {
     });
   } catch (error: any) {
     console.error("Merchant Registration Fallback:", error);
-    // In any edge environment error, guarantee successful merchant account creation
     return NextResponse.json({
       success: true,
       message: "আপনার মার্চেন্ট অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!",
       data: {
         id: `mch_${Date.now()}`,
         businessName: "My Store",
-        walletBalance: 200.0,
+        walletBalance: 0.0,
       },
     });
   }

@@ -2,57 +2,18 @@ import { PrismaClient } from "@prisma/client";
 
 // In-Memory Edge Store for Cloudflare Workers when native SQLite / fs.readdir is unavailable
 class EdgeMemoryStore {
-  // Start with clean empty store - no fake demo accounts or fake demo orders
+  // Start with clean empty store - no fake demo accounts, products, or fake demo orders
   merchants: any[] = [];
   courierConfigs: any[] = [];
-  products: any[] = [
-    {
-      id: "prod_01",
-      merchantId: "mch_default_101",
-      title: "Premium Heavyweight Drop-Shoulder T-Shirt",
-      sku: "TS-DROP-001",
-      description: "100% Combed Cotton 240 GSM, reactive dye, breathable fabric.",
-      price: 650.0,
-      costPrice: 280.0,
-      stock: 140,
-      image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60",
-      isActive: true,
-      createdAt: new Date(),
-    },
-    {
-      id: "prod_02",
-      merchantId: "mch_default_101",
-      title: "Waterproof Travel Laptop Backpack (Anti-Theft)",
-      sku: "BP-SAFE-002",
-      description: "Oxford fabric with USB charging port, waterproof zipper.",
-      price: 1450.0,
-      costPrice: 650.0,
-      stock: 35,
-      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&auto=format&fit=crop&q=60",
-      isActive: true,
-      createdAt: new Date(),
-    },
-    {
-      id: "prod_03",
-      merchantId: "mch_default_101",
-      title: "Wireless ANC Earbuds Pro (32h Playtime)",
-      sku: "EB-ANC-003",
-      description: "Active Noise Cancellation with deep bass and ENC mic.",
-      price: 1250.0,
-      costPrice: 510.0,
-      stock: 0,
-      image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=60",
-      isActive: true,
-      createdAt: new Date(),
-    },
-  ];
-
+  products: any[] = [];
   customers: any[] = [];
   orders: any[] = [];
   campaigns: any[] = [];
   settlements: any[] = [];
   disputes: any[] = [];
   aiCallLogs: any[] = [];
+  depositRequests: any[] = [];
+  notifications: any[] = [];
 }
 
 const memoryStore = new EdgeMemoryStore();
@@ -66,11 +27,15 @@ function createModelHandler(modelName: string) {
       else if (modelName === "product") list = memoryStore.products;
       else if (modelName === "customer") list = memoryStore.customers;
       else if (modelName === "order") list = memoryStore.orders;
+      else if (modelName === "depositRequest") list = memoryStore.depositRequests;
+      else if (modelName === "notification") list = memoryStore.notifications;
       else if (modelName === "courierConfig") list = memoryStore.courierConfigs;
       else if (modelName === "aiAdCampaign") list = memoryStore.campaigns;
       else if (modelName === "courierSettlement") list = memoryStore.settlements;
       else if (modelName === "dispute") list = memoryStore.disputes;
       else if (modelName === "aiCallLog") list = memoryStore.aiCallLogs;
+      else if (modelName === "depositRequest") list = memoryStore.depositRequests;
+      else if (modelName === "notification") list = memoryStore.notifications;
 
       if (args?.where) {
         return list.filter((item) => {
@@ -98,6 +63,8 @@ function createModelHandler(modelName: string) {
       else if (modelName === "product") list = memoryStore.products;
       else if (modelName === "customer") list = memoryStore.customers;
       else if (modelName === "order") list = memoryStore.orders;
+      else if (modelName === "depositRequest") list = memoryStore.depositRequests;
+      else if (modelName === "notification") list = memoryStore.notifications;
 
       return (
         list.find((item) => {
@@ -131,6 +98,8 @@ function createModelHandler(modelName: string) {
       else if (modelName === "aiAdCampaign") memoryStore.campaigns.push(data);
       else if (modelName === "courierSettlement") memoryStore.settlements.push(data);
       else if (modelName === "aiCallLog") memoryStore.aiCallLogs.push(data);
+      else if (modelName === "depositRequest") memoryStore.depositRequests.unshift(data);
+      else if (modelName === "notification") memoryStore.notifications.unshift(data);
 
       return data;
     },

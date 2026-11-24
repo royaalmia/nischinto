@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import MerchantAiChatbot from "@/components/MerchantAiChatbot";
 
 export default function AppLayoutWrapper({
   children,
@@ -36,6 +37,7 @@ export default function AppLayoutWrapper({
       <div className="flex-1 flex flex-col min-w-0 min-h-screen">
         {children}
       </div>
+      <MerchantAiChatbot />
     </div>
   );
 }
