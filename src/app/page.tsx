@@ -606,23 +606,13 @@ export default function PublicHomePage() {
               {[...trustedBrands, ...trustedBrands].map((b, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-3.5 px-5 py-3 rounded-2xl bg-white border border-slate-200 shadow-xs hover:shadow-md hover:border-teal-400 transition-all shrink-0 group cursor-default"
+                  className="h-20 w-36 sm:w-44 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-teal-400 transition-all shrink-0 flex items-center justify-center group cursor-default"
                 >
-                  <div className="w-14 h-14 rounded-xl overflow-hidden bg-white border border-slate-100 flex items-center justify-center p-1.5 shrink-0">
-                    <img
-                      src={b.logo}
-                      alt={b.name}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform"
-                    />
-                  </div>
-                  <div className="space-y-0.5 text-left pr-2">
-                    <div className="text-xs font-bold text-slate-900 group-hover:text-teal-700 transition-colors">
-                      {b.name}
-                    </div>
-                    <div className="text-[10px] text-slate-500 font-medium">
-                      {b.category}
-                    </div>
-                  </div>
+                  <img
+                    src={b.logo}
+                    alt={b.name}
+                    className="max-h-14 max-w-full object-contain group-hover:scale-105 transition-transform"
+                  />
                 </div>
               ))}
             </div>
