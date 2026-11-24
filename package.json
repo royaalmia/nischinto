@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "postinstall": "node scripts/patch-opennext.js && prisma generate",
-    "build": "node scripts/patch-opennext.js && prisma generate && next build && npx @opennextjs/cloudflare build --dangerouslyUseUnsupportedNextVersion --skipNextBuild",
+    "postinstall": "node scripts/patch-opennext.js && prisma generate && prisma db push --skip-generate",
+    "build": "node scripts/patch-opennext.js && prisma generate && prisma db push --skip-generate && next build && npx @opennextjs/cloudflare build --dangerouslyUseUnsupportedNextVersion --skipNextBuild",
     "build:next": "next build",
     "start": "next start",
     "deploy": "npm run build && wrangler deploy",
