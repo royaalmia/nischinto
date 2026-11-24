@@ -20,6 +20,8 @@ import {
   Settings,
   Building2,
   Globe,
+  CreditCard,
+  User,
 } from "lucide-react";
 
 const navigation = [
@@ -30,11 +32,13 @@ const navigation = [
   { name: "সেন্ট্রাল ফ্রড গার্ড", href: "/fraud-guard", icon: ShieldAlert },
   { name: "WhatsApp ও SMS মার্কেটিং", href: "/marketing", icon: MessageSquare, badge: "CAPI" },
   { name: "কুরিয়ার ও সেটেলমেন্ট", href: "/settlements", icon: Truck },
+  { name: "বিলিং ও রিচার্জ", href: "/billing", icon: CreditCard, badge: "Invoice" },
   { name: "প্রফিট ও অ্যাড অ্যানালিটিক্স", href: "/analytics", icon: TrendingUp },
   { name: "রিটার্ন বারকোড স্ক্যানার", href: "/inventory-damage", icon: Barcode },
   { name: "সাপ্লায়ার ও পারচেজ (PO)", href: "/suppliers", icon: Building2 },
   { name: "টিম পারমিশন (RBAC)", href: "/team", icon: Users },
   { name: "পণ্য ও ইনভেন্টরি", href: "/products", icon: Boxes },
+  { name: "মার্চেন্ট প্রোফাইল", href: "/profile", icon: User },
   { name: "ইন্টিগ্রেশন ও সেটিংস", href: "/settings", icon: Settings },
 ];
 

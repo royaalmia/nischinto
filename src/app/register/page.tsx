@@ -291,37 +291,37 @@ export default function RegisterPage() {
                   required
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  placeholder="যেমন: রয়াল মিয়া ফ্যাশন, সুন্দরবন ফার্ম"
-                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-teal-600"
+                  placeholder="Type your store name"
+                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-teal-600 focus:bg-white transition-all"
                 />
               </div>
             </div>
 
-            {/* Category Search & Selection Section */}
+            {/* Clean & Easy Category Selector */}
             <div className="space-y-2 pt-1">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-bold text-slate-700">
-                  আপনার বিজনেসের ক্যাটাগরি নির্ধারণ করুন <span className="text-red-500">*</span>
+                  বিজনেসের ক্যাটাগরি <span className="text-red-500">*</span>
                 </label>
-                <span className="text-[11px] text-teal-700 font-bold bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200">
+                <span className="text-[11px] text-teal-800 font-bold bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200">
                   {activeCategoryObj.icon} {activeCategoryObj.nameBn}
                 </span>
               </div>
 
-              {/* Search box for category */}
+              {/* Instant Category Search */}
               <div className="relative">
                 <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   value={categorySearch}
                   onChange={(e) => setCategorySearch(e.target.value)}
-                  placeholder="ক্যাটাগরি বা পণ্যের নাম খুঁজুন (পোশাক, মধু, গ্যাজেট, ঘড়ি...)"
-                  className="w-full pl-8 pr-3 py-2 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-teal-600 shadow-2xs"
+                  placeholder="Type your category (e.g. Fashion, Food, Gadgets)"
+                  className="w-full pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-teal-600 focus:bg-white transition-all"
                 />
               </div>
 
-              {/* Category Grid */}
-              <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-2xl p-2 bg-slate-50/50 space-y-1.5 custom-scrollbar">
+              {/* Clean, Compact Category Pills Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-48 overflow-y-auto p-1 border border-slate-200 rounded-xl bg-slate-50/50 custom-scrollbar">
                 {filteredCategories.map((cat) => {
                   const isSelected = selectedCategory === cat.id;
                   return (
@@ -329,29 +329,18 @@ export default function RegisterPage() {
                       type="button"
                       key={cat.id}
                       onClick={() => setSelectedCategory(cat.id)}
-                      className={`w-full text-left p-2.5 rounded-xl border transition-all flex items-center justify-between ${
+                      className={`text-left p-2 rounded-xl border text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
-                          ? "bg-teal-50 border-teal-500 shadow-2xs"
-                          : "bg-white border-slate-200 hover:border-slate-300"
+                          ? "bg-teal-600 text-white border-teal-600 shadow-xs"
+                          : "bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
                       }`}
                     >
-                      <div className="flex items-center gap-2.5">
-                        <span className="text-lg">{cat.icon}</span>
-                        <div>
-                          <p className={`text-xs font-bold leading-tight ${isSelected ? "text-teal-900" : "text-slate-800"}`}>
-                            {cat.nameBn}
-                          </p>
-                          <p className="text-[10px] text-slate-500 leading-tight">
-                            {cat.sampleItems.slice(0, 3).join(", ")}
-                          </p>
-                        </div>
-                      </div>
-                      {isSelected ? (
-                        <div className="w-5 h-5 rounded-full bg-teal-600 text-white flex items-center justify-center">
-                          <Check className="w-3 h-3 stroke-[3]" />
-                        </div>
-                      ) : (
-                        <div className="w-4 h-4 rounded-full border border-slate-300"></div>
+                      <span className="flex items-center gap-1.5 truncate">
+                        <span className="text-sm shrink-0">{cat.icon}</span>
+                        <span className="truncate">{cat.nameBn}</span>
+                      </span>
+                      {isSelected && (
+                        <Check className="w-3.5 h-3.5 shrink-0 stroke-[2.5]" />
                       )}
                     </button>
                   );
@@ -371,8 +360,8 @@ export default function RegisterPage() {
                     required
                     value={ownerName}
                     onChange={(e) => setOwnerName(e.target.value)}
-                    placeholder="যেমন: রয়েল মিয়া"
-                    className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-teal-600"
+                    placeholder="Type your name"
+                    className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-teal-600 focus:bg-white transition-all"
                   />
                 </div>
               </div>
@@ -388,8 +377,8 @@ export default function RegisterPage() {
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="017XXXXXXXX"
-                    className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-medium focus:outline-none focus:border-teal-600"
+                    placeholder="Type your valid phone"
+                    className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-medium focus:outline-none focus:border-teal-600 focus:bg-white transition-all"
                   />
                 </div>
               </div>
@@ -397,7 +386,7 @@ export default function RegisterPage() {
 
             <div>
               <label className="text-xs font-bold text-slate-700 block mb-1">
-                ইমেইল অ্যাড্রেস (ওটিপি পাঠানো হবে) <span className="text-red-500">*</span>
+                ইমেইল অ্যাড্রেস <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -406,8 +395,8 @@ export default function RegisterPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="merchant@yourbrand.com"
-                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-teal-600"
+                  placeholder="Type your email address"
+                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-teal-600 focus:bg-white transition-all"
                 />
               </div>
             </div>
@@ -423,8 +412,8 @@ export default function RegisterPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="কমপক্ষে ৬টি অক্ষর"
-                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-teal-600"
+                  placeholder="Type your password"
+                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-teal-600 focus:bg-white transition-all"
                 />
               </div>
             </div>
@@ -432,9 +421,9 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 hover:shadow-md cursor-pointer"
+              className="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>{submitting ? "ওটিপি কোড পাঠানো হচ্ছে..." : "পরবর্তী ধাপ: ইমেইল ওটিপি ভেরিফাই"}</span>
+              <span>{submitting ? "কোড পাঠানো হচ্ছে..." : "ওটিপি ভেরিফাই"}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>

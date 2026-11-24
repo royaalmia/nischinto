@@ -19,10 +19,13 @@ import {
   Building,
   Smartphone,
   ExternalLink,
+  User,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BUSINESS_CATEGORIES, getCategoryById } from "@/lib/categories";
+import { MfsLogo } from "@/components/MfsLogos";
+import { MessageSquare } from "lucide-react";
 
 interface HeaderProps {
   phoneMasked?: boolean;
@@ -62,6 +65,14 @@ export default function Header({
   const [depositSuccessMsg, setDepositSuccessMsg] = useState<string | null>(null);
   const [depositErrorMsg, setDepositErrorMsg] = useState<string | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+
+  // Recharge Thank You Popup State
+  const [showThankYouModal, setShowThankYouModal] = useState(false);
+  const [submittedDepositInfo, setSubmittedDepositInfo] = useState<{
+    amount: string;
+    trxId: string;
+    method: string;
+  } | null>(null);
 
   // Notification State
   const [showNotifications, setShowNotifications] = useState(false);
@@ -209,14 +220,17 @@ export default function Header({
       setDepositSubmitting(false);
 
       if (data.success) {
-        setDepositSuccessMsg(data.message || "ডিপোজিট রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
+        setShowDepositModal(false);
+        setSubmittedDepositInfo({
+          amount: depositAmount,
+          method: depositMethod,
+          trxId,
+        });
+        setShowThankYouModal(true);
         setSenderNumber("");
         setTrxId("");
+        setDepositErrorMsg(null);
         fetchNotifications();
-        setTimeout(() => {
-          setShowDepositModal(false);
-          setDepositSuccessMsg(null);
-        }, 3000);
       } else {
         setDepositErrorMsg(data.error || "ডিপোজিট রিকোয়েস্ট ব্যর্থ হয়েছে।");
       }
@@ -324,7 +338,11 @@ export default function Header({
 
           {/* AI & SMS Real Wallet with Deposit Button */}
           <div className="flex items-center gap-1.5 p-1 bg-slate-50 border border-slate-200 rounded-xl shadow-2xs">
-            <div className="flex items-center gap-1.5 px-2 py-0.5">
+            <Link
+              href="/billing"
+              title="বিলিং ও ট্রানজেকশন হিস্টোরি দেখুন"
+              className="flex items-center gap-1.5 px-2 py-0.5 hover:bg-slate-200/60 rounded-lg transition-colors cursor-pointer"
+            >
               <Wallet className="w-4 h-4 text-teal-600" />
               <div className="flex flex-col">
                 <span className="text-[9px] text-slate-400 font-bold uppercase leading-none">
@@ -334,7 +352,7 @@ export default function Header({
                   ৳{merchantData.walletBalance.toFixed(2)}
                 </span>
               </div>
-            </div>
+            </Link>
 
             {/* Deposit / Recharge Button */}
             <button
@@ -426,6 +444,16 @@ export default function Header({
             )}
           </div>
 
+          {/* Profile Action */}
+          <Link
+            href="/profile"
+            title="মার্চেন্ট প্রোফাইল ও সেটিংস"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition-all cursor-pointer shadow-2xs"
+          >
+            <User className="w-3.5 h-3.5 text-slate-500" />
+            <span className="hidden sm:inline">প্রোফাইল</span>
+          </Link>
+
           {/* Logout Action */}
           <button
             onClick={handleLogout}
@@ -491,13 +519,14 @@ export default function Header({
                       type="button"
                       key={m.id}
                       onClick={() => setDepositMethod(m.id as any)}
-                      className={`py-2 px-1 text-center rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                      className={`py-2 px-1 text-center rounded-xl text-xs font-bold border transition-all cursor-pointer flex flex-col items-center justify-center gap-1.5 ${
                         depositMethod === m.id
-                          ? "bg-teal-600 text-white border-teal-600 shadow-xs"
-                          : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                          ? "bg-teal-50 text-teal-900 border-teal-500 shadow-xs ring-1 ring-teal-500"
+                          : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
                       }`}
                     >
-                      {m.name}
+                      <MfsLogo method={m.id} className="w-6 h-6 shrink-0" />
+                      <span>{m.name}</span>
                     </button>
                   ))}
               </div>
@@ -635,6 +664,65 @@ export default function Header({
               </div>
             </form>
 
+          </div>
+        </div>
+      )}
+
+      {/* Thank You Popup Modal after Recharge Request */}
+      {showThankYouModal && submittedDepositInfo && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 text-center space-y-4 animate-in fade-in zoom-in-95">
+            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
+              <Check className="w-8 h-8 stroke-[3]" />
+            </div>
+
+            <div className="space-y-1">
+              <h3 className="text-lg font-black text-slate-900">ধন্যবাদ! রিচার্জ রিকোয়েস্ট জমা হয়েছে</h3>
+              <p className="text-xs text-slate-600 font-medium">
+                পরিমাণ: <strong className="text-emerald-700">৳{submittedDepositInfo.amount}</strong> ({submittedDepositInfo.method}) • TrxID:{" "}
+                <span className="font-mono font-bold text-slate-800 bg-slate-100 px-1.5 py-0.5 rounded">{submittedDepositInfo.trxId}</span>
+              </p>
+            </div>
+
+            <div className="bg-amber-50 border border-amber-200/80 rounded-2xl p-4 text-left space-y-2.5 text-xs">
+              <div className="flex items-start gap-2">
+                <span className="text-amber-700 text-sm mt-0.5">⏱️</span>
+                <p className="text-amber-950 font-medium leading-relaxed">
+                  <strong>অনুমোদন অপেক্ষমাণ:</strong> অ্যাডমিন কর্তৃক ট্রানজেকশন আইডি (TrxID) যাচাইয়ের পর স্বয়ংক্রিয়ভাবে ওয়ালেটে ব্যালান্স যুক্ত হবে। সাধারণ সময়: <strong>১৫-৩০ মিনিট</strong>।
+                </p>
+              </div>
+              <div className="flex items-start gap-2 pt-2 border-t border-amber-200/60">
+                <span className="text-teal-700 text-sm mt-0.5">⚡</span>
+                <p className="text-slate-700 leading-relaxed">
+                  জরুরি ক্যাম্পেইন চলমান থাকলে বা দ্রুত ব্যালান্স পেতে সরাসরি আমাদের সাপোর্ট সেন্টারে যোগাযোগ করুন।
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-2 pt-1">
+              <a
+                href={`https://wa.me/8801700000000?text=${encodeURIComponent(
+                  `আসসালামু আলাইকুম, আমি নিশচিন্ত শপ থেকে বলছি। আমি ৳${submittedDepositInfo.amount} রিচার্জের জন্য ডিপোজিট রিকোয়েস্ট পাঠিয়েছি। TrxID: ${submittedDepositInfo.trxId}। দ্রুত অ্যাপ্রুভ করার অনুরোধ করছি।`
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <MessageSquare className="w-4 h-4" />
+                <span>সাপোর্ট সেন্টারে কথা বলুন (WhatsApp)</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setShowThankYouModal(false);
+                  setSubmittedDepositInfo(null);
+                }}
+                className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-all cursor-pointer"
+              >
+                ঠিক আছে, বন্ধ করুন
+              </button>
+            </div>
           </div>
         </div>
       )}

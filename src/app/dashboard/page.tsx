@@ -20,6 +20,9 @@ import {
   HelpCircle,
   ExternalLink,
   ChevronDown,
+  FileText,
+  Save,
+  X,
 } from "lucide-react";
 
 export default function OrdersPage() {
@@ -36,6 +39,11 @@ export default function OrdersPage() {
   const [aiCalling, setAiCalling] = useState(false);
   const [aiCallResult, setAiCallResult] = useState<any | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Agent Note Modal state
+  const [editingNoteOrder, setEditingNoteOrder] = useState<any | null>(null);
+  const [noteInput, setNoteInput] = useState("");
+  const [savingNote, setSavingNote] = useState(false);
 
   // Fetch Orders
   const fetchOrders = async () => {
@@ -77,6 +85,53 @@ export default function OrdersPage() {
       }
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  // Direct Status Update Handler
+  const handleUpdateStatus = async (orderId: string, newStatus: string) => {
+    try {
+      const res = await fetch(`/api/orders/${orderId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast(`অর্ডার স্ট্যাটাস সফলভাবে '${newStatus}' এ পরিবর্তন করা হয়েছে`);
+        fetchOrders();
+      } else {
+        showToast(data.error || "স্ট্যাটাস পরিবর্তন ব্যর্থ হয়েছে");
+      }
+    } catch (err) {
+      console.error(err);
+      showToast("স্ট্যাটাস পরিবর্তন ত্রুটি");
+    }
+  };
+
+  // Agent Note Save Handler
+  const handleSaveAgentNote = async () => {
+    if (!editingNoteOrder) return;
+    try {
+      setSavingNote(true);
+      const res = await fetch(`/api/orders/${editingNoteOrder.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminNotes: noteInput }),
+      });
+      const data = await res.json();
+      setSavingNote(false);
+      if (data.success) {
+        showToast("এজেন্ট নোট সংরক্ষিত হয়েছে ✓");
+        setEditingNoteOrder(null);
+        fetchOrders();
+      } else {
+        showToast(data.error || "নোট সংরক্ষণ ব্যর্থ হয়েছে");
+      }
+    } catch (err) {
+      setSavingNote(false);
+      console.error(err);
+      showToast("নোট সংরক্ষণ ত্রুটি");
     }
   };
 
@@ -524,6 +579,15 @@ export default function OrdersPage() {
                           <span className="text-[11px] text-slate-400 truncate max-w-[180px] block" title={order.customer.address}>
                             {order.customer.address || "ঠিকানা নেই"}
                           </span>
+                          {order.adminNotes && (
+                            <div
+                              className="inline-flex items-center gap-1 mt-1 px-1.5 py-0.5 rounded bg-amber-50 border border-amber-200/80 text-amber-800 text-[10px] font-medium max-w-[180px] truncate"
+                              title={`এজেন্ট নোট: ${order.adminNotes}`}
+                            >
+                              <FileText className="w-3 h-3 text-amber-600 shrink-0" />
+                              <span className="truncate">{order.adminNotes}</span>
+                            </div>
+                          )}
                         </td>
 
                         {/* Products */}
@@ -569,21 +633,39 @@ export default function OrdersPage() {
                         {/* Status & Courier */}
                         <td className="p-3">
                           <div className="space-y-1">
-                            <span
-                              className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                                order.status === "DELIVERED"
-                                  ? "bg-emerald-100 text-emerald-800"
-                                  : order.status === "IN_COURIER"
-                                  ? "bg-blue-100 text-blue-800"
-                                  : order.status === "CONFIRMED"
-                                  ? "bg-indigo-100 text-indigo-800"
-                                  : order.status === "INCOMPLETE"
-                                  ? "bg-amber-100 text-amber-800"
-                                  : "bg-slate-100 text-slate-700"
-                              }`}
-                            >
-                              {order.status}
-                            </span>
+                            <div className="relative inline-block">
+                              <select
+                                value={order.status}
+                                onChange={(e) => handleUpdateStatus(order.id, e.target.value)}
+                                className={`text-[10px] font-bold rounded-lg px-2 py-1 border transition-all cursor-pointer appearance-none pr-5 focus:outline-none focus:ring-1 focus:ring-teal-500 ${
+                                  order.status === "DELIVERED"
+                                    ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                                    : order.status === "IN_COURIER"
+                                    ? "bg-blue-50 text-blue-800 border-blue-200"
+                                    : order.status === "CONFIRMED"
+                                    ? "bg-indigo-50 text-indigo-800 border-indigo-200"
+                                    : order.status === "PROCESSING"
+                                    ? "bg-purple-50 text-purple-800 border-purple-200"
+                                    : order.status === "INCOMPLETE"
+                                    ? "bg-amber-50 text-amber-800 border-amber-200"
+                                    : order.status === "CANCELLED"
+                                    ? "bg-red-50 text-red-800 border-red-200"
+                                    : order.status === "RETURNED"
+                                    ? "bg-rose-50 text-rose-800 border-rose-200"
+                                    : "bg-slate-100 text-slate-700 border-slate-200"
+                                }`}
+                              >
+                                <option value="PENDING">পেন্ডিং</option>
+                                <option value="CONFIRMED">কনফার্মড</option>
+                                <option value="PROCESSING">প্রসেসিং</option>
+                                <option value="IN_COURIER">কুরিয়ারে</option>
+                                <option value="DELIVERED">ডেলিভারড</option>
+                                <option value="HOLD">হোল্ড</option>
+                                <option value="CANCELLED">বাতিল</option>
+                                <option value="RETURNED">রিটার্ন</option>
+                              </select>
+                              <ChevronDown className="w-2.5 h-2.5 text-slate-500 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                            </div>
 
                             {order.courierTrackingId && (
                               <div className="text-[10px] font-mono text-slate-500 flex items-center gap-1">
@@ -596,6 +678,22 @@ export default function OrdersPage() {
 
                         {/* Action Buttons */}
                         <td className="p-3 text-right space-x-1">
+                          {/* Agent Note Button */}
+                          <button
+                            onClick={() => {
+                              setEditingNoteOrder(order);
+                              setNoteInput(order.adminNotes || "");
+                            }}
+                            title="এজেন্ট নোট লিখুন / দেখুন"
+                            className={`p-1.5 rounded-lg transition-all ${
+                              order.adminNotes
+                                ? "text-amber-700 bg-amber-100 hover:bg-amber-200"
+                                : "text-slate-600 bg-slate-100 hover:bg-slate-200"
+                            }`}
+                          >
+                            <FileText className="w-4 h-4" />
+                          </button>
+
                           {/* AI Voice Call Button */}
                           <button
                             onClick={() => handleAiCall(order)}
@@ -796,6 +894,63 @@ export default function OrdersPage() {
                   className="px-4 py-2 bg-slate-900 text-white text-xs font-bold rounded-xl"
                 >
                   সম্পন্ন
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Modal 3: Agent Note (Internal Note) Modal */}
+        {editingNoteOrder && (
+          <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4 animate-in fade-in zoom-in-95">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div className="flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-amber-600" />
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-sm">এজেন্ট নোট (Internal Note)</h3>
+                    <p className="text-[11px] text-slate-500">
+                      অর্ডার #{editingNoteOrder.orderNumber} • {editingNoteOrder.customer?.name}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setEditingNoteOrder(null)}
+                  className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-700 block mb-1">
+                  নোট বা ইন্টারনাল নির্দেশনা লিখুন
+                </label>
+                <textarea
+                  rows={4}
+                  value={noteInput}
+                  onChange={(e) => setNoteInput(e.target.value)}
+                  placeholder="যেমন: কাস্টমার বিকেলে ৫টার পর ডেলিভারি চেয়েছেন, সাইজ L থেকে XL পরিবর্তন করা হয়েছে, ইত্যাদি..."
+                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-teal-600 focus:bg-white resize-none"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setEditingNoteOrder(null)}
+                  className="px-3 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl cursor-pointer"
+                >
+                  বাতিল
+                </button>
+                <button
+                  type="button"
+                  disabled={savingNote}
+                  onClick={handleSaveAgentNote}
+                  className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-xs cursor-pointer"
+                >
+                  <Save className="w-3.5 h-3.5" />
+                  <span>{savingNote ? "সংরক্ষণ হচ্ছে..." : "নোট সংরক্ষণ করুন"}</span>
                 </button>
               </div>
             </div>
