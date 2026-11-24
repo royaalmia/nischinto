@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <!-- Background Gradient (Matches Main Site Theme) -->
+    <linearGradient id="mainBgGrad_1_5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#f0fdfa" />
+      <stop offset="45%" stopColor="#ffffff" />
+      <stop offset="100%" stopColor="#f8fafc" />
+    </linearGradient>
+
+    <!-- N Logo Gradient -->
+    <linearGradient id="logoN_1_5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#00c49f" />
+      <stop offset="50%" stopColor="#00b4d8" />
+      <stop offset="100%" stopColor="#0284c7" />
+    </linearGradient>
+
+    <!-- Card Shadow -->
+    <filter id="cardShadow_1_5" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0f766e" flood-opacity="0.08" />
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.04" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1080" fill="url(#mainBgGrad_1_5)" />
+
+  <!-- Ambient Light Color Glows -->
+  <circle cx="150" cy="150" r="260" fill="#ccfbf1" opacity="0.45" />
+  <circle cx="950" cy="180" r="280" fill="#e0f2fe" opacity="0.4" />
+  <circle cx="540" cy="950" r="240" fill="#ecfdf5" opacity="0.35" />
+
+  <!-- HEADER BRANDING BAR -->
+  <g transform="translate(60, 50)">
+    <!-- Squircle Logo Icon -->
+    <rect x="0" y="0" width="60" height="60" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+    <g transform="translate(0, 0) scale(0.6)">
+      <path
+        d="M26 22 C26 18 31 16 34 19 L66 65 L66 25 C66 21 72 21 74 25 L74 78 C74 82 69 84 66 81 L34 35 L34 75 C34 79 26 79 26 75 Z"
+        fill="url(#logoN_1_5)"
+      />
+      <!-- Verified Badge -->
+      <circle cx="78" cy="74" r="14" fill="#10b981" stroke="#ffffff" stroke-width="3" />
+      <path d="M72 74 L76 78 L84 70" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+
+    <!-- Wordmark -->
+    <text x="75" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="900" fill="#0f172a" letter-spacing="-0.5">
+      Nishchinto
+    </text>
+    <rect x="230" y="14" width="48" height="24" rx="7" fill="#0d9488" />
+    <text x="254" y="31" font-family="system-ui, sans-serif" font-size="12" font-weight="800" fill="#ffffff" text-anchor="middle">.app</text>
+    <text x="290" y="34" font-family="'Hind Siliguri', system-ui, sans-serif" font-size="18" font-weight="700" fill="#0f766e">নিশ্চিন্ত</text>
+
+    <!-- Album Category Pill on Right -->
+    <rect x="580" y="8" width="380" height="42" rx="21" fill="#ffffff" stroke="#fca5a5" stroke-width="1.5" />
+    <circle cx="602" cy="29" r="5" fill="#dc2626" />
+    <text x="618" y="34" font-family="'Hind Siliguri', system-ui, sans-serif" font-size="13" font-weight="700" fill="#334155">
+      অ্যালবাম 1 • ছবি 5/৫ • প্রমাণিত ফলাফল
+    </text>
+  </g>
+
+  <!-- MAIN TITLE & HOOK SECTION -->
+  <g transform="translate(60, 160)">
+    <!-- Subtopic Badge -->
+    <rect x="0" y="0" width="180" height="32" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1" />
+    <text x="90" y="21" font-family="'Hind Siliguri', sans-serif" font-size="13" font-weight="800" fill="#dc2626" text-anchor="middle">
+      প্রমাণিত ফলাফল
+    </text>
+
+    <!-- Main Bold Bangla Headline -->
+    <text x="0" y="75" font-family="'Hind Siliguri', system-ui, sans-serif" font-size="36" font-weight="800" fill="#0f172a">
+      রিটার্ন রেট ২৫% থেকে ৫%-এ নামিয়ে আনার ফলাফল
+    </text>
+    <text x="0" y="112" font-family="'Hind Siliguri', system-ui, sans-serif" font-size="18" font-weight="500" fill="#64748b">
+      মাসে গড়ে ৩৫,০০০ থেকে ৫০,০০০ টাকা সরাসরি নিট প্রফিট সাশ্রয়
+    </text>
+  </g>
+
+  <!-- HERO METRIC STAT CARD -->
+  <g transform="translate(60, 310)" filter="url(#cardShadow_1_5)">
+    <rect width="960" height="150" rx="24" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+    
+    <g transform="translate(40, 35)">
+      <text font-family="'Hind Siliguri', sans-serif" font-size="15" font-weight="700" fill="#64748b">
+        প্রমাণিত পারফরম্যান্স ইনডিকেটর
+      </text>
+      <text y="58" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="900" fill="#dc2626">
+        ৫%
+      </text>
+      <text y="90" font-family="'Hind Siliguri', sans-serif" font-size="15" font-weight="600" fill="#334155">
+        নিশ্চিন্ত ব্যবহারকারীদের গড় রিটার্ন রেট
+      </text>
+    </g>
+
+    <!-- Visual Status Icon / Badge on Right of Stat Card -->
+    <g transform="translate(740, 38)">
+      <rect width="180" height="74" rx="18" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5" />
+      <circle cx="35" cy="37" r="14" fill="#dc2626" />
+      <text x="35" y="42" font-family="sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="bold">✓</text>
+      <text x="60" y="32" font-family="'Hind Siliguri', sans-serif" font-size="13" font-weight="800" fill="#dc2626">
+        অটোমেশন লাইভ
+      </text>
+      <text x="60" y="52" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#64748b">
+        ২৪/৭ স্বয়ংক্রিয়
+      </text>
+    </g>
+  </g>
+
+  <!-- 4 POINT-BY-POINT KEY HIGHLIGHTS -->
+  <g transform="translate(60, 490)">
+    <rect width="960" height="380" rx="24" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#cardShadow_1_5)" />
+
+    <text x="40" y="45" font-family="'Hind Siliguri', sans-serif" font-size="16" font-weight="800" fill="#0f172a">
+      📌 কেন এটি আপনার ব্যবসার জন্য অপরিহার্য:
+    </text>
+
+    <!-- Feature 1 -->
+    <g transform="translate(40, 75)">
+      <rect width="880" height="60" rx="14" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1" />
+      <circle cx="28" cy="30" r="12" fill="#0d9488" />
+      <text x="28" y="35" font-family="sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="bold">১</text>
+      <text x="56" y="36" font-family="'Hind Siliguri', sans-serif" font-size="15" font-weight="700" fill="#1e293b">
+        রিটার্ন পার্সেল কমে যাওয়ায় ডেলিভারিম্যানের আসা-যাওয়ার ডাবল চার্জ সাশ্রয়
+      </text>
+    </g>
+
+    <!-- Feature 2 -->
+    <g transform="translate(40, 145)">
+      <rect width="880" height="60" rx="14" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1" />
+      <circle cx="28" cy="30" r="12" fill="#0d9488" />
+      <text x="28" y="35" font-family="sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="bold">২</text>
+      <text x="56" y="36" font-family="'Hind Siliguri', sans-serif" font-size="15" font-weight="700" fill="#1e293b">
+        পণ্য ট্রানজিটে আটকে না থাকায় ইনভেন্টরি দ্রুত রোটেশন ও বিক্রয়
+      </text>
+    </g>
+
+    <!-- Feature 3 -->
+    <g transform="translate(40, 215)">
+      <rect width="880" height="60" rx="14" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1" />
+      <circle cx="28" cy="30" r="12" fill="#0d9488" />
+      <text x="28" y="35" font-family="sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="bold">৩</text>
+      <text x="56" y="36" font-family="'Hind Siliguri', sans-serif" font-size="15" font-weight="700" fill="#1e293b">
+        ডেলিভারি সাকসেস রেট ৯৫%-এর ওপরে উন্নীতকরণ
+      </text>
+    </g>
+
+    <!-- Feature 4 -->
+    <g transform="translate(40, 285)">
+      <rect width="880" height="60" rx="14" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1" />
+      <circle cx="28" cy="30" r="12" fill="#0d9488" />
+      <text x="28" y="35" font-family="sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="bold">৪</text>
+      <text x="56" y="36" font-family="'Hind Siliguri', sans-serif" font-size="15" font-weight="700" fill="#1e293b">
+        প্রতি ১০০টি অর্ডারে গড়ে ২০টি রিটার্নের সমপরিমাণ মুনাফা আপনার পকেটে
+      </text>
+    </g>
+
+    <!-- Highlight Banner at Bottom of Points -->
+    <g transform="translate(40, 355)">
+      <text x="0" y="0" font-family="'Hind Siliguri', sans-serif" font-size="13" font-weight="700" fill="#0d9488">
+        💡 ফলাফল: প্রতি মাসেই বাঁচান আপনার কষ্টার্জিত ব্যবসার আসল পুঁজি
+      </text>
+    </g>
+  </g>
+
+  <!-- FOOTER CALL TO ACTION BAR -->
+  <g transform="translate(60, 900)">
+    <rect width="960" height="120" rx="24" fill="#ffffff" stroke="#99f6e4" stroke-width="2" filter="url(#cardShadow_1_5)" />
+
+    <!-- CTA Message -->
+    <g transform="translate(40, 42)">
+      <text font-family="'Hind Siliguri', sans-serif" font-size="22" font-weight="800" fill="#0f172a">
+        আজই আপনার ব্যবসা শুরু করুন নিশ্চিন্তে!
+      </text>
+      <text y="28" font-family="'Hind Siliguri', sans-serif" font-size="14" font-weight="600" fill="#64748b">
+        ১৪ দিনের ফ্রি ট্রায়াল নিন • কোনো অগ্রিম ফি নেই • ওয়েবসাইট: www.nishchinto.app
+      </text>
+    </g>
+
+    <!-- Action Pill Button on Right -->
+    <g transform="translate(710, 36)">
+      <rect width="210" height="48" rx="14" fill="#0d9488" />
+      <text x="105" y="30" font-family="'Hind Siliguri', sans-serif" font-size="16" font-weight="800" fill="#ffffff" text-anchor="middle">
+        Free Trial শুরু করুন →
+      </text>
+    </g>
+  </g>
+</svg>

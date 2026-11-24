@@ -1,61 +1,61 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
-    <!-- Background Gradient -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="#ffffff" />
-      <stop offset="60%" stopColor="#f8fafc" />
-      <stop offset="100%" stopColor="#f0fdfa" />
+    <!-- Background Gradient Matching Main Site (from-teal-50/40 via-white to-slate-50) -->
+    <linearGradient id="mainThemeBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#f0fdfa" />
+      <stop offset="50%" stopColor="#ffffff" />
+      <stop offset="100%" stopColor="#f8fafc" />
     </linearGradient>
 
-    <!-- N Logo Vibrant Gradient -->
+    <!-- Vibrant Cyan-Teal Gradient N -->
     <linearGradient id="nGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stopColor="#00c49f" />
       <stop offset="50%" stopColor="#00b4d8" />
       <stop offset="100%" stopColor="#0284c7" />
     </linearGradient>
 
-    <!-- Squircle Shadow -->
-    <filter id="squircleShadow" x="-15%" y="-15%" width="135%" height="135%" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="24" stdDeviation="32" flood-color="#0f766e" flood-opacity="0.14" />
-      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.08" />
+    <!-- Soft Ambient Light Glow -->
+    <filter id="ambientLight" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="40" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Squircle Card Shadow -->
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#0d9488" flood-opacity="0.12" />
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.06" />
     </filter>
 
     <!-- Badge Shadow -->
-    <filter id="badgeShadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#065f46" flood-opacity="0.3" />
-    </filter>
-
-    <!-- Glow Filter -->
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="16" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    <filter id="badgeShadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#059669" flood-opacity="0.25" />
     </filter>
   </defs>
 
-  <!-- Background Canvas -->
-  <rect width="1024" height="1024" fill="url(#bgGrad)" />
+  <!-- Canvas Background (Main Site Theme) -->
+  <rect width="1024" height="1024" fill="url(#mainThemeBg)" />
 
-  <!-- Subtle Ambient Glow Rings -->
-  <circle cx="512" cy="460" r="380" fill="#ccfbf1" opacity="0.35" filter="url(#softGlow)" />
-  <circle cx="512" cy="460" r="280" fill="#e0f2fe" opacity="0.45" />
+  <!-- Subtle Brand Glow Accents -->
+  <circle cx="512" cy="460" r="360" fill="#ccfbf1" opacity="0.45" filter="url(#ambientLight)" />
+  <circle cx="280" cy="280" r="200" fill="#e0f2fe" opacity="0.35" filter="url(#ambientLight)" />
 
   <!-- Main Squircle White Card -->
-  <g filter="url(#squircleShadow)">
-    <rect x="232" y="180" width="560" height="560" rx="140" fill="#ffffff" stroke="#f1f5f9" stroke-width="4" />
-    
+  <g filter="url(#cardShadow)">
+    <rect x="232" y="170" width="560" height="560" rx="140" fill="#ffffff" stroke="#e2e8f0" stroke-width="3" />
+
     <!-- Stylized Ribbon N Logo -->
-    <g transform="translate(232, 180) scale(5.6)">
+    <g transform="translate(232, 170) scale(5.6)">
       <path
         d="M26 22 C26 18 31 16 34 19 L66 65 L66 25 C66 21 72 21 74 25 L74 78 C74 82 69 84 66 81 L34 35 L34 75 C34 79 26 79 26 75 Z"
         fill="url(#nGradient)"
       />
     </g>
 
-    <!-- Emerald Verified Checkmark Badge -->
+    <!-- Green Verified Checkmark Badge -->
     <g filter="url(#badgeShadow)">
-      <circle cx="730" cy="680" r="62" fill="#10b981" stroke="#ffffff" stroke-width="12" />
+      <circle cx="730" cy="670" r="62" fill="#10b981" stroke="#ffffff" stroke-width="12" />
       <path
-        d="M705 680 L723 698 L758 662"
+        d="M705 670 L723 688 L758 652"
         fill="none"
         stroke="#ffffff"
         stroke-width="12"
@@ -66,10 +66,10 @@
   </g>
 
   <!-- Brand Typography -->
-  <g transform="translate(512, 830)" text-anchor="middle">
+  <g transform="translate(512, 825)" text-anchor="middle">
     <!-- Nishchinto Wordmark -->
     <text
-      x="-40"
+      x="-42"
       y="0"
       font-family="system-ui, -apple-system, sans-serif"
       font-size="76"
@@ -79,9 +79,9 @@
     >Nishchinto</text>
 
     <!-- .app Pill Badge -->
-    <rect x="180" y="-56" width="100" height="52" rx="16" fill="#0d9488" />
+    <rect x="180" y="-56" width="102" height="52" rx="16" fill="#0d9488" />
     <text
-      x="230"
+      x="231"
       y="-18"
       font-family="system-ui, -apple-system, sans-serif"
       font-size="28"
@@ -89,15 +89,19 @@
       fill="#ffffff"
     >.app</text>
 
-    <!-- Bangla Tagline -->
-    <text
-      x="0"
-      y="62"
-      font-family="'Hind Siliguri', system-ui, sans-serif"
-      font-size="34"
-      font-weight="700"
-      letter-spacing="2"
-      fill="#0d9488"
-    >ব্যবসা চালান নিশ্চিন্তে</text>
+    <!-- Bangla Tagline Pill -->
+    <g transform="translate(0, 52)">
+      <rect x="-160" y="-28" width="320" height="46" rx="23" fill="#ffffff" stroke="#99f6e4" stroke-width="2" />
+      <circle cx="-130" cy="-5" r="4" fill="#10b981" />
+      <text
+        x="0"
+        y="2"
+        font-family="'Hind Siliguri', system-ui, sans-serif"
+        font-size="22"
+        font-weight="700"
+        fill="#0f766e"
+      >ব্যবসা চালান নিশ্চিন্তে</text>
+      <circle cx="130" cy="-5" r="4" fill="#0d9488" />
+    </g>
   </g>
 </svg>

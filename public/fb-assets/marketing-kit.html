@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nishchinto.app - Facebook Page Branding & Marketing Kit</title>
+  <title>Nishchinto.app - Facebook Page Branding & 35-Photo Album Kit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11,8 +11,17 @@
   <style>
     body { font-family: 'Hind Siliguri', sans-serif; }
   </style>
+  <script>
+    function copyToClipboard(elementId) {
+      const copyText = document.getElementById(elementId);
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(copyText.value);
+      alert("ক্যাপশন কপি হয়েছে!");
+    }
+  </script>
 </head>
-<body class="bg-slate-50 text-slate-900 pb-20">
+<body class="bg-slate-50 text-slate-900 pb-24">
 
   <!-- Header -->
   <header class="bg-white border-b border-slate-200 py-4 px-6 sticky top-0 z-50 shadow-xs">
@@ -22,22 +31,25 @@
           N
         </div>
         <div>
-          <h1 class="text-lg font-bold text-slate-900 leading-tight">Nishchinto.app ফেসবুক ব্র্যান্ডিং কিট</h1>
-          <p class="text-xs text-slate-500">প্রোফাইল পিকচার, কভার ফটো ও আলাদা আলাদা টপিকের বুস্টিং অ্যালবাম</p>
+          <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">Nishchinto.app ফেসবুক পেজ ব্র্যান্ডিং ও মার্কেটিং কিট</h1>
+          <p class="text-xs text-slate-500">প্রোফাইল ফটো, কভার ব্যানার এবং ৩৫টি রেডিমেড ফটোসহ ৭টি বুস্টিং অ্যালবাম</p>
         </div>
       </div>
-      <a href="/dashboard" class="text-xs bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-xl transition-all">
+      <a href="/marketing" class="text-xs bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-xl transition-all">
         ড্যাশবোর্ডে ফিরে যান →
       </a>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto p-6 space-y-10">
+  <main class="max-w-6xl mx-auto p-4 sm:p-6 space-y-10">
 
-    <!-- Section 1: Profile & Cover Photos -->
+    <!-- Section 1: Profile & Cover Photos (Exact Light Main Theme) -->
     <section class="space-y-4">
       <div class="border-b border-slate-200 pb-2">
-        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-bold border border-teal-200 mb-1">
+          <span>মূল সাইটের লাইট থিমে তৈরি</span>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
           <span>🎨</span>
           <span>ফেসবুক পেজ প্রোফাইল ফটো ও কভার ব্যানার</span>
         </h2>
@@ -52,15 +64,15 @@
               <span class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200">
                 1:1 Square (1024x1024)
               </span>
-              <span class="text-xs font-medium text-slate-400">প্রোফাইল ফটো</span>
+              <span class="text-xs font-medium text-slate-400">প্রোফাইল পিকচার</span>
             </div>
-            <div class="aspect-square w-full rounded-2xl overflow-hidden border border-slate-100 bg-slate-100 flex items-center justify-center shadow-inner">
+            <div class="aspect-square w-full rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center shadow-inner">
               <img src="/fb-assets/fb-profile-photo.jpg" alt="Facebook Profile Picture" class="w-full h-full object-cover">
             </div>
           </div>
           <div class="pt-2 flex gap-2">
             <a href="/fb-assets/fb-profile-photo.jpg" download="nishchinto-fb-profile.jpg" class="flex-1 py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl text-center shadow-sm">
-              ডাউনলোড JPG (HD)
+              ডাউনলোড JPG (Ultra HD)
             </a>
             <a href="/fb-assets/profile-picture.svg" download="nishchinto-fb-profile.svg" class="px-3 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl text-center">
               ভেক্টর SVG
@@ -75,9 +87,9 @@
               <span class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200">
                 16:9 Landscape Banner (1640x624)
               </span>
-              <span class="text-xs font-medium text-slate-400">পেজ কভার ফটো</span>
+              <span class="text-xs font-medium text-slate-400">পেজ কভার ব্যানার</span>
             </div>
-            <div class="w-full rounded-2xl overflow-hidden border border-slate-100 bg-slate-900 shadow-inner flex items-center justify-center">
+            <div class="w-full rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shadow-inner flex items-center justify-center">
               <img src="/fb-assets/fb-cover-photo.jpg" alt="Facebook Cover Photo" class="w-full h-auto object-cover">
             </div>
           </div>
@@ -93,199 +105,824 @@
       </div>
     </section>
 
-    <!-- Section 2: Photo Albums & Boost Copies -->
+    <!-- Section 2: 7 Photo Albums (Each with 5 Photos = 35 Photos Total) -->
     <section class="space-y-6">
-      <div class="border-b border-slate-200 pb-2">
-        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-          <span>📸</span>
-          <span>ফেসবুক বুস্টিং ও ফটো অ্যালবাম (৭টি আলাদা টপিক)</span>
-        </h2>
-        <p class="text-xs text-slate-500">প্রতিটি অ্যালবামের জন্য তৈরি হাই-কনভার্টিং বুস্ট অ্যাড কপি, পয়েন্ট আকারে ফিচার এবং টার্গেটিং নির্দেশিকা</p>
+      <div class="border-b border-slate-200 pb-4 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>📁</span>
+            <span>ফেসবুক ফটো অ্যালবামসমূহ (প্রতিটি অ্যালবামে ৫টি করে ছবি — সর্বমোট ৩৫টি ফটো)</span>
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">
+            প্রতিটি অ্যালবামের আলাদা আলাদা ছবি ডাউনলোড করুন এবং সাথে দেওয়া বাংলা সেলস কপি দিয়ে ফেসবুকে বুস্ট ও পোস্ট করুন।
+          </p>
+        </div>
+        <div>
+          <a href="/fb-assets/albums/nishchinto-all-albums.zip" download="nishchinto-all-albums.zip" class="inline-flex items-center gap-2 px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all hover:shadow-md">
+            <span>📦</span> সব ৩৫টি ফটো একসাথে ডাউনলোড করুন (Master ZIP)
+          </a>
+        </div>
       </div>
 
-      <!-- Album Grid -->
-      <div class="space-y-6">
-
-        <!-- Album 1 -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center font-bold text-sm">১</span>
-              <div>
-                <h3 class="font-bold text-base text-slate-900">অ্যালবাম ১: সেন্ট্রাল কুরিয়ার ফ্রড গার্ড ও রিটার্ন লস প্রতিরোধ</h3>
-                <p class="text-xs text-slate-500">Courier Fraud Guard & Return Prevention</p>
+      <!-- Albums List -->
+      <div class="space-y-8">
+        
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        <!-- Album Header -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-200 text-teal-800 flex items-center justify-center font-extrabold text-base">
+              1
+            </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-slate-900">সেন্ট্রাল কুরিয়ার ফ্রড গার্ড ও রিটার্ন লস প্রতিরোধ</h3>
+                <span class="text-[11px] font-bold px-2.5 py-0.5 bg-teal-100 text-teal-800 rounded-full">
+                  ৫টি রেডি ফটো
+                </span>
               </div>
+              <p class="text-xs text-slate-500 font-mono">Courier Fraud Guard & Return Prevention</p>
             </div>
-            <span class="text-xs font-bold px-3 py-1 bg-red-50 text-red-700 border border-red-200 rounded-full">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
               হাইয়েস্ট আরওআই বুস্টিং টপিক
             </span>
+            <a href="/fb-assets/albums/album-1/album-1.zip" download="nishchinto-album-1.zip" class="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-50 hover:bg-teal-100 text-teal-800 text-xs font-bold rounded-full border border-teal-200 transition-all shadow-xs">
+              <span>📥</span> অ্যালবাম ZIP ডাউনলোড
+            </a>
+          </div>
+        </div>
+
+        <!-- 5 Photos Grid for this Album -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🖼️</span>
+              <span>এই অ্যালবামের ৫টি অফিশিয়াল মার্কেটিং ফটো (ডাউনলোড করুন):</span>
+            </h4>
+            <span class="text-[11px] text-slate-400">১০৮০x১০৮০ স্কয়ার ফরম্যাট (FB Post & Ad Ready)</span>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-              <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">ফেসবুক পোস্টে যা লিখবেন (ক্যাপশন / বুস্ট কপি):</h4>
-              <div class="text-xs text-slate-800 leading-relaxed font-normal whitespace-pre-line bg-white p-3.5 rounded-lg border border-slate-200 shadow-2xs">
-🛑 মাসে ৩০-৪০ হাজার টাকা শুধু কুরিয়ার রিটার্নে লস হচ্ছে? 
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 pt-1">
+            
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-1/photo-1.png" onerror="this.src='/fb-assets/albums/album-1/photo-1.svg'" alt="১. কুরিয়ার রিটার্ন সমস্যার বাস্তব চিত্র" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-1/photo-1.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="১. কুরিয়ার রিটার্ন সমস্যার বাস্তব চিত্র">
+              ১. কুরিয়ার রিটার্ন সমস্যার বাস্তব চিত্র
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-1/photo-1.png" download="nishchinto-album-1-photo-1.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-1/photo-1.svg" download="nishchinto-album-1-photo-1.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-1/photo-2.png" onerror="this.src='/fb-assets/albums/album-1/photo-2.svg'" alt="২. ০-১০০% ফ্রড রিস্ক স্কোরিং মিটার" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-1/photo-2.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="২. ০-১০০% ফ্রড রিস্ক স্কোরিং মিটার">
+              ২. ০-১০০% ফ্রড রিস্ক স্কোরিং মিটার
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-1/photo-2.png" download="nishchinto-album-1-photo-2.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-1/photo-2.svg" download="nishchinto-album-1-photo-2.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-1/photo-3.png" onerror="this.src='/fb-assets/albums/album-1/photo-3.svg'" alt="৩. কুরিয়ার ব্লকলিস্ট ও ক্রস-ম্যাচ ডেটাবেস" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-1/photo-3.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৩. কুরিয়ার ব্লকলিস্ট ও ক্রস-ম্যাচ ডেটাবেস">
+              ৩. কুরিয়ার ব্লকলিস্ট ও ক্রস-ম্যাচ ডেটাবেস
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-1/photo-3.png" download="nishchinto-album-1-photo-3.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-1/photo-3.svg" download="nishchinto-album-1-photo-3.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-1/photo-4.png" onerror="this.src='/fb-assets/albums/album-1/photo-4.svg'" alt="৪. হাই-রিস্ক অর্ডারে অগ্রিম চার্জ সতর্কতা" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-1/photo-4.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৪. হাই-রিস্ক অর্ডারে অগ্রিম চার্জ সতর্কতা">
+              ৪. হাই-রিস্ক অর্ডারে অগ্রিম চার্জ সতর্কতা
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-1/photo-4.png" download="nishchinto-album-1-photo-4.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-1/photo-4.svg" download="nishchinto-album-1-photo-4.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-1/photo-5.png" onerror="this.src='/fb-assets/albums/album-1/photo-5.svg'" alt="৫. রিটার্ন রেট ২৫% থেকে ৫%-এ নামানোর ফলাফল" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-1/photo-5.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৫. রিটার্ন রেট ২৫% থেকে ৫%-এ নামানোর ফলাফল">
+              ৫. রিটার্ন রেট ২৫% থেকে ৫%-এ নামানোর ফলাফল
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-1/photo-5.png" download="nishchinto-album-1-photo-5.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-1/photo-5.svg" download="nishchinto-album-1-photo-5.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+          </div>
+        </div>
+
+        <!-- Copy & Targeting Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
+          <!-- Caption Copy Box -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-xs font-bold text-slate-700">📋 ফেসবুক পোস্টের ক্যাপশন / বুস্ট কপি:</span>
+                <button onclick="copyToClipboard('caption_1')" class="text-[11px] font-bold text-teal-700 hover:text-teal-800 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
+                  কপি করুন
+                </button>
+              </div>
+              <textarea id="caption_1" readonly rows="8" class="w-full text-xs text-slate-800 leading-relaxed font-normal p-3 rounded-xl border border-slate-200 bg-white shadow-2xs resize-none focus:outline-none">🛑 মাসে ৩০-৪০ হাজার টাকা শুধু কুরিয়ার রিটার্নে লস হচ্ছে? 
 
 অনলাইন ব্যবসায়ীদের সবচেয়ে বড় শত্রু ভুয়া অর্ডার আর কুরিয়ার রিটার্ন। কাস্টমার অর্ডার দিয়ে পার্সেল রিসিভ না করলে আসা-যাওয়ার ডেলিভারি চার্জ সম্পূর্ণ আপনার পকেট থেকে যায়!
 
 ⚡ সমাধান: Nishchinto.app-এর 'সেন্ট্রাল কুরিয়ার ফ্রড গার্ড'।
 
 যেভাবে আপনার লাভ বাঁচাবে:
-• দেশের প্রধান প্রধান কুরিয়ার নেটওয়ার্কের ক্রস-ম্যাচড ফ্রড ডেটাবেস
-• অর্ডার কনফার্মের আগেই কাস্টমারের ০-১০০% রিস্ক স্কোর প্রদর্শন
-• ভুয়া কাস্টমার ও সিরিয়াল রিটার্নকারীদের শনাক্ত করে হাই-রিস্ক অ্যালার্ট
+• দেশের শীর্ষ কুরিয়ার নেটওয়ার্কের ক্রস-ম্যাচড সেন্ট্রাল ডেটাবেস
+• অর্ডার কনফার্মের আগেই কাস্টমারের ০-১০০% ফ্রড রিস্ক স্কোর প্রদর্শন
+• ভুয়া কাস্টমার ও সিরিয়াল রিটার্নকারীদের শনাক্ত করে সাথে সাথে হাই-রিস্ক অ্যালার্ট
 • ঝুঁকিপূর্ণ অর্ডারে স্বয়ংক্রিয়ভাবে অগ্রিম ডেলিভারি চার্জ নেওয়ার রিকমেন্ডেশন
 
 ব্যবসা চালান সম্পূর্ণ নিশ্চিন্তে। আজই ফ্রি ট্রায়াল নিন!
 👉 সাইন আপ করুন: https://nishchinto.app
 📞 হটলাইন: 01711223344
 
-#Nischinto #EcommerceAutomation #FraudGuard #CourierReturn #BDShop #CourierAutomation
-              </div>
+#Nischinto #EcommerceAutomation #FraudGuard #CourierReturn #BDShop #CourierAutomation</textarea>
             </div>
+          </div>
 
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">🎯 অ্যাড ম্যানেজার টার্গেটিং নির্দেশিকা:</h4>
-                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-                  <li><strong>টার্গেট অডিয়েন্স:</strong> Business Page Admins, Retailers, E-commerce in Bangladesh</li>
-                  <li><strong>ইন্টারেস্ট কি-ওয়ার্ডস:</strong> F-commerce, Steadfast Courier, Pathao, Daraz Seller, Shopify, Facebook Marketing</li>
-                  <li><strong>বয়স সীমা:</strong> ২২ থেকে ৫০ বছর (নারী ও পুরুষ উদ্যোক্তা)</li>
-                  <li><strong>লোকেশন:</strong> সমগ্র বাংলাদেশ (বিশেষত ঢাকা, চট্টগ্রাম, রাজশাহী, সিলেট)</li>
-                </ul>
-              </div>
-              <div class="p-3 bg-red-50 border border-red-200 rounded-lg text-[11px] text-red-800 font-semibold">
-                💡 ব্যানার আইডিয়া: একপাশে পার্সেল রিটার্নের হতাশ মুখ, অন্যপাশে Nishchinto ড্যাশবোর্ডে "৮৮% ফ্রড আটকানো হয়েছে" সবুজ টিকচিহ্ন।
-              </div>
+          <!-- Targeting Guide -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <span class="text-xs font-bold text-slate-700">🎯 মেটা অ্যাড ম্যানেজার অডিয়েন্স টার্গেটিং:</span>
+              <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside bg-white p-3.5 rounded-xl border border-slate-200">
+                <li><strong>Target Audience: Business Page Admins, Retailers, E-commerce in Bangladesh</strong></li><li><strong>Interests: F-commerce, Steadfast Courier, Pathao, Daraz Seller, Shopify</strong></li><li><strong>Age: ২২ - ৫০ বছর (উভয় লিঙ্গ)</strong></li><li><strong>Location: সমগ্র বাংলাদেশ (ঢাকা, চট্টগ্রাম, রাজশাহী, সিলেট অগ্রাধিকার)</strong></li>
+              </ul>
+            </div>
+            <div class="p-3 bg-teal-50 border border-teal-200 rounded-xl text-[11px] text-teal-900 font-semibold flex items-center justify-between">
+              <span>💡 রিকমেন্ডেড ক্যাম্পেইন গোল:</span>
+              <span class="font-bold text-teal-800">Engagement / Leads / Conversions</span>
             </div>
           </div>
         </div>
-
-        <!-- Album 2 -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm">২</span>
-              <div>
-                <h3 class="font-bold text-base text-slate-900">অ্যালবাম ২: সাবলীল বাংলা AI ভয়েস কলিং এজেন্ট</h3>
-                <p class="text-xs text-slate-500">Bangla Conversational AI Voice Calling Agent</p>
+      </div>
+    
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        <!-- Album Header -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-200 text-teal-800 flex items-center justify-center font-extrabold text-base">
+              2
+            </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-slate-900">সাবলীল বাংলা AI ভয়েস কলিং এজেন্ট</h3>
+                <span class="text-[11px] font-bold px-2.5 py-0.5 bg-teal-100 text-teal-800 rounded-full">
+                  ৫টি রেডি ফটো
+                </span>
               </div>
+              <p class="text-xs text-slate-500 font-mono">Bangla Conversational AI Voice Calling Agent</p>
             </div>
-            <span class="text-xs font-bold px-3 py-1 bg-teal-50 text-teal-800 border border-teal-200 rounded-full">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
               ভাইরাল আকর্ষণীয় ফিচার
             </span>
+            <a href="/fb-assets/albums/album-2/album-2.zip" download="nishchinto-album-2.zip" class="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-50 hover:bg-teal-100 text-teal-800 text-xs font-bold rounded-full border border-teal-200 transition-all shadow-xs">
+              <span>📥</span> অ্যালবাম ZIP ডাউনলোড
+            </a>
+          </div>
+        </div>
+
+        <!-- 5 Photos Grid for this Album -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🖼️</span>
+              <span>এই অ্যালবামের ৫টি অফিশিয়াল মার্কেটিং ফটো (ডাউনলোড করুন):</span>
+            </h4>
+            <span class="text-[11px] text-slate-400">১০৮০x১০৮০ স্কয়ার ফরম্যাট (FB Post & Ad Ready)</span>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-              <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">ফেসবুক পোস্টে যা লিখবেন (ক্যাপশন / বুস্ট কপি):</h4>
-              <div class="text-xs text-slate-800 leading-relaxed font-normal whitespace-pre-line bg-white p-3.5 rounded-lg border border-slate-200 shadow-2xs">
-🤖 কর্মী রেখে সারাদিন ফোন কল করার দিন শেষ! এবার বাংলা ভাষায় স্বয়ংক্রিয় ফোন কল করবে আমাদের AI!
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 pt-1">
+            
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-2/photo-1.png" onerror="this.src='/fb-assets/albums/album-2/photo-1.svg'" alt="১. ০ সেকেন্ডে মিষ্টি বাংলা গলায় ফোন কল" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-2/photo-1.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="১. ০ সেকেন্ডে মিষ্টি বাংলা গলায় ফোন কল">
+              ১. ০ সেকেন্ডে মিষ্টি বাংলা গলায় ফোন কল
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-2/photo-1.png" download="nishchinto-album-2-photo-1.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-2/photo-1.svg" download="nishchinto-album-2-photo-1.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-2/photo-2.png" onerror="this.src='/fb-assets/albums/album-2/photo-2.svg'" alt="২. সাইজ ও ঠিকানা হিউম্যান-লাইক ভেরিফিকেশন" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-2/photo-2.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="২. সাইজ ও ঠিকানা হিউম্যান-লাইক ভেরিফিকেশন">
+              ২. সাইজ ও ঠিকানা হিউম্যান-লাইক ভেরিফিকেশন
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-2/photo-2.png" download="nishchinto-album-2-photo-2.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-2/photo-2.svg" download="nishchinto-album-2-photo-2.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-2/photo-3.png" onerror="this.src='/fb-assets/albums/album-2/photo-3.svg'" alt="৩. ৩ বার স্মার্ট অটো রি-ডায়াল সুবিধা" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-2/photo-3.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৩. ৩ বার স্মার্ট অটো রি-ডায়াল সুবিধা">
+              ৩. ৩ বার স্মার্ট অটো রি-ডায়াল সুবিধা
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-2/photo-3.png" download="nishchinto-album-2-photo-3.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-2/photo-3.svg" download="nishchinto-album-2-photo-3.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-2/photo-4.png" onerror="this.src='/fb-assets/albums/album-2/photo-4.svg'" alt="৪. কুরিয়ারে অটোমেটিক ট্র্যাকিং ও বুকিং" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-2/photo-4.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৪. কুরিয়ারে অটোমেটিক ট্র্যাকিং ও বুকিং">
+              ৪. কুরিয়ারে অটোমেটিক ট্র্যাকিং ও বুকিং
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-2/photo-4.png" download="nishchinto-album-2-photo-4.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-2/photo-4.svg" download="nishchinto-album-2-photo-4.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-2/photo-5.png" onerror="this.src='/fb-assets/albums/album-2/photo-5.svg'" alt="৫. কর্মীদের মাসিক ৪০,০০০ টাকা বেতন সাশ্রয়" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-2/photo-5.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৫. কর্মীদের মাসিক ৪০,০০০ টাকা বেতন সাশ্রয়">
+              ৫. কর্মীদের মাসিক ৪০,০০০ টাকা বেতন সাশ্রয়
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-2/photo-5.png" download="nishchinto-album-2-photo-5.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-2/photo-5.svg" download="nishchinto-album-2-photo-5.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+          </div>
+        </div>
 
-গ্রাহক আপনার পেজে বা ওয়েবসাইটে অর্ডার করার সাথে সাথে নিশচিন্ত AI নিজে মিষ্টি বাংলা ভাষায় কল দিয়ে বলবে:
+        <!-- Copy & Targeting Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
+          <!-- Caption Copy Box -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-xs font-bold text-slate-700">📋 ফেসবুক পোস্টের ক্যাপশন / বুস্ট কপি:</span>
+                <button onclick="copyToClipboard('caption_2')" class="text-[11px] font-bold text-teal-700 hover:text-teal-800 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
+                  কপি করুন
+                </button>
+              </div>
+              <textarea id="caption_2" readonly rows="8" class="w-full text-xs text-slate-800 leading-relaxed font-normal p-3 rounded-xl border border-slate-200 bg-white shadow-2xs resize-none focus:outline-none">🤖 কর্মী রেখে সারাদিন ফোন কল করার দিন শেষ! এবার মিষ্টি বাংলা ভাষায় স্বয়ংক্রিয় ফোন কল করবে আমাদের AI!
+
+গ্রাহক আপনার পেজে বা ওয়েবসাইটে অর্ডার করার সাথে সাথেই Nishchinto AI নিজে ফোন দিয়ে সাবলীল বাংলায় বলবে:
 "আসসালামু আলাইকুম! আপনি অমুক পেজ থেকে এই পণ্যটি অর্ডার করেছিলেন। সাইজ ও ডেলিভারি ঠিকানা কনফার্ম করতে ১ চাপুন।"
 
 সুবিধাসমূহ:
 • ০ সেকেন্ড অপেক্ষায় ইনস্ট্যান্ট কল—অর্ডার ক্যানসেলেশন প্রায় শূন্যের কোঠায়
-• কাস্টমারের সাথে সাবলীল বাংলায় কথা বলে সাইজ, কালার ও ঠিকানা ভেরিফিকেশন
-• কনফার্ম করার সাথে সাথে স্বয়ংক্রিয়ভাবে কুরিয়ারে বুকিং
+• কাস্টমারের সাথে কথা বলে সাইজ, কালার ও ঠিকানা শতভাগ ভেরিফিকেশন
+• কনফার্ম করার সাথে সাথে স্বয়ংক্রিয়ভাবে কুরিয়ারে পার্সেল বুকিং
 • কল সেন্টারের ৩-৪ জন কর্মীর মাসিক ৩০,০০০-৪০,০০০ টাকা বেতন সাশ্রয়
 
 স্মার্ট উদ্যোক্তা হতে আজই আপনার স্টোরে বাংলা AI ভয়েস এজেন্ট যুক্ত করুন।
 👉 এখনই শুরু করুন: https://nishchinto.app
 
-#AIVoiceAgent #EcommerceBangla #OrderConfirmation #Nischinto #VoiceBot #AutomationBD
-              </div>
+#AIVoiceAgent #EcommerceBangla #OrderConfirmation #Nischinto #VoiceBot #AutomationBD</textarea>
             </div>
+          </div>
 
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">🎯 অ্যাড ম্যানেজার টার্গেটিং নির্দেশিকা:</h4>
-                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-                  <li><strong>টার্গেট অডিয়েন্স:</strong> Clothing Brands, Gadget Shops, Organic Food Sellers, Cosmetics Businesses</li>
-                  <li><strong>ইন্টারেস্ট কি-ওয়ার্ডস:</strong> Artificial Intelligence, Customer Care, Call Center, Small Business, Online Shopping</li>
-                  <li><strong>ক্যাম্পেইন অবজেক্টিভ:</strong> Lead Generation / Website Purchases (Landing Page)</li>
-                </ul>
-              </div>
-              <div class="p-3 bg-teal-50 border border-teal-200 rounded-lg text-[11px] text-teal-800 font-semibold">
-                💡 ব্যানার আইডিয়া: হেডফোন পরা আধুনিক AI রোবট ও গ্রাহকের কথোপকথনের স্ক্রিনশট এবং '১০০% স্বয়ংক্রিয় কনফার্মেশন' ব্যাজ।
-              </div>
+          <!-- Targeting Guide -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <span class="text-xs font-bold text-slate-700">🎯 মেটা অ্যাড ম্যানেজার অডিয়েন্স টার্গেটিং:</span>
+              <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside bg-white p-3.5 rounded-xl border border-slate-200">
+                <li><strong>Target Audience: Clothing Brands, Gadget Shops, Cosmetics Businesses, F-commerce</strong></li><li><strong>Interests: Artificial Intelligence, Customer Care, Call Center, Small Business</strong></li><li><strong>Age: ২১ - ৪৫ বছর</strong></li>
+              </ul>
+            </div>
+            <div class="p-3 bg-teal-50 border border-teal-200 rounded-xl text-[11px] text-teal-900 font-semibold flex items-center justify-between">
+              <span>💡 রিকমেন্ডেড ক্যাম্পেইন গোল:</span>
+              <span class="font-bold text-teal-800">Engagement / Leads / Conversions</span>
             </div>
           </div>
         </div>
-
-        <!-- Album 3 -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">৩</span>
-              <div>
-                <h3 class="font-bold text-base text-slate-900">অ্যালবাম ৩: AI অটো অ্যাড ম্যানেজার ও অটো স্টক-কিল</h3>
-                <p class="text-xs text-slate-500">Meta & TikTok Ad Autopilot with Auto Stock-Pause</p>
+      </div>
+    
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        <!-- Album Header -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-200 text-teal-800 flex items-center justify-center font-extrabold text-base">
+              3
+            </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-slate-900">AI অটো অ্যাড ম্যানেজার ও অটো স্টক-কিল</h3>
+                <span class="text-[11px] font-bold px-2.5 py-0.5 bg-teal-100 text-teal-800 rounded-full">
+                  ৫টি রেডি ফটো
+                </span>
               </div>
+              <p class="text-xs text-slate-500 font-mono">Meta & TikTok Ad Autopilot with Auto Stock-Pause</p>
             </div>
-            <span class="text-xs font-bold px-3 py-1 bg-indigo-50 text-indigo-800 border border-indigo-200 rounded-full">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
               মেটা অ্যাড স্পেন্ড সেভার
             </span>
+            <a href="/fb-assets/albums/album-3/album-3.zip" download="nishchinto-album-3.zip" class="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-50 hover:bg-teal-100 text-teal-800 text-xs font-bold rounded-full border border-teal-200 transition-all shadow-xs">
+              <span>📥</span> অ্যালবাম ZIP ডাউনলোড
+            </a>
+          </div>
+        </div>
+
+        <!-- 5 Photos Grid for this Album -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🖼️</span>
+              <span>এই অ্যালবামের ৫টি অফিশিয়াল মার্কেটিং ফটো (ডাউনলোড করুন):</span>
+            </h4>
+            <span class="text-[11px] text-slate-400">১০৮০x১০৮০ স্কয়ার ফরম্যাট (FB Post & Ad Ready)</span>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-              <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">ফেসবুক পোস্টে যা লিখবেন (ক্যাপশন / বুস্ট কপি):</h4>
-              <div class="text-xs text-slate-800 leading-relaxed font-normal whitespace-pre-line bg-white p-3.5 rounded-lg border border-slate-200 shadow-2xs">
-💸 স্টক শেষ হয়ে গেছে, অথচ ফেসবুকে অ্যাড চলে ডলার খরচ হতেই আছে? 
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 pt-1">
+            
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-3/photo-1.png" onerror="this.src='/fb-assets/albums/album-3/photo-1.svg'" alt="১. স্টক ০ হলে স্বয়ংক্রিয় বিজ্ঞাপন পজ (Auto-Kill)" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-3/photo-1.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="১. স্টক ০ হলে স্বয়ংক্রিয় বিজ্ঞাপন পজ (Auto-Kill)">
+              ১. স্টক ০ হলে স্বয়ংক্রিয় বিজ্ঞাপন পজ (Auto-Kill)
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-3/photo-1.png" download="nishchinto-album-3-photo-1.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-3/photo-1.svg" download="nishchinto-album-3-photo-1.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-3/photo-2.png" onerror="this.src='/fb-assets/albums/album-3/photo-2.svg'" alt="২. ১০ সেকেন্ডে বাংলা অ্যাড কপি জেনারেটর" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-3/photo-2.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="২. ১০ সেকেন্ডে বাংলা অ্যাড কপি জেনারেটর">
+              ২. ১০ সেকেন্ডে বাংলা অ্যাড কপি জেনারেটর
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-3/photo-2.png" download="nishchinto-album-3-photo-2.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-3/photo-2.svg" download="nishchinto-album-3-photo-2.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-3/photo-3.png" onerror="this.src='/fb-assets/albums/album-3/photo-3.svg'" alt="৩. ১% হাই-ভ্যালু লুকঅ্যালাইক অডিয়েন্স" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-3/photo-3.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৩. ১% হাই-ভ্যালু লুকঅ্যালাইক অডিয়েন্স">
+              ৩. ১% হাই-ভ্যালু লুকঅ্যালাইক অডিয়েন্স
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-3/photo-3.png" download="nishchinto-album-3-photo-3.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-3/photo-3.svg" download="nishchinto-album-3-photo-3.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-3/photo-4.png" onerror="this.src='/fb-assets/albums/album-3/photo-4.svg'" alt="৪. লাইভ ROAS ৪.২x ও মেটা এপিআই সিঙ্ক" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-3/photo-4.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৪. লাইভ ROAS ৪.২x ও মেটা এপিআই সিঙ্ক">
+              ৪. লাইভ ROAS ৪.২x ও মেটা এপিআই সিঙ্ক
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-3/photo-4.png" download="nishchinto-album-3-photo-4.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-3/photo-4.svg" download="nishchinto-album-3-photo-4.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-3/photo-5.png" onerror="this.src='/fb-assets/albums/album-3/photo-5.svg'" alt="৫. বিজ্ঞাপনে লাভ দ্বিগুণ করার স্মার্ট ফর্মুলা" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-3/photo-5.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৫. বিজ্ঞাপনে লাভ দ্বিগুণ করার স্মার্ট ফর্মুলা">
+              ৫. বিজ্ঞাপনে লাভ দ্বিগুণ করার স্মার্ট ফর্মুলা
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-3/photo-5.png" download="nishchinto-album-3-photo-5.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-3/photo-5.svg" download="nishchinto-album-3-photo-5.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+          </div>
+        </div>
+
+        <!-- Copy & Targeting Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
+          <!-- Caption Copy Box -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-xs font-bold text-slate-700">📋 ফেসবুক পোস্টের ক্যাপশন / বুস্ট কপি:</span>
+                <button onclick="copyToClipboard('caption_3')" class="text-[11px] font-bold text-teal-700 hover:text-teal-800 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
+                  কপি করুন
+                </button>
+              </div>
+              <textarea id="caption_3" readonly rows="8" class="w-full text-xs text-slate-800 leading-relaxed font-normal p-3 rounded-xl border border-slate-200 bg-white shadow-2xs resize-none focus:outline-none">💸 পণ্য স্টক শেষ, অথচ ফেসবুকে বিজ্ঞাপন চলে ডলার খরচ হতেই আছে? 
 
 প্রতিদিন শত শত অনলাইন ব্যবসায়ী এই ভুলে হাজার হাজার টাকার বিজ্ঞাপন বাজেট অপচয় করেন।
 
-🚀 Nishchinto AI অটো অ্যাড ইঞ্জিন আপনার মেটা ও টিকটক বিজ্ঞাপনের সম্পূর্ণ দায়িত্ব নেয়:
-• ওয়্যারহাউসে যেকোনো পণ্যের স্টক ০ হওয়ার সাথে সাথে অ্যাড স্বয়ংক্রিয়ভাবে বন্ধ (Auto-Kill)
-• পণ্য রি-স্টক হলে স্বয়ংক্রিয়ভাবে বিজ্ঞাপন আবার চালু
+🚀 Nishchinto AI অটো অ্যাড ইঞ্জিন আপনার মেটা ও টিকটক বিজ্ঞাপনের দায়িত্ব নেয়:
+• ওয়্যারহাউসে যেকোনো পণ্যের স্টক ০ হওয়ার সাথে সাথে বিজ্ঞাপন অটো পজ (Auto-Kill)
+• পণ্য রি-স্টক হলে স্বয়ংক্রিয়ভাবে ক্যাম্পেইন আবার চালু
 • যারা পণ্য অর্ডার করে কখনো রিটার্ন করে না—তাদের ডেটা দিয়ে ১% হাই-ভ্যালু লুকঅ্যালাইক অডিয়েন্স তৈরি
 • হাই-কনভার্টিং বাংলা অ্যাড কপি জেনারেট করে ১-ক্লিকে ক্যাম্পেইন পাবলিশ
 
 আপনার প্রতিটি পয়সার বিজ্ঞাপন বাজেট কাজে লাগান।
 👉 আজই টেস্ট করুন: https://nishchinto.app
 
-#FacebookAdsBD #MetaMarketing #AdBudgetSave #NischintoApp #EcommerceAds
-              </div>
+#FacebookAdsBD #MetaMarketing #AdBudgetSave #NischintoApp #EcommerceAds #ROAS</textarea>
             </div>
+          </div>
 
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">🎯 অ্যাড ম্যানেজার টার্গেটিং নির্দেশিকা:</h4>
-                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-                  <li><strong>টার্গেট অডিয়েন্স:</strong> Meta Ad Account Users, Digital Marketers, Media Buyers, Brand Owners</li>
-                  <li><strong>ইন্টারেস্ট কি-ওয়ার্ডস:</strong> Meta Ads Manager, ROAS, Facebook Pixel, Conversions API (CAPI), Digital Advertising</li>
-                </ul>
-              </div>
-              <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-lg text-[11px] text-indigo-800 font-semibold">
-                💡 ব্যানার আইডিয়া: "স্টক শেষ (০) = বিজ্ঞাপন অফ!"—বাজেট অপচয় রোধ ও ROAS ৪.২x-এর ভিজ্যুয়াল ড্যাশবোর্ড স্ক্রিনশট।
-              </div>
+          <!-- Targeting Guide -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <span class="text-xs font-bold text-slate-700">🎯 মেটা অ্যাড ম্যানেজার অডিয়েন্স টার্গেটিং:</span>
+              <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside bg-white p-3.5 rounded-xl border border-slate-200">
+                <li><strong>Target Audience: Meta Ad Account Users, Digital Marketers, Media Buyers, Brand Owners</strong></li><li><strong>Interests: Meta Ads Manager, ROAS, Facebook Pixel, Conversions API (CAPI)</strong></li><li><strong>Age: ২২ - ৫০ বছর</strong></li>
+              </ul>
+            </div>
+            <div class="p-3 bg-teal-50 border border-teal-200 rounded-xl text-[11px] text-teal-900 font-semibold flex items-center justify-between">
+              <span>💡 রিকমেন্ডেড ক্যাম্পেইন গোল:</span>
+              <span class="font-bold text-teal-800">Engagement / Leads / Conversions</span>
             </div>
           </div>
         </div>
-
-        <!-- Album 4 -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">৪</span>
-              <div>
-                <h3 class="font-bold text-base text-slate-900">অ্যালবাম ৪: ওয়্যারহাউস বারকোড স্ক্যানার ও ১-ক্লিক কুরিয়ার বুকিং</h3>
-                <p class="text-xs text-slate-500">Warehouse Barcode & 1-Click Steadfast/Pathao Dispatch</p>
+      </div>
+    
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        <!-- Album Header -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-200 text-teal-800 flex items-center justify-center font-extrabold text-base">
+              4
+            </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-slate-900">ওয়্যারহাউস বারকোড স্ক্যানার ও ১-ক্লিক কুরিয়ার বুকিং</h3>
+                <span class="text-[11px] font-bold px-2.5 py-0.5 bg-teal-100 text-teal-800 rounded-full">
+                  ৫টি রেডি ফটো
+                </span>
               </div>
+              <p class="text-xs text-slate-500 font-mono">Warehouse Barcode & 1-Click Steadfast/Pathao Dispatch</p>
             </div>
-            <span class="text-xs font-bold px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
               লজিস্টিকস গতি ১০ গুণ
             </span>
+            <a href="/fb-assets/albums/album-4/album-4.zip" download="nishchinto-album-4.zip" class="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-50 hover:bg-teal-100 text-teal-800 text-xs font-bold rounded-full border border-teal-200 transition-all shadow-xs">
+              <span>📥</span> অ্যালবাম ZIP ডাউনলোড
+            </a>
+          </div>
+        </div>
+
+        <!-- 5 Photos Grid for this Album -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🖼️</span>
+              <span>এই অ্যালবামের ৫টি অফিশিয়াল মার্কেটিং ফটো (ডাউনলোড করুন):</span>
+            </h4>
+            <span class="text-[11px] text-slate-400">১০৮০x১০৮০ স্কয়ার ফরম্যাট (FB Post & Ad Ready)</span>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-              <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">ফেসবুক পোস্টে যা লিখবেন (ক্যাপশন / বুস্ট কপি):</h4>
-              <div class="text-xs text-slate-800 leading-relaxed font-normal whitespace-pre-line bg-white p-3.5 rounded-lg border border-slate-200 shadow-2xs">
-📦 কুরিয়ারে ভুল পার্সেল পাঠানো ও ট্র্যাকিং মিসিং বন্ধ করুন!
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 pt-1">
+            
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-4/photo-1.png" onerror="this.src='/fb-assets/albums/album-4/photo-1.svg'" alt="১. প্যাকিং স্ক্যান: ভুল প্রোডাক্ট পাঠানো অসম্ভব" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-4/photo-1.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="১. প্যাকিং স্ক্যান: ভুল প্রোডাক্ট পাঠানো অসম্ভব">
+              ১. প্যাকিং স্ক্যান: ভুল প্রোডাক্ট পাঠানো অসম্ভব
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-4/photo-1.png" download="nishchinto-album-4-photo-1.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-4/photo-1.svg" download="nishchinto-album-4-photo-1.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-4/photo-2.png" onerror="this.src='/fb-assets/albums/album-4/photo-2.svg'" alt="২. কুরিয়ার মার্ক: রাইডার হ্যান্ডওভার অডিট" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-4/photo-2.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="২. কুরিয়ার মার্ক: রাইডার হ্যান্ডওভার অডিট">
+              ২. কুরিয়ার মার্ক: রাইডার হ্যান্ডওভার অডিট
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-4/photo-2.png" download="nishchinto-album-4-photo-2.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-4/photo-2.svg" download="nishchinto-album-4-photo-2.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-4/photo-3.png" onerror="this.src='/fb-assets/albums/album-4/photo-3.svg'" alt="৩. ১-ক্লিকে ১০০ পার্সেল কুরিয়ার বুকিং" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-4/photo-3.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৩. ১-ক্লিকে ১০০ পার্সেল কুরিয়ার বুকিং">
+              ৩. ১-ক্লিকে ১০০ পার্সেল কুরিয়ার বুকিং
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-4/photo-3.png" download="nishchinto-album-4-photo-3.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-4/photo-3.svg" download="nishchinto-album-4-photo-3.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-4/photo-4.png" onerror="this.src='/fb-assets/albums/album-4/photo-4.svg'" alt="৪. বাল্ক ইনভয়েস ও শিপিং স্টিকার লেবেল প্রিন্ট" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-4/photo-4.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৪. বাল্ক ইনভয়েস ও শিপিং স্টিকার লেবেল প্রিন্ট">
+              ৪. বাল্ক ইনভয়েস ও শিপিং স্টিকার লেবেল প্রিন্ট
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-4/photo-4.png" download="nishchinto-album-4-photo-4.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-4/photo-4.svg" download="nishchinto-album-4-photo-4.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-4/photo-5.png" onerror="this.src='/fb-assets/albums/album-4/photo-5.svg'" alt="৫. রিটার্ন পার্সেল স্ক্যান করে স্টক এডজাস্টমেন্ট" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-4/photo-5.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৫. রিটার্ন পার্সেল স্ক্যান করে স্টক এডজাস্টমেন্ট">
+              ৫. রিটার্ন পার্সেল স্ক্যান করে স্টক এডজাস্টমেন্ট
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-4/photo-5.png" download="nishchinto-album-4-photo-5.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-4/photo-5.svg" download="nishchinto-album-4-photo-5.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+          </div>
+        </div>
+
+        <!-- Copy & Targeting Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
+          <!-- Caption Copy Box -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-xs font-bold text-slate-700">📋 ফেসবুক পোস্টের ক্যাপশন / বুস্ট কপি:</span>
+                <button onclick="copyToClipboard('caption_4')" class="text-[11px] font-bold text-teal-700 hover:text-teal-800 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
+                  কপি করুন
+                </button>
+              </div>
+              <textarea id="caption_4" readonly rows="8" class="w-full text-xs text-slate-800 leading-relaxed font-normal p-3 rounded-xl border border-slate-200 bg-white shadow-2xs resize-none focus:outline-none">📦 কুরিয়ারে ভুল পার্সেল পাঠানো ও ট্র্যাকিং মিসিং বন্ধ করুন!
 
 দিনে ৫০-১০০টা পার্সেল প্যাক করতে গিয়ে ভুল সাইজ বা অন্য কাস্টমারের পণ্য চলে যাওয়ার অভিজ্ঞতা নিশ্চয়ই আপনার আছে?
 
@@ -293,50 +930,205 @@
 • মোবাইলের ক্যামেরা বা হ্যান্ডহেল্ড স্ক্যানার দিয়ে বারকোড স্ক্যান করে নির্ভুল প্যাকিং
 • ১-ক্লিকে একসাথে ১০০ পার্সেল Steadfast, Pathao বা RedX-এ বুকিং
 • ইনভয়েস ও লেবেল এক ক্লিকে বাল্ক প্রিন্ট
-• ডেলিভারিম্যানের কাছে পার্সেল হ্যান্ডওভার করার সাথে সাথে ডিজিটাল কুরিয়ার স্লিপ তৈরি
+• কুরিয়ার ডেলিভারিম্যানের কাছে পার্সেল হ্যান্ডওভার করার সাথে সাথে ডিজিটাল স্লিপ তৈরি
 
 আপনার ওয়্যারহাউসকে করুন বড় বড় মাল্টিন্যাশনাল ব্র্যান্ডের মতো ডিজিটাল।
 👉 ভিজিট করুন: https://nishchinto.app
 
-#WarehouseAutomation #SteadfastCourier #PathaoCourier #BarcodeScanning #Nischinto
-              </div>
+#WarehouseAutomation #SteadfastCourier #PathaoCourier #BarcodeScanning #Nischinto</textarea>
             </div>
+          </div>
 
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">🎯 অ্যাড ম্যানেজার টার্গেটিং নির্দেশিকা:</h4>
-                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-                  <li><strong>টার্গেট অডিয়েন্স:</strong> Medium to Large volume F-Commerce, Wholesalers, Courier frequent users</li>
-                  <li><strong>ইন্টারেস্ট কি-ওয়ার্ডস:</strong> Courier service, Supply chain, Order fulfillment, Logistics in Bangladesh</li>
-                </ul>
-              </div>
-              <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-[11px] text-emerald-800 font-semibold">
-                💡 ব্যানার আইডিয়া: বারকোড স্ক্যানার দিয়ে পার্সেল স্ক্যান হচ্ছে এবং নিমেষেই Steadfast কনফার্মেশন টিক দেখাচ্ছে।
-              </div>
+          <!-- Targeting Guide -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <span class="text-xs font-bold text-slate-700">🎯 মেটা অ্যাড ম্যানেজার অডিয়েন্স টার্গেটিং:</span>
+              <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside bg-white p-3.5 rounded-xl border border-slate-200">
+                <li><strong>Target Audience: Medium to Large volume F-Commerce, Wholesalers, Courier frequent users</strong></li><li><strong>Interests: Courier service, Supply chain, Order fulfillment, Logistics in Bangladesh</strong></li>
+              </ul>
+            </div>
+            <div class="p-3 bg-teal-50 border border-teal-200 rounded-xl text-[11px] text-teal-900 font-semibold flex items-center justify-between">
+              <span>💡 রিকমেন্ডেড ক্যাম্পেইন গোল:</span>
+              <span class="font-bold text-teal-800">Engagement / Leads / Conversions</span>
             </div>
           </div>
         </div>
-
-        <!-- Album 5 -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm">৫</span>
-              <div>
-                <h3 class="font-bold text-base text-slate-900">অ্যালবাম ৫: ইনকমপ্লিট অর্ডার ড্রপ-অফ ক্যাচার ও রিকভারি</h3>
-                <p class="text-xs text-slate-500">Incomplete Order & Abandoned Form Recovery</p>
+      </div>
+    
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        <!-- Album Header -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-200 text-teal-800 flex items-center justify-center font-extrabold text-base">
+              5
+            </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-slate-900">ইনকমপ্লিট অর্ডার ড্রপ-অফ ক্যাচার ও রিকভারি</h3>
+                <span class="text-[11px] font-bold px-2.5 py-0.5 bg-teal-100 text-teal-800 rounded-full">
+                  ৫টি রেডি ফটো
+                </span>
               </div>
+              <p class="text-xs text-slate-500 font-mono">Incomplete Order & Abandoned Form Recovery</p>
             </div>
-            <span class="text-xs font-bold px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-full">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
               হারানো সেলস উদ্ধার (+৩০%)
             </span>
+            <a href="/fb-assets/albums/album-5/album-5.zip" download="nishchinto-album-5.zip" class="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-50 hover:bg-teal-100 text-teal-800 text-xs font-bold rounded-full border border-teal-200 transition-all shadow-xs">
+              <span>📥</span> অ্যালবাম ZIP ডাউনলোড
+            </a>
+          </div>
+        </div>
+
+        <!-- 5 Photos Grid for this Album -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🖼️</span>
+              <span>এই অ্যালবামের ৫টি অফিশিয়াল মার্কেটিং ফটো (ডাউনলোড করুন):</span>
+            </h4>
+            <span class="text-[11px] text-slate-400">১০৮০x১০৮০ স্কয়ার ফরম্যাট (FB Post & Ad Ready)</span>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-              <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">ফেসবুক পোস্টে যা লিখবেন (ক্যাপশন / বুস্ট কপি):</h4>
-              <div class="text-xs text-slate-800 leading-relaxed font-normal whitespace-pre-line bg-white p-3.5 rounded-lg border border-slate-200 shadow-2xs">
-🛒 কাস্টমার ফর্মে নাম ও মোবাইল নম্বর লিখে সাবমিট না করেই পেজ কেটে দিয়েছে? 
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 pt-1">
+            
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-5/photo-1.png" onerror="this.src='/fb-assets/albums/album-5/photo-1.svg'" alt="১. ফর্ম না সাবমিট করলেও রিয়েল-টাইমে ডেটা সেভ" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-5/photo-1.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="১. ফর্ম না সাবমিট করলেও রিয়েল-টাইমে ডেটা সেভ">
+              ১. ফর্ম না সাবমিট করলেও রিয়েল-টাইমে ডেটা সেভ
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-5/photo-1.png" download="nishchinto-album-5-photo-1.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-5/photo-1.svg" download="nishchinto-album-5-photo-1.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-5/photo-2.png" onerror="this.src='/fb-assets/albums/album-5/photo-2.svg'" alt="২. ১-ক্লিকে হোয়াটসঅ্যাপ রিকভারি অফার" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-5/photo-2.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="২. ১-ক্লিকে হোয়াটসঅ্যাপ রিকভারি অফার">
+              ২. ১-ক্লিকে হোয়াটসঅ্যাপ রিকভারি অফার
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-5/photo-2.png" download="nishchinto-album-5-photo-2.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-5/photo-2.svg" download="nishchinto-album-5-photo-2.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-5/photo-3.png" onerror="this.src='/fb-assets/albums/album-5/photo-3.svg'" alt="৩. সরাসরি ফোন কলে ৩০% অতিরিক্ত বিক্রি উদ্ধার" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-5/photo-3.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৩. সরাসরি ফোন কলে ৩০% অতিরিক্ত বিক্রি উদ্ধার">
+              ৩. সরাসরি ফোন কলে ৩০% অতিরিক্ত বিক্রি উদ্ধার
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-5/photo-3.png" download="nishchinto-album-5-photo-3.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-5/photo-3.svg" download="nishchinto-album-5-photo-3.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-5/photo-4.png" onerror="this.src='/fb-assets/albums/album-5/photo-4.svg'" alt="৪. ১-ক্লিক ফোন মাস্কিং ও ডেটাবেস নিরাপত্তা" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-5/photo-4.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৪. ১-ক্লিক ফোন মাস্কিং ও ডেটাবেস নিরাপত্তা">
+              ৪. ১-ক্লিক ফোন মাস্কিং ও ডেটাবেস নিরাপত্তা
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-5/photo-4.png" download="nishchinto-album-5-photo-4.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-5/photo-4.svg" download="nishchinto-album-5-photo-4.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-5/photo-5.png" onerror="this.src='/fb-assets/albums/album-5/photo-5.svg'" alt="৫. বাজেট না বাড়িয়েই সেলস গ্রাফ উর্ধ্বমুখী" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-5/photo-5.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৫. বাজেট না বাড়িয়েই সেলস গ্রাফ উর্ধ্বমুখী">
+              ৫. বাজেট না বাড়িয়েই সেলস গ্রাফ উর্ধ্বমুখী
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-5/photo-5.png" download="nishchinto-album-5-photo-5.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-5/photo-5.svg" download="nishchinto-album-5-photo-5.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+          </div>
+        </div>
+
+        <!-- Copy & Targeting Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
+          <!-- Caption Copy Box -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-xs font-bold text-slate-700">📋 ফেসবুক পোস্টের ক্যাপশন / বুস্ট কপি:</span>
+                <button onclick="copyToClipboard('caption_5')" class="text-[11px] font-bold text-teal-700 hover:text-teal-800 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
+                  কপি করুন
+                </button>
+              </div>
+              <textarea id="caption_5" readonly rows="8" class="w-full text-xs text-slate-800 leading-relaxed font-normal p-3 rounded-xl border border-slate-200 bg-white shadow-2xs resize-none focus:outline-none">🛒 কাস্টমার ফর্মে নাম ও মোবাইল নম্বর লিখে সাবমিট না করেই পেজ কেটে দিয়েছে? 
 
 সাধারণ ওয়েবসাইটে এই সেলসগুলো চিরতরে হারিয়ে যায়। কিন্তু Nishchinto-তে নয়!
 
@@ -349,51 +1141,206 @@
 বিজ্ঞাপনে খরচ না বাড়িয়ে বিদ্যমান ট্রাফিক থেকেই ৩০% বেশি সেলস পান।
 👉 ট্রায়াল শুরু করুন: https://nishchinto.app
 
-#IncompleteOrder #DropOffRecovery #CartAbandonment #SalesGrowth #NischintoApp
-              </div>
+#IncompleteOrder #DropOffRecovery #CartAbandonment #SalesGrowth #NischintoApp</textarea>
             </div>
+          </div>
 
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">🎯 অ্যাড ম্যানেজার টার্গেটিং নির্দেশিকা:</h4>
-                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-                  <li><strong>টার্গেট অডিয়েন্স:</strong> Online store owners, Conversion rate optimizers, Direct response marketers</li>
-                  <li><strong>ইন্টারেস্ট কি-ওয়ার্ডস:</strong> Conversion rate, WhatsApp Business, E-commerce strategy</li>
-                </ul>
-              </div>
-              <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-[11px] text-amber-800 font-semibold">
-                💡 ব্যানার আইডিয়া: কাস্টমারের অর্ধেক টাইপ করা ফর্ম এবং সাথে সাথে ড্যাশবোর্ডে "ড্রপ-অফ উদ্ধার" হোয়াটসঅ্যাপ নোটিফিকেশন।
-              </div>
+          <!-- Targeting Guide -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <span class="text-xs font-bold text-slate-700">🎯 মেটা অ্যাড ম্যানেজার অডিয়েন্স টার্গেটিং:</span>
+              <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside bg-white p-3.5 rounded-xl border border-slate-200">
+                <li><strong>Target Audience: Online store owners, Conversion rate optimizers, Direct response marketers</strong></li><li><strong>Interests: Conversion rate, WhatsApp Business, E-commerce strategy</strong></li>
+              </ul>
+            </div>
+            <div class="p-3 bg-teal-50 border border-teal-200 rounded-xl text-[11px] text-teal-900 font-semibold flex items-center justify-between">
+              <span>💡 রিকমেন্ডেড ক্যাম্পেইন গোল:</span>
+              <span class="font-bold text-teal-800">Engagement / Leads / Conversions</span>
             </div>
           </div>
         </div>
-
-        <!-- Album 6 -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">৬</span>
-              <div>
-                <h3 class="font-bold text-base text-slate-900">অ্যালবাম ৬: কাস্টম ল্যান্ডিং পেজ বিল্ডার ও ফাস্ট COD চেকআউট</h3>
-                <p class="text-xs text-slate-500">Custom Landing Page Builder & 1-Page COD Checkout</p>
-              </div>
-            </div>
-            <span class="text-xs font-bold px-3 py-1 bg-blue-50 text-blue-800 border border-blue-200 rounded-full">
-              ১০ মিনিটে লাইভ সেলস পেজ
+      </div>
+    
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        <!-- Album Header -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-200 text-teal-800 flex items-center justify-center font-extrabold text-base">
+              6
             </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-slate-900">কাস্টম ল্যান্ডিং পেজ বিল্ডার ও ফাস্ট COD চেকআউট</h3>
+                <span class="text-[11px] font-bold px-2.5 py-0.5 bg-teal-100 text-teal-800 rounded-full">
+                  ৫টি রেডি ফটো
+                </span>
+              </div>
+              <p class="text-xs text-slate-500 font-mono">Custom Landing Page Builder & 1-Page COD Checkout</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
+              ৩ মিনিটে লাইভ সেলস পেজ
+            </span>
+            <a href="/fb-assets/albums/album-6/album-6.zip" download="nishchinto-album-6.zip" class="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-50 hover:bg-teal-100 text-teal-800 text-xs font-bold rounded-full border border-teal-200 transition-all shadow-xs">
+              <span>📥</span> অ্যালবাম ZIP ডাউনলোড
+            </a>
+          </div>
+        </div>
+
+        <!-- 5 Photos Grid for this Album -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🖼️</span>
+              <span>এই অ্যালবামের ৫টি অফিশিয়াল মার্কেটিং ফটো (ডাউনলোড করুন):</span>
+            </h4>
+            <span class="text-[11px] text-slate-400">১০৮০x১০৮০ স্কয়ার ফরম্যাট (FB Post & Ad Ready)</span>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-              <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">ফেসবুক পোস্টে যা লিখবেন (ক্যাপশন / বুস্ট কপি):</h4>
-              <div class="text-xs text-slate-800 leading-relaxed font-normal whitespace-pre-line bg-white p-3.5 rounded-lg border border-slate-200 shadow-2xs">
-🚀 ওয়েবসাইট বানাতে লাখ টাকা বা ডেভেলপার খোঁজার দিন শেষ!
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 pt-1">
+            
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-6/photo-1.png" onerror="this.src='/fb-assets/albums/album-6/photo-1.svg'" alt="১. ৩ মিনিটে কোনো কোডিং ছাড়াই ল্যান্ডিং পেজ" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-6/photo-1.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="১. ৩ মিনিটে কোনো কোডিং ছাড়াই ল্যান্ডিং পেজ">
+              ১. ৩ মিনিটে কোনো কোডিং ছাড়াই ল্যান্ডিং পেজ
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-6/photo-1.png" download="nishchinto-album-6-photo-1.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-6/photo-1.svg" download="nishchinto-album-6-photo-1.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-6/photo-2.png" onerror="this.src='/fb-assets/albums/album-6/photo-2.svg'" alt="২. ২০ সেকেন্ডের ১-পেজ ফাস্ট COD চেকআউট" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-6/photo-2.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="২. ২০ সেকেন্ডের ১-পেজ ফাস্ট COD চেকআউট">
+              ২. ২০ সেকেন্ডের ১-পেজ ফাস্ট COD চেকআউট
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-6/photo-2.png" download="nishchinto-album-6-photo-2.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-6/photo-2.svg" download="nishchinto-album-6-photo-2.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-6/photo-3.png" onerror="this.src='/fb-assets/albums/album-6/photo-3.svg'" alt="৩. ৬৪ জেলা-থানা ড্রপডাউন ও অটো ডেলিভারি চার্জ" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-6/photo-3.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৩. ৬৪ জেলা-থানা ড্রপডাউন ও অটো ডেলিভারি চার্জ">
+              ৩. ৬৪ জেলা-থানা ড্রপডাউন ও অটো ডেলিভারি চার্জ
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-6/photo-3.png" download="nishchinto-album-6-photo-3.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-6/photo-3.svg" download="nishchinto-album-6-photo-3.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-6/photo-4.png" onerror="this.src='/fb-assets/albums/album-6/photo-4.svg'" alt="৪. লাইভ লিঙ্ক অথবা ১-ক্লিকে HTML কোড ডাউনলোড" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-6/photo-4.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৪. লাইভ লিঙ্ক অথবা ১-ক্লিকে HTML কোড ডাউনলোড">
+              ৪. লাইভ লিঙ্ক অথবা ১-ক্লিকে HTML কোড ডাউনলোড
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-6/photo-4.png" download="nishchinto-album-6-photo-4.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-6/photo-4.svg" download="nishchinto-album-6-photo-4.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-6/photo-5.png" onerror="this.src='/fb-assets/albums/album-6/photo-5.svg'" alt="৫. মেটা পিক্সেল ও CAPI ফুল ট্র্যাকিং সেটআপ" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-6/photo-5.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৫. মেটা পিক্সেল ও CAPI ফুল ট্র্যাকিং সেটআপ">
+              ৫. মেটা পিক্সেল ও CAPI ফুল ট্র্যাকিং সেটআপ
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-6/photo-5.png" download="nishchinto-album-6-photo-5.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-6/photo-5.svg" download="nishchinto-album-6-photo-5.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+          </div>
+        </div>
+
+        <!-- Copy & Targeting Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
+          <!-- Caption Copy Box -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-xs font-bold text-slate-700">📋 ফেসবুক পোস্টের ক্যাপশন / বুস্ট কপি:</span>
+                <button onclick="copyToClipboard('caption_6')" class="text-[11px] font-bold text-teal-700 hover:text-teal-800 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
+                  কপি করুন
+                </button>
+              </div>
+              <textarea id="caption_6" readonly rows="8" class="w-full text-xs text-slate-800 leading-relaxed font-normal p-3 rounded-xl border border-slate-200 bg-white shadow-2xs resize-none focus:outline-none">🚀 ওয়েবসাইট বানাতে লাখ টাকা খরচ বা ডেভেলপার খোঁজার দিন শেষ!
 
 এখন মাত্র ৩ মিনিটে কোনো কোডিং ছাড়াই তৈরি করুন অত্যন্ত আকর্ষণীয়, সুপার-ফাস্ট ক্যাশ অন ডেলিভারি (COD) ল্যান্ডিং পেজ।
 
 ✨ যা যা পাচ্ছেন:
-• প্রি-বিল্ট হাই-কনভার্টিং টেমপ্লেট
-• সরাসরি আমাদের লাইভ লিংক (nishchinto.app/p/your-shop) ব্যবহার করার সুবিধা
+• প্রি-বিল্ট হাই-কনভার্টিং আধুনিক টেমপ্লেট
+• সরাসরি আমাদের লাইভ লিংক (nishchinto.app/p/your-shop) ব্যবহারের সুবিধা
 • সম্পূর্ণ এইচটিএমএল কোড ১-ক্লিকে ডাউনলোড করে আপনার নিজস্ব ডোমেইনে বসানোর সুবিধা
 • ১-পেজ ফাস্ট চেকআউট, জেলা-থানা ড্রপডাউন ও অটো ডেলিভারি চার্জ ক্যালকুলেটর
 • মেটা পিক্সেল ও কনভার্সন এপিআই (CAPI) ফুল ট্র্যাকিং
@@ -401,45 +1348,200 @@
 দেরি না করে আজই আপনার পণ্যের জন্য চমৎকার ল্যান্ডিং পেজ তৈরি করুন।
 👉 ফ্রি বানিয়ে দেখুন: https://nishchinto.app/landing-pages
 
-#LandingPageBuilder #CODCheckout #NischintoLanding #EcommerceWebsite #NoCodeBD
-              </div>
+#LandingPageBuilder #CODCheckout #NischintoLanding #EcommerceWebsite #NoCodeBD</textarea>
             </div>
+          </div>
 
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">🎯 অ্যাড ম্যানেজার টার্গেটিং নির্দেশিকা:</h4>
-                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-                  <li><strong>টার্গেট অডিয়েন্স:</strong> New business starters, F-Commerce sellers without websites, Product launches</li>
-                  <li><strong>ইন্টারেস্ট কি-ওয়ার্ডস:</strong> Web design, Landing page, WordPress, Shopify alternative</li>
-                </ul>
-              </div>
-              <div class="p-3 bg-blue-50 border border-blue-200 rounded-lg text-[11px] text-blue-800 font-semibold">
-                💡 ব্যানার আইডিয়া: মোবাইলের সুন্দর ল্যান্ডিং পেজের স্ক্রিনশট এবং '১-ক্লিকে এইচটিএমএল কোড ডাউনলোড' আইকন।
-              </div>
+          <!-- Targeting Guide -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <span class="text-xs font-bold text-slate-700">🎯 মেটা অ্যাড ম্যানেজার অডিয়েন্স টার্গেটিং:</span>
+              <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside bg-white p-3.5 rounded-xl border border-slate-200">
+                <li><strong>Target Audience: New business starters, F-Commerce sellers without websites, Product launches</strong></li><li><strong>Interests: Web design, Landing page, WordPress, Shopify alternative</strong></li>
+              </ul>
+            </div>
+            <div class="p-3 bg-teal-50 border border-teal-200 rounded-xl text-[11px] text-teal-900 font-semibold flex items-center justify-between">
+              <span>💡 রিকমেন্ডেড ক্যাম্পেইন গোল:</span>
+              <span class="font-bold text-teal-800">Engagement / Leads / Conversions</span>
             </div>
           </div>
         </div>
-
-        <!-- Album 7 -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-sm">৭</span>
-              <div>
-                <h3 class="font-bold text-base text-slate-900">অ্যালবাম ৭: আসল নিট লাভ-ক্ষতি ও লাইভ ফিন্যান্সিয়াল হিসাব</h3>
-                <p class="text-xs text-slate-500">True Net Profit, COGS & Ad Spend Calculator</p>
-              </div>
-            </div>
-            <span class="text-xs font-bold px-3 py-1 bg-purple-50 text-purple-800 border border-purple-200 rounded-full">
-              লাভের আসল সত্য হিসাব
+      </div>
+    
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        <!-- Album Header -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-200 text-teal-800 flex items-center justify-center font-extrabold text-base">
+              7
             </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-slate-900">আসল নিট লাভ-ক্ষতি ও লাইভ ফিন্যান্সিয়াল হিসাব</h3>
+                <span class="text-[11px] font-bold px-2.5 py-0.5 bg-teal-100 text-teal-800 rounded-full">
+                  ৫টি রেডি ফটো
+                </span>
+              </div>
+              <p class="text-xs text-slate-500 font-mono">True Net Profit, COGS & Ad Spend Calculator</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
+              আসল নিট লাভ ও ব্যালান্স শিট
+            </span>
+            <a href="/fb-assets/albums/album-7/album-7.zip" download="nishchinto-album-7.zip" class="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-50 hover:bg-teal-100 text-teal-800 text-xs font-bold rounded-full border border-teal-200 transition-all shadow-xs">
+              <span>📥</span> অ্যালবাম ZIP ডাউনলোড
+            </a>
+          </div>
+        </div>
+
+        <!-- 5 Photos Grid for this Album -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🖼️</span>
+              <span>এই অ্যালবামের ৫টি অফিশিয়াল মার্কেটিং ফটো (ডাউনলোড করুন):</span>
+            </h4>
+            <span class="text-[11px] text-slate-400">১০৮০x১০৮০ স্কয়ার ফরম্যাট (FB Post & Ad Ready)</span>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-              <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">ফেসবুক পোস্টে যা লিখবেন (ক্যাপশন / বুস্ট কপি):</h4>
-              <div class="text-xs text-slate-800 leading-relaxed font-normal whitespace-pre-line bg-white p-3.5 rounded-lg border border-slate-200 shadow-2xs">
-📊 মাস শেষে সেলস ৫ লাখ টাকা দেখাচ্ছে, কিন্তু পকেটে কোনো টাকা নেই? 
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 pt-1">
+            
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-7/photo-1.png" onerror="this.src='/fb-assets/albums/album-7/photo-1.svg'" alt="১. বিক্রয়মূল্য কখনো লাভ নয়—সব খরচের বাস্তবতা" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-7/photo-1.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="১. বিক্রয়মূল্য কখনো লাভ নয়—সব খরচের বাস্তবতা">
+              ১. বিক্রয়মূল্য কখনো লাভ নয়—সব খরচের বাস্তবতা
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-7/photo-1.png" download="nishchinto-album-7-photo-1.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-7/photo-1.svg" download="nishchinto-album-7-photo-1.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-7/photo-2.png" onerror="this.src='/fb-assets/albums/album-7/photo-2.svg'" alt="২. প্রতি অর্ডারে পাই টু পাই নিট প্রফিট ব্রেকডাউন" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-7/photo-2.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="২. প্রতি অর্ডারে পাই টু পাই নিট প্রফিট ব্রেকডাউন">
+              ২. প্রতি অর্ডারে পাই টু পাই নিট প্রফিট ব্রেকডাউন
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-7/photo-2.png" download="nishchinto-album-7-photo-2.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-7/photo-2.svg" download="nishchinto-album-7-photo-2.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-7/photo-3.png" onerror="this.src='/fb-assets/albums/album-7/photo-3.svg'" alt="৩. কুরিয়ার ক্যাশ কালেকশন ও সেটেলমেন্ট রিকনসিল" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-7/photo-3.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৩. কুরিয়ার ক্যাশ কালেকশন ও সেটেলমেন্ট রিকনসিল">
+              ৩. কুরিয়ার ক্যাশ কালেকশন ও সেটেলমেন্ট রিকনসিল
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-7/photo-3.png" download="nishchinto-album-7-photo-3.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-7/photo-3.svg" download="nishchinto-album-7-photo-3.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-7/photo-4.png" onerror="this.src='/fb-assets/albums/album-7/photo-4.svg'" alt="৪. এক্সেল ছাড়াই ১ স্ক্রিনে রিয়েল-টাইম ব্যালান্স শিট" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-7/photo-4.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৪. এক্সেল ছাড়াই ১ স্ক্রিনে রিয়েল-টাইম ব্যালান্স শিট">
+              ৪. এক্সেল ছাড়াই ১ স্ক্রিনে রিয়েল-টাইম ব্যালান্স শিট
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-7/photo-4.png" download="nishchinto-album-7-photo-4.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-7/photo-4.svg" download="nishchinto-album-7-photo-4.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="relative aspect-square bg-slate-50 overflow-hidden group">
+            <img src="/fb-assets/albums/album-7/photo-5.png" onerror="this.src='/fb-assets/albums/album-7/photo-5.svg'" alt="৫. সঠিক ফিন্যান্সিয়াল ডেটায় সফল বিজনেস গ্রোথ" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+              <a href="/fb-assets/albums/album-7/photo-5.png" target="_blank" class="px-3 py-1.5 bg-white text-slate-900 font-bold text-xs rounded-lg shadow-md">
+                ফুলস্ক্রিন ভিউ ↗
+              </a>
+            </div>
+          </div>
+          <div class="p-3 border-t border-slate-100 space-y-2 bg-white">
+            <p class="text-xs font-bold text-slate-800 line-clamp-1" title="৫. সঠিক ফিন্যান্সিয়াল ডেটায় সফল বিজনেস গ্রোথ">
+              ৫. সঠিক ফিন্যান্সিয়াল ডেটায় সফল বিজনেস গ্রোথ
+            </p>
+            <div class="flex gap-1.5">
+              <a href="/fb-assets/albums/album-7/photo-5.png" download="nishchinto-album-7-photo-5.png" class="flex-1 py-1.5 bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold rounded-lg text-center transition-all shadow-xs">
+                ডাউনলোড PNG
+              </a>
+              <a href="/fb-assets/albums/album-7/photo-5.svg" download="nishchinto-album-7-photo-5.svg" class="px-2 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold rounded-lg text-center transition-all">
+                SVG
+              </a>
+            </div>
+          </div>
+        </div>
+      
+          </div>
+        </div>
+
+        <!-- Copy & Targeting Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
+          <!-- Caption Copy Box -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-xs font-bold text-slate-700">📋 ফেসবুক পোস্টের ক্যাপশন / বুস্ট কপি:</span>
+                <button onclick="copyToClipboard('caption_7')" class="text-[11px] font-bold text-teal-700 hover:text-teal-800 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
+                  কপি করুন
+                </button>
+              </div>
+              <textarea id="caption_7" readonly rows="8" class="w-full text-xs text-slate-800 leading-relaxed font-normal p-3 rounded-xl border border-slate-200 bg-white shadow-2xs resize-none focus:outline-none">📊 মাস শেষে সেলস ৫ লাখ টাকা দেখাচ্ছে, কিন্তু পকেটে কোনো টাকা নেই? 
 
 কারণ বিক্রয়মূল্য কখনো আসল লাভ নয়! পণ্যের কেনা দাম (COGS), কুরিয়ার চার্জ, রিটার্ন পার্সেলের ক্ষতি আর ফেসবুকের অ্যাড স্পেন্ড বাদ না দিলে আসল লাভের হিসাব পাওয়া অসম্ভব।
 
@@ -452,25 +1554,26 @@
 অন্ধকারে ব্যবসা না চালিয়ে ডেটা দেখে লাভ বাড়ান।
 👉 আজই সাইন আপ করুন: https://nishchinto.app
 
-#EcommerceProfit #BusinessAnalytics #TrueNetProfit #Nischinto #SaaSBD
-              </div>
+#EcommerceProfit #BusinessAnalytics #TrueNetProfit #Nischinto #SaaSBD</textarea>
             </div>
+          </div>
 
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">🎯 অ্যাড ম্যানেজার টার্গেটিং নির্দেশিকা:</h4>
-                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-                  <li><strong>টার্গেট অডিয়েন্স:</strong> Established E-commerce founders, CFOs, Experienced merchants</li>
-                  <li><strong>ইন্টারেস্ট কি-ওয়ার্ডস:</strong> Profitability, Accounting, Financial Management, ROI</li>
-                </ul>
-              </div>
-              <div class="p-3 bg-purple-50 border border-purple-200 rounded-lg text-[11px] text-purple-800 font-semibold">
-                💡 ব্যানার আইডিয়া: "বিক্রয়মূল্য লাভ নয়, নিট লাভই আসল!"—COGS, কুরিয়ার ও অ্যাড খরচের চমৎকার ভিজ্যুয়াল পাইচার্ট ও গ্রাফ।
-              </div>
+          <!-- Targeting Guide -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <span class="text-xs font-bold text-slate-700">🎯 মেটা অ্যাড ম্যানেজার অডিয়েন্স টার্গেটিং:</span>
+              <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside bg-white p-3.5 rounded-xl border border-slate-200">
+                <li><strong>Target Audience: Established E-commerce founders, CFOs, Experienced merchants</strong></li><li><strong>Interests: Profitability, Accounting, Financial Management, ROI</strong></li>
+              </ul>
+            </div>
+            <div class="p-3 bg-teal-50 border border-teal-200 rounded-xl text-[11px] text-teal-900 font-semibold flex items-center justify-between">
+              <span>💡 রিকমেন্ডেড ক্যাম্পেইন গোল:</span>
+              <span class="font-bold text-teal-800">Engagement / Leads / Conversions</span>
             </div>
           </div>
         </div>
-
+      </div>
+    
       </div>
     </section>
 
