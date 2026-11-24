@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1640 624" width="1640" height="624">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="coverBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#042f2e" />
+      <stop offset="40%" stopColor="#0f172a" />
+      <stop offset="100%" stopColor="#090d16" />
+    </linearGradient>
+
+    <!-- N Logo Gradient -->
+    <linearGradient id="coverLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#2dd4bf" />
+      <stop offset="50%" stopColor="#38bdf8" />
+      <stop offset="100%" stopColor="#3b82f6" />
+    </linearGradient>
+
+    <!-- Card Background Gradient -->
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#1e293b" stop-opacity="0.85" />
+      <stop offset="100%" stopColor="#0f172a" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- Cyan Accent Glow -->
+    <filter id="cyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="30" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1640" height="624" fill="url(#coverBg)" />
+
+  <!-- Ambient Glowing Tech Mesh -->
+  <circle cx="200" cy="100" r="280" fill="#0d9488" opacity="0.22" filter="url(#cyanGlow)" />
+  <circle cx="1400" cy="200" r="340" fill="#0284c7" opacity="0.18" filter="url(#cyanGlow)" />
+  <circle cx="820" cy="550" r="260" fill="#10b981" opacity="0.12" filter="url(#cyanGlow)" />
+
+  <!-- Grid overlay lines for modern tech feel -->
+  <g stroke="#ffffff" stroke-opacity="0.04" stroke-width="1">
+    <line x1="0" y1="104" x2="1640" y2="104" />
+    <line x1="0" y1="208" x2="1640" y2="208" />
+    <line x1="0" y1="312" x2="1640" y2="312" />
+    <line x1="0" y1="416" x2="1640" y2="416" />
+    <line x1="0" y1="520" x2="1640" y2="520" />
+    <line x1="200" y1="0" x2="200" y2="624" />
+    <line x1="450" y1="0" x2="450" y2="624" />
+    <line x1="700" y1="0" x2="700" y2="624" />
+    <line x1="950" y1="0" x2="950" y2="624" />
+    <line x1="1200" y1="0" x2="1200" y2="624" />
+    <line x1="1450" y1="0" x2="1450" y2="624" />
+  </g>
+
+  <!-- LEFT SECTION: Branding & Headlines -->
+  <g transform="translate(100, 110)">
+    <!-- Pill Badge -->
+    <rect x="0" y="0" width="310" height="36" rx="18" fill="#134e4a" stroke="#2dd4bf" stroke-width="1.5" />
+    <circle cx="20" cy="18" r="5" fill="#2dd4bf" />
+    <text x="36" y="23" font-family="'Hind Siliguri', system-ui, sans-serif" font-size="14" font-weight="700" fill="#5eead4">
+      E-COMMERCE AUTOMATION OS
+    </text>
+
+    <!-- Main Brand Title -->
+    <g transform="translate(0, 85)">
+      <text font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="900" fill="#ffffff" letter-spacing="-1.5">
+        Nishchinto
+      </text>
+      <rect x="360" y="-48" width="92" height="46" rx="14" fill="#0d9488" />
+      <text x="406" y="-16" font-family="system-ui, sans-serif" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">
+        .app
+      </text>
+      <text x="475" y="0" font-family="'Hind Siliguri', system-ui, sans-serif" font-size="34" font-weight="700" fill="#2dd4bf">
+        নিশ্চিন্ত
+      </text>
+    </g>
+
+    <!-- Bengali High-Impact Tagline -->
+    <text x="0" y="165" font-family="'Hind Siliguri', system-ui, sans-serif" font-size="38" font-weight="800" fill="#f8fafc">
+      ব্যবসা চালান সম্পূর্ণ নিশ্চিন্তে!
+    </text>
+    <text x="0" y="215" font-family="'Hind Siliguri', system-ui, sans-serif" font-size="20" font-weight="500" fill="#94a3b8">
+      কুরিয়ার রিটার্ন লস রোধ, স্বয়ংক্রিয় বাংলা AI কল ও মেটা অ্যাডস অপ্টিমাইজেশন
+    </text>
+
+    <!-- Feature Checklist Pills -->
+    <g transform="translate(0, 260)">
+      <!-- Item 1 -->
+      <g transform="translate(0, 0)">
+        <rect width="210" height="38" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1" />
+        <circle cx="20" cy="19" r="6" fill="#10b981" />
+        <text x="36" y="24" font-family="'Hind Siliguri', sans-serif" font-size="13" font-weight="700" fill="#e2e8f0">
+          বাংলা AI ভয়েস কনফার্মেশন
+        </text>
+      </g>
+
+      <!-- Item 2 -->
+      <g transform="translate(225, 0)">
+        <rect width="190" height="38" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1" />
+        <circle cx="20" cy="19" r="6" fill="#06b6d4" />
+        <text x="36" y="24" font-family="'Hind Siliguri', sans-serif" font-size="13" font-weight="700" fill="#e2e8f0">
+          সেন্ট্রাল ফ্রড চেকার
+        </text>
+      </g>
+
+      <!-- Item 3 -->
+      <g transform="translate(430, 0)">
+        <rect width="180" height="38" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1" />
+        <circle cx="20" cy="19" r="6" fill="#3b82f6" />
+        <text x="36" y="24" font-family="'Hind Siliguri', sans-serif" font-size="13" font-weight="700" fill="#e2e8f0">
+          অটো অ্যাড পজ (স্টক ০)
+        </text>
+      </g>
+    </g>
+
+    <!-- Call to Action Banner -->
+    <g transform="translate(0, 335)">
+      <rect width="360" height="48" rx="14" fill="#0d9488" />
+      <text x="180" y="30" font-family="'Hind Siliguri', sans-serif" font-size="16" font-weight="800" fill="#ffffff" text-anchor="middle">
+        🚀 আজই শুরু করুন • ১৪ দিনের ফ্রি ট্রায়াল
+      </text>
+      <text x="380" y="31" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#64748b">
+        www.nishchinto.app
+      </text>
+    </g>
+  </g>
+
+  <!-- RIGHT SECTION: 3D High-Tech Glassmorphic Mockup -->
+  <g transform="translate(890, 80)">
+    <!-- Main Dashboard Card -->
+    <rect width="650" height="460" rx="24" fill="url(#glassGrad)" stroke="#334155" stroke-width="1.5" />
+    
+    <!-- Top Window Bar -->
+    <g transform="translate(24, 24)">
+      <circle cx="8" cy="8" r="6" fill="#ef4444" />
+      <circle cx="28" cy="8" r="6" fill="#f59e0b" />
+      <circle cx="48" cy="8" r="6" fill="#10b981" />
+      <text x="80" y="12" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#64748b">
+        Nischinto Cockpit v2.4 • Live Realtime Analytics
+      </text>
+    </g>
+
+    <!-- Top KPI Cards inside Mockup -->
+    <g transform="translate(24, 65)">
+      <!-- KPI 1 -->
+      <rect x="0" y="0" width="188" height="90" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="16" y="28" font-family="'Hind Siliguri', sans-serif" font-size="12" font-weight="600" fill="#94a3b8">ডেলিভারি সাকসেস রেট</text>
+      <text x="16" y="62" font-family="system-ui, sans-serif" font-size="28" font-weight="900" fill="#10b981">৯৪.৫%</text>
+      <text x="16" y="78" font-family="'Hind Siliguri', sans-serif" font-size="10" font-weight="600" fill="#059669">↑ রিটার্ন লস -৬৫% কমেছে</text>
+
+      <!-- KPI 2 -->
+      <rect x="206" y="0" width="188" height="90" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="222" y="28" font-family="'Hind Siliguri', sans-serif" font-size="12" font-weight="600" fill="#94a3b8">ফ্রড পার্সেল আটকানো</text>
+      <text x="222" y="62" font-family="system-ui, sans-serif" font-size="28" font-weight="900" fill="#ef4444">১,২৮০ টি</text>
+      <text x="222" y="78" font-family="'Hind Siliguri', sans-serif" font-size="10" font-weight="600" fill="#f87171">৳ ১,৯২,০০০ ডেলিভারি চার্জ সেভড</text>
+
+      <!-- KPI 3 -->
+      <rect x="412" y="0" width="188" height="90" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="428" y="28" font-family="'Hind Siliguri', sans-serif" font-size="12" font-weight="600" fill="#94a3b8">AI কল কনফার্মেশন</text>
+      <text x="428" y="62" font-family="system-ui, sans-serif" font-size="28" font-weight="900" fill="#38bdf8">১০০%</text>
+      <text x="428" y="78" font-family="'Hind Siliguri', sans-serif" font-size="10" font-weight="600" fill="#38bdf8">০ সেকেন্ড অপেক্ষায় অটো কল</text>
+    </g>
+
+    <!-- Floating Live Alert Card 1: AI Call Confirmed -->
+    <g transform="translate(24, 180)">
+      <rect width="600" height="76" rx="16" fill="#0f172a" stroke="#0d9488" stroke-width="1.5" />
+      <circle cx="36" cy="38" r="18" fill="#134e4a" />
+      <text x="36" y="44" font-family="sans-serif" font-size="18" fill="#2dd4bf" text-anchor="middle">🎙️</text>
+      <text x="70" y="32" font-family="'Hind Siliguri', sans-serif" font-size="14" font-weight="800" fill="#ffffff">
+        বাংলা AI ভয়েস কল সফল: তানভীর আহমেদ (উত্তরা)
+      </text>
+      <text x="70" y="55" font-family="'Hind Siliguri', sans-serif" font-size="12" font-weight="500" fill="#94a3b8">
+        "গ্রাহক সাইজ ও ঠিকানা কনফার্ম করেছেন। Steadfast কুরিয়ারে ১-ক্লিকে পাঠানো হয়েছে।"
+      </text>
+      <rect x="495" y="24" width="88" height="28" rx="8" fill="#10b981" />
+      <text x="539" y="43" font-family="'Hind Siliguri', sans-serif" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">
+        কনফার্মড ✓
+      </text>
+    </g>
+
+    <!-- Floating Live Alert Card 2: Fraud Alert Stopped -->
+    <g transform="translate(24, 275)">
+      <rect width="600" height="76" rx="16" fill="#0f172a" stroke="#dc2626" stroke-width="1.5" />
+      <circle cx="36" cy="38" r="18" fill="#450a0a" />
+      <text x="36" y="44" font-family="sans-serif" font-size="18" fill="#ef4444" text-anchor="middle">🛡️</text>
+      <text x="70" y="32" font-family="'Hind Siliguri', sans-serif" font-size="14" font-weight="800" fill="#fca5a5">
+        সেন্ট্রাল কুরিয়ার ফ্রড অ্যালার্ট: রিস্ক স্কোর ৮৮% (উচ্চ ঝুঁকি)
+      </text>
+      <text x="70" y="55" font-family="'Hind Siliguri', sans-serif" font-size="12" font-weight="500" fill="#94a3b8">
+        নম্বর: 01999****11 • পূর্বের ৭টি অর্ডারের ৬টিই রিটার্ন • অগ্রিম ডেলিভারি চার্জ রিকমেন্ডেড
+      </text>
+      <rect x="495" y="24" width="88" height="28" rx="8" fill="#dc2626" />
+      <text x="539" y="43" font-family="'Hind Siliguri', sans-serif" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">
+        হোল্ডে রাখুন ✕
+      </text>
+    </g>
+
+    <!-- Floating Live Alert Card 3: Ad Autopilot Stopped Zero Stock -->
+    <g transform="translate(24, 370)">
+      <rect width="600" height="65" rx="14" fill="#0f172a" stroke="#d97706" stroke-width="1" />
+      <circle cx="36" cy="32" r="14" fill="#451a03" />
+      <text x="36" y="37" font-family="sans-serif" font-size="14" fill="#f59e0b" text-anchor="middle">⚡</text>
+      <text x="65" y="28" font-family="'Hind Siliguri', sans-serif" font-size="13" font-weight="700" fill="#fbbf24">
+        AI অটো অ্যাড গার্ড: ওয়্যারলেস এয়ারবাডস স্টক ০ হয়েছে
+      </text>
+      <text x="65" y="48" font-family="'Hind Siliguri', sans-serif" font-size="11" font-weight="500" fill="#94a3b8">
+        মেটা অ্যাড ম্যানেজারে ক্যাম্পেইন স্বয়ংক্রিয়ভাবে পজ করা হয়েছে। বাজেট অপচয় রোধ: ৳ ৩,৫০০
+      </text>
+    </g>
+  </g>
+</svg>

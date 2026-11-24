@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 export default function MarketingPage() {
-  const [activeTab, setActiveTab] = useState<"WHATSAPP" | "CAPI">("WHATSAPP");
+  const [activeTab, setActiveTab] = useState<"WHATSAPP" | "CAPI" | "FB_BRANDING">("WHATSAPP");
 
   // Broadcast Form State
   const [targetGroup, setTargetGroup] = useState("DELIVERED_CUSTOMERS");
@@ -67,7 +67,7 @@ export default function MarketingPage() {
             ব্রাউজার কুকি ব্লক থাকলেও সরাসরি সার্ভার থেকে ফেসবুকের কাছে আসল ক্রেতাদের ডেটা পাঠায়। এছাড়া পুরনো হাজার হাজার কাস্টমারের কাছে ব্যক্তিগত নামসহ অফার মেসেজ পাঠিয়ে বাড়তি সেলস জেনারেট করুন।
           </p>
 
-          <div className="flex gap-2 pt-2">
+          <div className="flex flex-wrap gap-2 pt-2">
             <button
               onClick={() => setActiveTab("WHATSAPP")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
@@ -87,6 +87,17 @@ export default function MarketingPage() {
               }`}
             >
               Facebook CAPI সার্ভার ট্র্যাকিং
+            </button>
+            <button
+              onClick={() => setActiveTab("FB_BRANDING")}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                activeTab === "FB_BRANDING"
+                  ? "bg-white text-teal-950 shadow-md"
+                  : "bg-white/10 hover:bg-white/20 text-white"
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <span>FB পেজ ব্র্যান্ডিং ও বুস্টিং কিট</span>
             </button>
           </div>
         </div>
@@ -186,7 +197,7 @@ export default function MarketingPage() {
               </div>
             </div>
           </div>
-        ) : (
+        ) : activeTab === "CAPI" ? (
           /* CAPI Tab */
           <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
@@ -250,6 +261,164 @@ export default function MarketingPage() {
                       </span>
                       <span className="text-slate-400 text-[11px]">{item.time}</span>
                     </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-6 animate-in fade-in">
+            {/* Profile & Cover Download Section */}
+            <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+              <div className="border-b border-slate-100 pb-3 flex justify-between items-center">
+                <div>
+                  <h3 className="font-bold text-base text-slate-900">
+                    অফিশিয়াল ফেসবুক পেজ প্রোফাইল ফটো ও কভার ব্যানার
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    নিশ্চিন্ত ব্র্যান্ডিংয়ের জন্য হাই-রেজোলিউশন প্রোফাইল পিকচার এবং ডেস্কটপ ও মোবাইলের জন্য অপ্টিমাইজড ব্যানার
+                  </p>
+                </div>
+                <a
+                  href="/fb-assets/marketing-kit.html"
+                  target="_blank"
+                  className="text-xs font-bold text-teal-700 bg-teal-50 hover:bg-teal-100 border border-teal-200 px-3 py-1.5 rounded-xl transition-all"
+                >
+                  ফুলস্ক্রিন মার্কেটিং কিট খুলুন ↗
+                </a>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Profile Photo */}
+                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <span className="text-[11px] font-bold text-teal-800 bg-teal-100 px-2.5 py-0.5 rounded-full">
+                      1:1 Square (1024x1024)
+                    </span>
+                    <div className="aspect-square w-full rounded-xl overflow-hidden border border-slate-200 bg-white shadow-xs">
+                      <img src="/fb-assets/fb-profile-photo.jpg" alt="FB Profile Photo" className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                  <div className="flex gap-2 pt-2">
+                    <a
+                      href="/fb-assets/fb-profile-photo.jpg"
+                      download="nishchinto-profile.jpg"
+                      className="flex-1 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl text-center shadow-xs"
+                    >
+                      ডাউনলোড JPG
+                    </a>
+                    <a
+                      href="/fb-assets/profile-picture.svg"
+                      download="nishchinto-profile.svg"
+                      className="px-3 py-2 bg-white border border-slate-200 text-slate-700 text-xs font-bold rounded-xl text-center hover:bg-slate-50"
+                    >
+                      ভেক্টর SVG
+                    </a>
+                  </div>
+                </div>
+
+                {/* Cover Banner */}
+                <div className="md:col-span-2 p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <span className="text-[11px] font-bold text-teal-800 bg-teal-100 px-2.5 py-0.5 rounded-full">
+                      16:9 Landscape Banner (1640x624)
+                    </span>
+                    <div className="w-full rounded-xl overflow-hidden border border-slate-200 bg-slate-900 shadow-xs">
+                      <img src="/fb-assets/fb-cover-photo.jpg" alt="FB Cover Photo" className="w-full h-auto object-cover" />
+                    </div>
+                  </div>
+                  <div className="flex gap-2 pt-2">
+                    <a
+                      href="/fb-assets/fb-cover-photo.jpg"
+                      download="nishchinto-cover.jpg"
+                      className="flex-1 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl text-center shadow-xs"
+                    >
+                      ডাউনলোড কভার ব্যানার (Ultra HD)
+                    </a>
+                    <a
+                      href="/fb-assets/cover-photo.svg"
+                      download="nishchinto-cover.svg"
+                      className="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs font-bold rounded-xl text-center hover:bg-slate-50"
+                    >
+                      ভেক্টর SVG ব্যানার
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Photo Albums List */}
+            <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+              <div className="border-b border-slate-100 pb-3">
+                <h3 className="font-bold text-base text-slate-900">
+                  ফেসবুক পোস্ট ও বুস্টিং অ্যালবাম (৭টি আলাদা টপিক)
+                </h3>
+                <p className="text-xs text-slate-500">
+                  প্রতিটি অ্যালবামের জন্য পয়েন্ট আকারে ফিচার ও রেডিমেড সেলস কপি তৈরি করা আছে
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                  {
+                    title: "১. সেন্ট্রাল কুরিয়ার ফ্রড গার্ড ও রিটার্ন লস প্রতিরোধ",
+                    sub: "Courier Fraud Guard & Return Prevention",
+                    color: "border-red-200 bg-red-50/50",
+                    badge: "bg-red-100 text-red-800",
+                    desc: "ভুয়া অর্ডার ও সিরিয়াল রিটার্নকারীদের ক্রস-ম্যাচ করে ০-১০০% ফ্রড স্কোর ও রিকমেন্ডেশন।",
+                  },
+                  {
+                    title: "২. সাবলীল বাংলা AI ভয়েস কলিং এজেন্ট",
+                    sub: "Bangla Conversational AI Voice Calling Agent",
+                    color: "border-teal-200 bg-teal-50/50",
+                    badge: "bg-teal-100 text-teal-800",
+                    desc: "কল সেন্টারের ৩-৪ জনের বেতন বাঁচিয়ে ০ সেকেন্ডে মিষ্টি বাংলা গলায় ১০০% অর্ডার কনফার্ম।",
+                  },
+                  {
+                    title: "৩. AI অটো অ্যাড ম্যানেজার ও অটো স্টক-কিল",
+                    sub: "Meta & TikTok Ad Autopilot with Auto Stock-Pause",
+                    color: "border-indigo-200 bg-indigo-50/50",
+                    badge: "bg-indigo-100 text-indigo-800",
+                    desc: "স্টক ০ হওয়ার সাথে সাথে বিজ্ঞাপন অটো বন্ধ; বাজেট অপচয় শূন্যের কোঠায়।",
+                  },
+                  {
+                    title: "৪. ওয়্যারহাউস বারকোড স্ক্যানার ও ১-ক্লিক কুরিয়ার",
+                    sub: "Warehouse Barcode & 1-Click Steadfast/Pathao Dispatch",
+                    color: "border-emerald-200 bg-emerald-50/50",
+                    badge: "bg-emerald-100 text-emerald-800",
+                    desc: "ভুল পণ্য যাওয়া বন্ধ এবং ১-ক্লিকে ১০০ পার্সেল Steadfast ও Pathao-তে বুকিং ও লেবেল প্রিন্ট।",
+                  },
+                  {
+                    title: "৫. ইনকমপ্লিট অর্ডার ড্রপ-অফ ক্যাচার ও রিকভারি",
+                    sub: "Incomplete Order & Abandoned Form Recovery",
+                    color: "border-amber-200 bg-amber-50/50",
+                    badge: "bg-amber-100 text-amber-800",
+                    desc: "ফর্ম সাবমিট না করে কেটে দিলেও ডেটা ক্যাপচার এবং হোয়াটসঅ্যাপে না হওয়া সেলস উদ্ধার (+৩০%)।",
+                  },
+                  {
+                    title: "৬. কাস্টম ল্যান্ডিং পেজ ও ১-পেজ ফাস্ট চেকআউট",
+                    sub: "Custom Landing Page Builder & 1-Page COD Checkout",
+                    color: "border-blue-200 bg-blue-50/50",
+                    badge: "bg-blue-100 text-blue-800",
+                    desc: "৩ মিনিটে কোনো কোডিং ছাড়াই হাই-কনভার্টিং ল্যান্ডিং পেজ ও ১-ক্লিক এইচটিএমএল কোড এক্সপোর্ট।",
+                  },
+                  {
+                    title: "৭. আসল নিট লাভ-ক্ষতি ও ফিন্যান্সিয়াল হিসাব",
+                    sub: "True Net Profit, COGS & Ad Spend Calculator",
+                    color: "border-purple-200 bg-purple-50/50",
+                    badge: "bg-purple-100 text-purple-800",
+                    desc: "COGS, কুরিয়ার চার্জ ও ফেসবুক অ্যাড স্পেন্ড বাদ দিয়ে আপনার পকেটের আসল নিট লাভের হিসাব।",
+                  },
+                ].map((alb, i) => (
+                  <div key={i} className={`p-4 rounded-2xl border ${alb.color} space-y-2`}>
+                    <div className="flex justify-between items-start gap-2">
+                      <h4 className="font-bold text-xs text-slate-900">{alb.title}</h4>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${alb.badge} shrink-0`}>
+                        টপিক {i + 1}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 font-mono">{alb.sub}</p>
+                    <p className="text-xs text-slate-700 leading-relaxed">{alb.desc}</p>
                   </div>
                 ))}
               </div>
