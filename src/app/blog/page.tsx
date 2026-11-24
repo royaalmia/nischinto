@@ -267,7 +267,7 @@ export default function BlogPage() {
           </div>
 
           <div className="border-t border-slate-100 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-            <p>© 2026 Nishchinto.app । সর্বস্বত্ব সংরক্ষিত।</p>
+            <p>© 2026 Nishchinto Technologies । সর্বস্বত্ব সংরক্ষিত।</p>
             <div className="flex items-center gap-2.5">
               <a
                 href="https://www.facebook.com/nishchintobd"
