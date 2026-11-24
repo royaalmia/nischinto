@@ -117,7 +117,7 @@ export default function SuperAdminPage() {
             email: m.email || "N/A",
             plan: m.plan || "GROWTH",
             ordersProcessed: m.orders ? m.orders.length : 0,
-            walletBalance: m.walletBalance ?? 200,
+            walletBalance: m.walletBalance ?? 0,
             joinedDate: m.createdAt ? new Date(m.createdAt).toLocaleDateString("bn-BD") : "২০২৬-১১-২৪",
             status: "ACTIVE",
           }));
@@ -142,7 +142,7 @@ export default function SuperAdminPage() {
                 email: m.email || "N/A",
                 plan: m.plan || "PRO_AI",
                 ordersProcessed: m.ordersProcessed ?? 0,
-                walletBalance: m.walletBalance ?? 200,
+                walletBalance: m.walletBalance ?? 0,
                 joinedDate: m.joinedDate || "২০২৬-১১-২৪",
                 status: m.status || "ACTIVE",
               }));
@@ -162,7 +162,7 @@ export default function SuperAdminPage() {
                 email: single.email || "N/A",
                 plan: single.plan || "PRO_AI",
                 ordersProcessed: single.ordersProcessed ?? 0,
-                walletBalance: single.walletBalance ?? 200,
+                walletBalance: single.walletBalance ?? 0,
                 joinedDate: single.joinedDate || "২০২৬-১১-২৪",
                 status: "ACTIVE",
               };
